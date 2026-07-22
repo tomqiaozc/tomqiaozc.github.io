@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="Tom Qiao 在 Hermes Agent 与 Multica 的公开安全、可靠性与多租户工程贡献。">
+  <title>Open Source — Tom Qiao</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/longform.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body class="longform-page open-source">
+  <header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a><button class="menu-button" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="site-navigation">☰</button><div class="nav-links" id="site-navigation"><a href="index.html">首页</a><a href="projects.html">核心项目</a><a href="opensource.html">开源贡献</a><a href="evolution.html">AI Evolution</a></div></nav></header>
+
+  <main class="longform-wrap">
+    <div class="doc-layout">
+      <aside class="doc-toc" data-toc aria-label="本页目录">
+        <div class="doc-toc-title">Open Source</div>
+        <span class="toc-scroll-hint" aria-hidden="true">横滑查看更多 →</span>
+        <a href="#top-proof">60 秒证据</a>
+        <div class="doc-toc-group">Overview</div>
+        <a href="#overview">贡献全貌</a><a href="#method">审计方法</a>
+        <div class="doc-toc-group">Hermes Agent</div>
+        <a href="#hermes">被主线采纳</a><a href="#ledger">证据状态</a><a href="#reliability">可靠性发现</a>
+        <div class="doc-toc-group">Multica</div>
+        <a href="#multica">五个直接合并的 PR</a>
+      </aside>
+
+      <div class="doc-main">
+        <header class="doc-hero">
+          <div class="doc-hero-label"><span class="doc-chip">Hermes Agent</span><span class="doc-chip">Multica</span><span class="doc-chip">公开证据</span></div>
+          <h1 class="doc-title">公开贡献，<br><span class="accent">按实际采用状态说明。</span></h1>
+          <p class="doc-lead">这些贡献涉及 Agent 安全、运行可靠性、多租户隔离和 API 边界。每项都说明问题、修改内容和公开状态：原 PR 直接合并、实现被维护者另行采纳、得到认可但未合并，或仍在开放状态。</p>
+          <div class="fact-ledger"><span>Hermes 5+ 项实现被采用</span><span>Multica 5 个 PR 已合并</span><span>@tomqiaozc</span></div>
+        </header>
+
+        <section class="doc-section interviewer-brief top-proof" id="top-proof">
+          <span class="section-label">60 秒概览</span><h2>三项最有代表性的公开贡献。</h2>
+          <p class="section-intro">每项都可在 GitHub 核验，并明确区分“原 PR 已合并”和“实现被维护者通过其他方式采纳”。</p>
+          <div class="top-proof-grid">
+            <article class="top-proof-card"><span class="proof-status merged">原 PR 已合并</span><h3>Multica · SQL 租户隔离</h3><p>PR #3027 为删除和更新 SQL 增加 workspace / tenant 条件，并用测试防止跨租户操作。</p><a class="proof-link" href="https://github.com/multica-ai/multica/pull/3027" target="_blank" rel="noreferrer">查看 PR #3027 ↗</a></article>
+            <article class="top-proof-card"><span class="proof-status adopted">整理后采纳</span><h3>Hermes · 配对码加盐哈希</h3><p>PR #8056 将短期配对码从明文存储改为随机 salt + SHA-256；维护者整理该实现后将其纳入主线。</p><a class="proof-link" href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">查看 PR #8056 ↗</a></article>
+            <article class="top-proof-card"><span class="proof-status adopted">挑选提交后采纳</span><h3>Hermes · 检查被截断的工具调用</h3><p>PR #7693 不再只依赖结束原因（finish_reason），还会独立检查工具调用结构是否完整；维护者挑选提交后纳入主线。</p><a class="proof-link" href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">查看 PR #7693 ↗</a></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="overview">
+          <span class="section-label">00 · 贡献概览</span><h2>两个项目，采用方式不同。</h2>
+          <p class="section-intro">Hermes Agent 中，原 PR 可能关闭，但实现会被维护者整理后合并、挑选提交，或放入综合 PR。Multica 的五项贡献则由原 PR 直接合并。</p>
+          <div class="prose-grid">
+            <article class="info-card"><span class="card-kicker">Hermes Agent · 实现被采用</span><h3>维护者通过其他 PR 纳入部分实现</h3><p>贡献集中在凭据保护、工具调用、网关稳定性和敏感路径防护。这里分别记录原 PR 和最终采用路径，不把“实现被采用”写成“原 PR 已合并”。</p></article>
+            <article class="info-card"><span class="card-kicker">Multica · 原 PR 直接合并</span><h3>五个问题从发现推进到合并</h3><p>五个 PR 均直接合并，覆盖 SQL 层租户隔离、请求边界、SVG 上传、回归测试和文档可用性。</p></article>
+          </div>
+          <p class="signal-note"><strong>表述规则：</strong>只有 Multica 的五项写作“已合并”；Hermes 各项按维护者公开记录标为“已采用”“已认可”或“开放 / 已归档”。</p>
+        </section>
+
+        <section class="doc-section" id="method">
+          <span class="section-label">方法 · 多角色审查</span><h2>从安全、架构和后端视角交叉检查。</h2>
+          <p class="section-intro">我使用不同角色的 Agent 分别检查安全、架构和后端问题，并安排独立 Agent 复核实现。人负责确定审查范围、完成最小复现、确认事实，并提交可维护的补丁。</p>
+          <div class="pillar-grid">
+            <article class="pillar"><span class="pillar-no">01 / 审查范围</span><h3>先确定高风险边界</h3><p>检查凭据存储、工具权限、持久化、多租户写入和网络出口等高风险位置。</p><span class="pillar-result">人工确定重点</span></article>
+            <article class="pillar"><span class="pillar-no">02 / 交叉审查</span><h3>由不同 Agent 分别检查</h3><p>让不同 Agent 从不同角色和假设出发，并由未参与实现的 Agent 复核结果。</p><span class="pillar-result">覆盖不同视角</span></article>
+            <article class="pillar"><span class="pillar-no">03 / 可复现证据</span><h3>说明问题并提供测试</h3><p>把可疑点整理为问题表现、影响、补丁和测试，方便维护者判断和复核。</p><span class="pillar-result">问题 → 修复 → 测试</span></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="hermes">
+          <span class="section-label">01 · Hermes Agent</span><h2>三项被采用的安全与可靠性修复。</h2>
+          <p class="section-intro">每项都说明原问题、修改内容和维护者采用实现的方式。</p>
+
+          <article class="case-study"><header class="case-head"><div><h3>配对码：从明文存储改为加盐哈希</h3><p>本地网关的待确认配对码属于短期凭据；如果明文保存，其他可读取文件的进程或工具可能直接获得它。</p></div><span class="status adopted">整理后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>待确认配对码以明文保存在本地状态中，沙箱或具备文件读取能力的进程可直接获得。</p></div><div class="case-row"><span class="case-label">修改</span><p>改为随机 salt + SHA-256 存储，使用常量时间比较，并兼容迁移已有的明文记录。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">PR #8056 ↗</a> · 维护者整理该实现后纳入主线。</p></div></div></article>
+
+          <article class="case-study"><header class="case-head"><div><h3>检查被截断的工具调用</h3><p>流式输出被截断时，结束原因（finish_reason）不一定能准确说明工具调用结构是否完整。</p></div><span class="status adopted">挑选提交后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>工具调用参数 JSON 被截断时，系统仍可能执行不完整的工具调用。</p></div><div class="case-row"><span class="case-label">修改</span><p>单独检查工具调用结构是否完整，不再只依赖结束原因这一项元数据。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">PR #7693 ↗</a> · 维护者挑选相关提交后纳入主线。</p></div></div></article>
+
+          <article class="case-study"><header class="case-head"><div><h3>修复 Gateway 启动崩溃</h3><p>日志脱敏格式化器缺少 import，导致网关在启动时直接失败。</p></div><span class="status adopted">已采用</span></header><div class="case-body"><div class="case-row"><span class="case-label">修改</span><p>补齐缺失的依赖，并增加对启动路径的覆盖。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8046" target="_blank" rel="noreferrer">PR #8046 ↗</a></p></div></div></article>
+
+          <div class="prose-grid">
+            <article class="decision-card"><span class="card-kicker">由综合 PR 实现</span><h3>WeChat 链接渲染</h3><p>原方案影响了最终实现，由维护者在综合 PR 中完成。这里标为“方案被采用”，不写成“原 PR 已合并”。</p><p><a href="https://github.com/NousResearch/hermes-agent/pull/7695" target="_blank" rel="noreferrer">PR #7695 ↗</a></p></article>
+            <article class="decision-card"><span class="card-kicker">由综合 PR 实现</span><h3>敏感路径保护</h3><p>原 PR 针对文件工具的拒绝清单（deny list）和路径解析提出防护，最终由维护者的综合实现覆盖。</p><p><a href="https://github.com/NousResearch/hermes-agent/pull/8055" target="_blank" rel="noreferrer">PR #8055 ↗</a></p></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="ledger">
+          <span class="section-label">02 · 公开采用状态</span><h2>区分原 PR 合并和实现被采用。</h2>
+          <p class="section-intro">维护者可能直接合并原 PR，也可能通过其他 PR 采用实现。下面按公开记录分别标注，避免混为一谈。</p>
+          <div class="evidence-ledger">
+            <div class="evidence-row"><div><h3>配对码哈希存储</h3><a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">#8056 ↗</a></div><p>维护者整理修复后纳入主线，并保留作者信息。</p><span class="status adopted">已采用</span></div>
+            <div class="evidence-row"><div><h3>被截断的工具调用</h3><a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">#7693 ↗</a></div><p>维护者采用了工具调用结构完整性检查。</p><span class="status adopted">已采用</span></div>
+            <div class="evidence-row"><div><h3>限制凭据读取范围</h3><a href="https://github.com/NousResearch/hermes-agent/pull/8057" target="_blank" rel="noreferrer">#8057 ↗</a></div><p>实现得到正面反馈，但项目最终选择在更高的架构层处理信任边界。</p><span class="status recognized">已认可，未合并</span></div>
+            <div class="evidence-row"><div><h3>SSRF 与沙箱问题调查</h3><span>公开 Issue 与 PR</span></div><p>保留为公开调查和修复尝试，不计入“5+ 项实现被采用”。</p><span class="status open">开放 / 已归档</span></div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="reliability">
+          <span class="section-label">03 · 可靠性发现</span><h2>持久化失败必须能被发现和恢复。</h2>
+          <p class="section-intro">除安全问题外，我还检查崩溃时的数据安全和持久化一致性，包括原子写入、事务边界、错误日志和并发安全。静默丢失数据会让 Agent 长任务无法恢复。</p>
+          <div class="data-table-wrap"><table class="data-table"><thead><tr><th>发现</th><th>可能后果</th><th>公开状态</th></tr></thead><tbody>
+            <tr><td>重写会话记录</td><td>非原子写入在崩溃时可能破坏整段会话历史。</td><td>已提出后续修复</td></tr>
+            <tr><td>两份存储状态不一致</td><td>重写失败后两份持久化状态可能分叉。</td><td>后续 PR 已处理</td></tr>
+            <tr><td>持久化错误被忽略</td><td>异常被吞掉，系统继续运行，但数据没有落库。</td><td>后续 PR 已处理</td></tr>
+            <tr><td>数据库结构迁移边界</td><td>迁移不在完整事务内，并发初始化可能留下不完整状态。</td><td>后续 PR 已处理</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section class="doc-section" id="multica">
+          <span class="section-label">04 · Multica</span><h2>五个原 PR 直接合并的贡献。</h2>
+          <p class="section-intro">这些贡献涉及安全、接口错误处理、测试和文档。每项先说明系统必须保持的条件，再通过边界检查或自动化测试防止回归。</p>
+
+          <article class="case-study"><header class="case-head"><div><h3>在 SQL 层增加租户隔离</h3><p>删除和更新数据时直接检查 workspace，避免隔离只依赖上层调用是否正确。</p></div><span class="status merged">已合并</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>多个删除和更新查询缺少 workspace 条件，可能因应用层遗漏检查而跨租户操作数据。</p></div><div class="case-row"><span class="case-label">修改</span><p>在 SQL 层增加 workspace 条件，并用测试保证所有相关查询都执行租户检查。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/multica-ai/multica/pull/3027" target="_blank" rel="noreferrer">PR #3027 ↗</a></p></div></div></article>
+
+          <div class="evidence-ledger">
+            <div class="evidence-row"><div><h3>错误 UUID 的请求处理</h3><a href="https://github.com/multica-ai/multica/pull/3025" target="_blank" rel="noreferrer">#3025 ↗</a></div><p>将客户端输入错误从程序异常 / 500 改为明确的 400。</p><span class="status merged">已合并</span></div>
+            <div class="evidence-row"><div><h3>SVG 上传的 XSS 风险</h3><a href="https://github.com/multica-ai/multica/pull/3023" target="_blank" rel="noreferrer">#3023 ↗</a></div><p>强制以附件方式下载 SVG，阻止浏览器直接执行其中的潜在脚本。</p><span class="status merged">已合并</span></div>
+            <div class="evidence-row"><div><h3>保留名称测试</h3><a href="https://github.com/multica-ai/multica/pull/2985" target="_blank" rel="noreferrer">#2985 ↗</a></div><p>补齐关键路由名称测试，并覆盖大小写变化导致的回归。</p><span class="status merged">已合并</span></div>
+            <div class="evidence-row"><div><h3>修复文档</h3><a href="https://github.com/multica-ai/multica/pull/2979" target="_blank" rel="noreferrer">#2979 ↗</a></div><p>修复路径、锚点和环境变量说明，减少按文档配置时的错误。</p><span class="status merged">已合并</span></div>
+          </div>
+          <p class="signal-note"><strong>我的参与范围：</strong>这些问题由我发现，并由我完成证据整理、修复提交和合并推进。</p>
+          <nav class="next-page" aria-label="下一页"><span>下一页</span><a href="evolution.html">AI Evolution →</a></nav>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="site-footer-inner"><span>Open Source · Tom Qiao</span><span><a href="https://github.com/tomqiaozc" target="_blank" rel="noreferrer">GitHub ↗</a> · <a href="projects.html">核心项目</a></span></div></footer>
+</body>
+</html>

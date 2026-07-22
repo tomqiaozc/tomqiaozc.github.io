@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="Tom Qiao's production engineering case studies: Office Agent, Copilot + Epichan, and Office Plus.">
+  <title>Core Projects — Tom Qiao</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
+      <button class="menu-button" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="site-navigation">☰</button>
+      <div class="nav-links" id="site-navigation">
+        <a href="index.html">首页</a><a href="projects.html">核心项目</a><a href="opensource.html">开源贡献</a><a href="evolution.html">AI Evolution</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="systems-hero">
+      <div><p class="eyebrow">核心项目 · 对比表</p><h1>先看职责，<br>再看项目细节。</h1></div>
+      <p>三个项目按时间、团队工作、我的职责、项目结果和证据来源并列展示，便于快速选择要深入了解的案例。</p>
+    </section>
+
+    <div class="project-matrix" role="table" aria-label="核心项目对比与选择矩阵">
+      <div class="project-matrix-head" role="row">
+        <span role="columnheader">项目 / 时间</span>
+        <span role="columnheader">团队工作 / 我的职责</span>
+        <span role="columnheader">项目结果</span>
+        <span role="columnheader">证据来源</span>
+        <span role="columnheader">详情</span>
+      </div>
+
+      <article class="project-matrix-row" role="row">
+        <div class="project-id" role="cell">
+          <span class="project-period">2025.07–2026.01</span>
+          <h2>Office Agent<br>Societas</h2>
+          <span class="project-domain">Agent Runtime</span>
+        </div>
+        <div class="project-boundary" role="cell">
+          <p><span class="matrix-label">团队工作</span>通用 Office Agent 的产品能力和整体交付由团队共同完成。</p>
+          <p><span class="matrix-label ownership">我的职责</span>原生工具调用（Native Tool Call）、可靠的消息持久化、用户级加密和服务接口边界。</p>
+        </div>
+        <div class="project-outcome" role="cell">
+          <span class="matrix-label">团队结果</span>
+          <strong>27K WAU</strong>
+          <span>≈8.5%</span>
+        </div>
+        <div class="project-evidence" role="cell">
+          <span class="evidence-badge private">内部项目</span>
+          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+        </div>
+        <div class="project-action" role="cell"><a href="societas.html">查看详情 ↗</a></div>
+      </article>
+
+      <article class="project-matrix-row" role="row">
+        <div class="project-id" role="cell">
+          <span class="project-period">2026.01–至今</span>
+          <h2>Copilot<br>+ Epichan</h2>
+          <span class="project-domain">Agent 工作流与生产发布</span>
+        </div>
+        <div class="project-boundary" role="cell">
+          <p><span class="matrix-label">团队工作</span>团队建设并运行 Copilot 生产交付体系和 Epichan Agent Harness。</p>
+          <p><span class="matrix-label ownership">我的职责</span>我独立设计并运行无障碍修复 Agent 工作流，后将经验沉淀进 Epichan Harness；两个月内关闭 64 个 Sev2。另负责大部分 CI 流水线迁移和制品跨环境提升。</p>
+        </div>
+        <div class="project-outcome" role="cell">
+          <span class="matrix-label">团队系统</span>
+          <strong>生产级 Agent Harness</strong>
+          <span>支持 Agent 编码、评审、测试与交付</span>
+        </div>
+        <div class="project-evidence" role="cell">
+          <span class="evidence-badge private">内部交付 / 私有实践</span>
+          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+        </div>
+        <div class="project-action" role="cell"><a href="copilot-epichan.html">查看详情 ↗</a></div>
+      </article>
+
+      <article class="project-matrix-row" role="row">
+        <div class="project-id" role="cell">
+          <span class="project-period">2024.12–2025.07</span>
+          <h2>Office Plus</h2>
+          <span class="project-domain">商业化后端</span>
+        </div>
+        <div class="project-boundary" role="cell">
+          <p><span class="matrix-label">团队工作</span>多业务商业化平台的交易、权益和交付能力由团队共同建设。</p>
+          <p><span class="matrix-label ownership">我的职责</span>Paper Check 商业化，以及身份和会话生命周期相关工作。</p>
+        </div>
+        <div class="project-outcome" role="cell">
+          <span class="matrix-label">项目结果</span>
+          <strong>6,320 单</strong>
+          <span>上线首 10 天</span>
+        </div>
+        <div class="project-evidence" role="cell">
+          <span class="evidence-badge private">内部项目</span>
+          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+        </div>
+        <div class="project-action" role="cell"><a href="office-plus.html">查看详情 ↗</a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="site-footer-inner"><span>Core Projects · Tom Qiao</span><span><a href="downloads/Zhuocheng-Qiao-Resume-ZH.pdf">中文简历</a> · <a href="downloads/Zhuocheng-Qiao-Resume-EN.pdf">English Resume</a></span></div></footer>
+</body>
+</html>

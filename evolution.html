@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="Tom Qiao 使用 AI 参与开发的七次工作方式变化；工具用量只说明使用规模，不代表生产力或交付质量。">
+  <title>AI Evolution — Tom Qiao</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/evolution.css">
+  <script src="assets/site.js" defer></script>
+  <script src="assets/evolution.js" defer></script>
+</head>
+<body class="evolution-page">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
+      <button class="menu-button" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="site-navigation">☰</button>
+      <div class="nav-links" id="site-navigation"><a href="index.html">首页</a><a href="projects.html">核心项目</a><a href="opensource.html">开源贡献</a><a href="evolution.html">AI Evolution</a></div>
+    </nav>
+  </header>
+
+  <main class="evolution-shell">
+    <header class="evolution-hero">
+      <p class="evo-kicker">个人工作方式记录 · 七次变化</p>
+      <h1>从代码补全到<br><span>多 Agent 工作流</span></h1>
+      <p>这一页记录我如何从亲手编写大部分代码，逐步转向拆分任务、组织多个 Agent、独立评审和设置质量检查。它说明工作方式发生了变化，<strong>不证明生产力或交付质量更高</strong>。</p>
+    </header>
+
+    <section class="recession" aria-labelledby="recession-title">
+      <div class="recession-head"><h2 id="recession-title">直接编写代码的占比 <small>// 定性示意，不是工时统计</small></h2><span>工作重心变化 →</span></div>
+      <div class="recession-chart">
+        <span class="axis begin">亲手编码为主</span><span class="axis end">以工作流设计 / 评审为主</span>
+        <svg viewBox="0 0 700 132" preserveAspectRatio="none" role="img" aria-label="工作重心从亲手编码为主逐步转向工作流设计与评审为主的示意曲线">
+          <defs><linearGradient id="evoStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f08f95"/><stop offset=".34" stop-color="#efb861"/><stop offset=".68" stop-color="#6aa9ff"/><stop offset="1" stop-color="#66d6ad"/></linearGradient><linearGradient id="evoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa9ff" stop-opacity=".18"/><stop offset="1" stop-color="#6aa9ff" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126V132H0Z" fill="url(#evoFill)"/>
+          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126" fill="none" stroke="url(#evoStroke)" stroke-width="3" stroke-linecap="round"/>
+          <g fill="#07101c" stroke-width="2.5"><circle cx="0" cy="10" r="4.5" stroke="#f08f95"/><circle cx="100" cy="19" r="4.5" stroke="#efb861"/><circle cx="200" cy="52" r="4.5" stroke="#efb861"/><circle cx="315" cy="80" r="4.5" stroke="#6aa9ff"/><circle cx="430" cy="95" r="4.5" stroke="#6aa9ff"/><circle cx="560" cy="116" r="4.5" stroke="#66d6ad"/><circle cx="700" cy="126" r="4.5" stroke="#66d6ad"/></g>
+        </svg>
+      </div>
+      <div class="role-bands"><div><b>直接实现</b><span>亲手编写和验证</span></div><div><b>组织执行</b><span>拆分任务并调度 Agent</span></div><div><b>设计工作流</b><span>设置执行规则、评审和质量检查</span></div></div>
+    </section>
+
+    <section class="footprint" aria-labelledby="footprint-title">
+      <div class="footprint-head"><div><p>2026 年工具用量</p><h2 id="footprint-title">用量说明 AI 已进入日常开发流程</h2></div><span>用量不代表生产力或交付质量</span></div>
+      <div class="footprint-main">
+        <div class="token-total"><strong>34.2B</strong><span>tokens</span><small>2026-01-01—07-21 · 67% active days</small></div>
+        <div class="heat-area"><div class="heat-months" id="heatMonths" aria-hidden="true"></div><div class="heat-grid" id="tokenHeatmap" aria-label="2026 每日 Token 使用热力图"></div><div class="tool-trace"><span>OpenCode</span><i>→</i><span>Claude Code</span><i>→</i><span>并行执行</span><i>→</i><span>多 Agent 协作</span></div></div>
+      </div>
+      <div class="activity-stats"><div><b>136 days</b><span>活跃天数</span></div><div><b>25 days</b><span>最长连续使用</span></div><div><b>≈251.4M</b><span>活跃日均 Tokens</span></div></div>
+      <p class="methodology-note"><strong>统计方法与限制</strong>统计窗口为 2026-01-01 至 2026-07-21；Token 数为各工具报告或导出用量的汇总。不同工具对缓存、输入与输出 Token 的定义可能不同，因此这些数字只能描述使用规模，不能用于比较生产力或判断交付质量。</p>
+      <div class="agent-mix"><div><b>4 类 Coding Agent 的 Token 用量</b><span>用量重心随使用方式变化</span></div><div class="mix-detail"><div class="mix-bar"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i></div><p><span>Claude Code 32.1B</span><span>Codex 1.3B</span><span>OpenCode 735.2M</span><span>Others 81.0M</span></p></div></div>
+    </section>
+
+    <section class="evolution-timeline" aria-label="七轮 AI Coding 迭代">
+      <article class="evo-stage pink"><span class="stage-dot">01</span><div class="stage-card"><div class="stage-head"><h2>主要依靠手写代码</h2><span>直接实现</span></div><div class="stage-tools"><code>VS Code</code><code>手写 + 自动补全</code></div><p>在 AI Coding 工具普及前，我在 IDE 中直接编写和验证代码，开发任务主要由人完成。</p></div></article>
+      <article class="evo-stage amber"><span class="stage-dot">02</span><div class="stage-card"><div class="stage-head"><h2>用 AI 生成代码片段</h2><span>直接实现</span></div><div class="stage-tools"><code>ChatGPT</code><code>Copilot 补全</code><code>VS Code</code></div><p>先在对话中生成函数片段并复制回项目，后来使用编辑器补全处理简单需求。AI 提供片段，我负责整合、修改和验证。</p><p class="leap">问题：在对话、编辑器和项目之间反复复制，操作成本较高</p></div></article>
+      <article class="evo-stage amber"><span class="stage-dot">03</span><div class="stage-card"><div class="stage-head"><h2>使用 Coding Agent CLI</h2><span>组织执行 · 串行</span></div><div class="stage-tools"><code>OpenCode</code><code>Coding CLI</code></div><p>工作入口转向终端。Coding Agent 可以读取仓库、修改文件并运行检查，我开始把重点放在描述任务和验收结果上。</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">04</span><div class="stage-card"><div class="stage-head"><h2>让单个 Agent 承接完整任务</h2><span>组织执行 · 串行</span></div><div class="stage-tools"><code>Claude Code</code></div><p>Agent 可以完成更多实现和验证步骤，但流程仍是“下达任务 → 等待完成 → 人工检查”，同一时间通常只推进一个任务。</p><p class="leap">下一步：把独立任务拆开并行执行</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">05</span><div class="stage-card"><div class="stage-head"><h2>并行执行多个任务</h2><span>组织执行 · 并行</span></div><div class="stage-tools"><code>隔离工作区</code><code>并行 Agent</code></div><p>把工作拆成可独立验收的任务，在隔离工作区中并行推进。我的重点转向依赖管理、冲突控制和统一验收。</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">06</span><div class="stage-card"><div class="stage-head"><h2>增加记忆、独立评审和质量检查</h2><span>组织执行 → 设计工作流</span></div><div class="stage-tools"><code>可检索记忆</code><code>独立 Agent 评审</code><code>质量检查</code></div><p>并行执行后出现两个问题：新 Agent 不知道过去的经验，容易重复错误；同一 Agent 既实现又评审，容易漏掉问题。因此我保存可检索的经验，并安排未参与实现的 Agent 评审。</p><p class="leap">下一步：把这些规则放进统一的执行流程</p></div></article>
+      <article class="evo-stage mint"><span class="stage-dot">07</span><div class="stage-card"><div class="stage-head"><h2>用统一工作流组织多 Agent</h2><span>设计工作流</span></div><div class="stage-tools"><code>Agent Team</code><code>Harness 执行循环</code><code>执行记录</code></div><p>这套工作流也称为 Harness，用来约束多个 Agent 如何执行开发任务。实现、测试和独立评审按明确状态推进，过程有记录；检查失败时可以回退或重新执行，通过验收后再进入交付。</p></div></article>
+    </section>
+
+    <aside class="evo-terminal">现在，我不再亲手完成所有实现，但仍需要理解代码、复核关键改动并完成最终验收。我的主要工作变为<strong>拆分任务、定义执行规则、安排独立 Agent 评审，并对最终结果负责</strong>。<code>$ 工作重心：直接实现 → 组织执行 → 设计工作流与评审</code></aside>
+
+    <section class="evidence-bridge" aria-labelledby="evidence-bridge-title">
+      <div><p>结果与证据</p><h2 id="evidence-bridge-title">本页不用于证明生产力</h2><span>本页只记录工作方式变化。生产项目结果、个人职责和公开采用证据，请从下面两个入口核验。</span></div>
+      <div class="evidence-links"><a href="projects.html"><b>核心项目</b><small>项目结果 · 技术取舍 · 我的职责</small></a><a href="opensource.html"><b>开源贡献</b><small>公开 PR · 修改内容 · 采用状态</small></a></div>
+    </section>
+
+    <nav class="next-route" aria-label="下一页"><span>查看项目证据</span><a href="projects.html">核心项目 →</a></nav>
+  </main>
+
+  <footer class="site-footer"><div class="site-footer-inner"><span>AI Evolution · Tom Qiao</span><span><a href="index.html">返回首页</a> · <a href="projects.html">核心项目</a></span></div></footer>
+</body>
+</html>
