@@ -126,6 +126,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   background: rgba(106, 169, 255, 0.1);
 }
 
+.nav-links .language-switch {
+  margin-left: 7px;
+  border: 1px solid var(--line);
+  color: var(--mint);
+}
+
 .menu-button {
   display: none;
   width: 40px;

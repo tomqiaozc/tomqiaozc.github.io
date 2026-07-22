@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="Tom Qiao's public security, reliability and multi-tenant engineering contributions to Hermes Agent and Multica.">
+  <title>Open Source — Tom Qiao</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/longform.css">
+  <script src="../assets/site.js" defer></script>
+</head>
+<body class="longform-page open-source">
+  <header class="site-header"><nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a><button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button><div class="nav-links" id="site-navigation">
+<a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
+</div></nav></header>
+
+  <main class="longform-wrap">
+    <div class="doc-layout">
+      <aside class="doc-toc" data-toc aria-label="Table of contents on this page">
+        <div class="doc-toc-title">Open Source</div>
+        <span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span>
+        <a href="#top-proof">60-second evidence</a>
+        <div class="doc-toc-group">Overview</div>
+        <a href="#overview">Contribution overview</a><a href="#method">Audit method</a>
+        <div class="doc-toc-group">Hermes Agent</div>
+        <a href="#hermes">Adopted upstream</a><a href="#ledger">Evidence status</a><a href="#reliability">Reliability findings</a>
+        <div class="doc-toc-group">Multica</div>
+        <a href="#multica">Five directly merged PRs</a>
+      </aside>
+
+      <div class="doc-main">
+        <header class="doc-hero">
+          <div class="doc-hero-label">
+<span class="doc-chip">Hermes Agent</span><span class="doc-chip">Multica</span><span class="doc-chip">Public Evidence</span>
+</div>
+          <h1 class="doc-title">Public contributions, <br><span class="accent">described by their actual adoption status.</span>
+</h1>
+          <p class="doc-lead">These contributions cover Agent security, runtime reliability, multi-tenant isolation, and API boundaries. Each entry states the problem, the change, and the public status: original PR merged, implementation adopted through another path, recognized but not merged, or still open.</p>
+          <div class="fact-ledger">
+<span>Hermes 5+ implementations adopted</span><span>Multica 5 PRs merged</span><span>@tomqiaozc</span>
+</div>
+        </header>
+
+        <section class="doc-section interviewer-brief top-proof" id="top-proof">
+          <span class="section-label">60 second overview</span><h2>Three representative public contributions.</h2>
+          <p class="section-intro">Each item is verifiable on GitHub and clearly distinguishes an original PR merge from an implementation adopted through another path.</p>
+          <div class="top-proof-grid">
+            <article class="top-proof-card"><span class="proof-status merged">Original PR merged</span><h3>Multica · SQL tenant isolation</h3>
+<p>PR #3027 adds workspace/tenant predicates to update and delete SQL, with tests that prevent cross-tenant operations.</p>
+<a class="proof-link" href="https://github.com/multica-ai/multica/pull/3027" target="_blank" rel="noreferrer">View PR #3027 ↗</a></article>
+            <article class="top-proof-card"><span class="proof-status adopted">Adopted after maintainer revision</span><h3>Hermes · Pairing code salted hashing</h3>
+<p>PR #8056 changes short-lived pairing codes from plaintext storage to random salt + SHA-256. A maintainer revised the implementation and incorporated it upstream.</p>
+<a class="proof-link" href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">View PR #8056 ↗</a></article>
+            <article class="top-proof-card"><span class="proof-status adopted">Adopted via cherry-picked commits</span><h3>Hermes · Check for truncated tool calls</h3>
+<p>PR #7693 independently validates tool-call completeness instead of relying only on finish_reason. A maintainer cherry-picked the relevant commits upstream.</p>
+<a class="proof-link" href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">View PR #7693 ↗</a></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="overview">
+          <span class="section-label">00 · Contribution Overview</span><h2>Two projects with different adoption paths.</h2>
+          <p class="section-intro">In Hermes Agent, an original PR may close while maintainers adopt the implementation through a revised PR, cherry-picked commits, or a consolidated change. In Multica, all five original PRs were merged directly.</p>
+          <div class="prose-grid">
+            <article class="info-card"><span class="card-kicker">Hermes Agent · Implementation adopted</span><h3>Maintainers adopted implementations through other PRs</h3>
+<p>These contributions focus on credential protection, tool calling, gateway stability, and sensitive-path protection. Each entry records both the original PR and the eventual adoption path without equating implementation adoption with an original PR merge.</p></article>
+            <article class="info-card"><span class="card-kicker">Multica · Original PR merged directly</span><h3>Five issues taken from discovery to merge</h3>
+<p>All five PRs were merged directly, covering SQL-layer tenant isolation, request boundaries, SVG upload safety, regression tests, and documentation usability.</p></article>
+          </div>
+          <p class="signal-note"><strong>Status wording: </strong>Only the five Multica entries are labeled Merged. Hermes entries use Adopted, Recognized, or Open / archived according to the maintainer's public record.</p>
+        </section>
+
+        <section class="doc-section" id="method">
+          <span class="section-label">Methods · Multi-role review</span><h2>Cross-check from security, architecture, and backend perspectives.</h2>
+          <p class="section-intro">I use role-specific Agents to inspect security, architecture, and backend concerns, with an independent Agent reviewing the implementation. I define the review scope, build the minimal reproduction, verify the facts, and submit a maintainable patch.</p>
+          <div class="pillar-grid">
+            <article class="pillar"><span class="pillar-no">01 / Scope of review</span><h3>Determine high-risk boundaries first</h3>
+<p>Check high-risk locations such as credential storage, tool permissions, persistence, multi-tenant writes, and network egresses.</p>
+<span class="pillar-result">Manual focus determination</span></article>
+            <article class="pillar"><span class="pillar-no">02 / Cross-check</span><h3>Use separate Agents for different review perspectives</h3>
+<p>Let different agents start from different roles and assumptions, and have the results reviewed by agents not involved in the implementation.</p>
+<span class="pillar-result">Cover different perspectives</span></article>
+            <article class="pillar"><span class="pillar-no">03 / Reproducible evidence</span><h3>Explain the issue and provide tests</h3>
+<p>Organize suspicious points into problem manifestations, impacts, patches, and tests to facilitate maintainers' judgment and review.</p>
+<span class="pillar-result">Issue → Fix → Test</span></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="hermes">
+          <span class="section-label">01 · Hermes Agent</span><h2>Three adopted security and reliability fixes.</h2>
+          <p class="section-intro">Each entry explains the original problem, the change, and how maintainers adopted the implementation.</p>
+
+          <article class="case-study"><header class="case-head"><div>
+<h3>Pairing codes: replace plaintext storage with salted hashes</h3>
+<p>A pending local-gateway pairing code is a short-lived credential. If stored in plaintext, another process or tool with file access could read it directly.</p>
+</div>
+<span class="status adopted">Adopted after maintainer revision</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">Problem</span><p>The pairing code to be confirmed is saved in the local state in plaintext, and can be directly obtained by the sandbox or a process with file reading capabilities.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Change</span><p>Store a random salt plus SHA-256 hash, compare in constant time, and migrate existing plaintext records compatibly.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Public Evidence</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">PR #8056 ↗</a> · A maintainer revised the implementation and incorporated it upstream.</p>
+</div>
+</div></article>
+
+          <article class="case-study"><header class="case-head"><div>
+<h3>Detect truncated tool calls</h3>
+<p>When streaming output is truncated, finish_reason may not accurately indicate whether a tool call is structurally complete.</p>
+</div>
+<span class="status adopted">Adopted via cherry-picked commits</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">Problem</span><p>When the tool call parameter JSON is truncated, the system may still execute an incomplete tool call.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Change</span><p>Validate tool-call structure directly instead of relying only on finish_reason metadata.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Public Evidence</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">PR #7693 ↗</a> · A maintainer cherry-picked the relevant commits upstream.</p>
+</div>
+</div></article>
+
+          <article class="case-study"><header class="case-head"><div>
+<h3>Fix Gateway startup crash</h3>
+<p>A missing import in the log-redaction formatter caused the gateway to crash at startup.</p>
+</div>
+<span class="status adopted">Adopted</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">Change</span><p>Add the missing import and test the startup path.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Public Evidence</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8046" target="_blank" rel="noreferrer">PR #8046 ↗</a></p>
+</div>
+</div></article>
+
+          <div class="prose-grid">
+            <article class="decision-card"><span class="card-kicker">Implemented through a consolidated PR</span><h3>WeChat link rendering</h3>
+<p>The proposal influenced the final implementation, which a maintainer completed in a consolidated PR. This is labeled adopted, not original PR merged.</p>
+<p><a href="https://github.com/NousResearch/hermes-agent/pull/7695" target="_blank" rel="noreferrer">PR #7695 ↗</a></p></article>
+            <article class="decision-card"><span class="card-kicker">Implemented through a consolidated PR</span><h3>Sensitive path protection</h3>
+<p>The original PR proposed deny-list and path-resolution protections for file tools; a maintainer's consolidated implementation ultimately covered the same boundary.</p>
+<p><a href="https://github.com/NousResearch/hermes-agent/pull/8055" target="_blank" rel="noreferrer">PR #8055 ↗</a></p></article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="ledger">
+          <span class="section-label">02 · Public Adoption Status</span><h2>Distinguish an original PR merge from implementation adoption.</h2>
+          <p class="section-intro">Maintainers may merge an original PR directly or adopt the implementation through another PR. The entries below follow the public record and keep those outcomes separate.</p>
+          <div class="evidence-ledger">
+            <div class="evidence-row">
+<div>
+<h3>Pairing code hash storage</h3>
+<a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">#8056 ↗</a>
+</div>
+<p>A maintainer revised the fix, incorporated it upstream, and retained attribution.</p>
+<span class="status adopted">Adopted</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>Truncated tool call</h3>
+<a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">#7693 ↗</a>
+</div>
+<p>Maintainers adopted the tool-call structural-integrity check.</p>
+<span class="status adopted">Adopted</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>Limit credential reading scope</h3>
+<a href="https://github.com/NousResearch/hermes-agent/pull/8057" target="_blank" rel="noreferrer">#8057 ↗</a>
+</div>
+<p>The implementation received positive feedback, but the project chose to address the trust boundary at a higher architectural layer.</p>
+<span class="status recognized">Recognized, not merged</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>SSRF and Sandbox Issue Investigation</h3>
+<span>Public Issues and PRs</span>
+</div>
+<p>Retained as public investigation and remediation attempts; not counted among the 5+ adopted implementations.</p>
+<span class="status open">Open / archived</span>
+</div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="reliability">
+          <span class="section-label">03 · Reliability discovery</span><h2>Persistence failures must be detectable and recoverable.</h2>
+          <p class="section-intro">Beyond security, I review crash safety and persistence consistency: atomic writes, transaction boundaries, error logging, and concurrency. Silent data loss can make long-running Agent tasks unrecoverable.</p>
+          <div class="data-table-wrap"><table class="data-table">
+<thead><tr>
+<th>Finding</th>
+<th>Potential Impact</th>
+<th>Public Status</th>
+</tr></thead>
+<tbody>
+            <tr>
+<td>Rewrite session records</td>
+<td>Non-atomic writes can destroy the entire session history in the event of a crash.</td>
+<td>Follow-up fix proposed</td>
+</tr>
+            <tr>
+<td>The two storage states are inconsistent</td>
+<td>The two persistent states may diverge after the rewrite fails.</td>
+<td>Addressed in a follow-up PR</td>
+</tr>
+            <tr>
+<td>Persistence errors are ignored</td>
+<td>The exception is swallowed and the system continues to run, but the data is not saved.</td>
+<td>Addressed in a follow-up PR</td>
+</tr>
+            <tr>
+<td>Database structure migration boundaries</td>
+<td>Migrations are not within a complete transaction, and concurrent initialization may leave incomplete state.</td>
+<td>Addressed in a follow-up PR</td>
+</tr>
+          </tbody>
+</table></div>
+        </section>
+
+        <section class="doc-section" id="multica">
+          <span class="section-label">04 · Multica</span><h2>Five contributions whose original PRs were merged directly.</h2>
+          <p class="section-intro">These contributions cover security, API error handling, tests, and documentation. Each identifies an invariant and protects it with boundary checks or automated tests.</p>
+
+          <article class="case-study"><header class="case-head"><div>
+<h3>Enforce tenant isolation in the SQL layer</h3>
+<p>Require workspace predicates in update and delete queries instead of relying only on application-layer callers.</p>
+</div>
+<span class="status merged">Merged</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">Problem</span><p>Multiple delete and update queries are missing workspace conditions, potentially manipulating data across tenants due to missed checks at the application layer.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Change</span><p>Add workspace conditions at the SQL layer and use tests to ensure that all relevant queries perform tenant checks.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Public Evidence</span><p><a href="https://github.com/multica-ai/multica/pull/3027" target="_blank" rel="noreferrer">PR #3027 ↗</a></p>
+</div>
+</div></article>
+
+          <div class="evidence-ledger">
+            <div class="evidence-row">
+<div>
+<h3>Request handling for wrong UUID</h3>
+<a href="https://github.com/multica-ai/multica/pull/3025" target="_blank" rel="noreferrer">#3025 ↗</a>
+</div>
+<p>Return an explicit 400 for invalid client input instead of an exception/500.</p>
+<span class="status merged">Merged</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>XSS risks with SVG uploads</h3>
+<a href="https://github.com/multica-ai/multica/pull/3023" target="_blank" rel="noreferrer">#3023 ↗</a>
+</div>
+<p>Force SVG files to download as attachments so browsers do not execute embedded scripts.</p>
+<span class="status merged">Merged</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>Reserved-name tests</h3>
+<a href="https://github.com/multica-ai/multica/pull/2985" target="_blank" rel="noreferrer">#2985 ↗</a>
+</div>
+<p>Complete key route name tests and cover regressions caused by case changes.</p>
+<span class="status merged">Merged</span>
+</div>
+            <div class="evidence-row">
+<div>
+<h3>Documentation fixes</h3>
+<a href="https://github.com/multica-ai/multica/pull/2979" target="_blank" rel="noreferrer">#2979 ↗</a>
+</div>
+<p>Fix path, anchor point and environment variable descriptions to reduce errors when configuring according to documentation.</p>
+<span class="status merged">Merged</span>
+</div>
+          </div>
+          <p class="signal-note"><strong>My contribution scope: </strong>I discovered these issues, assembled the evidence, submitted the fixes, and drove them through review and merge.</p>
+          <nav class="next-page" aria-label="Next page"><span>Next page</span><a href="evolution.html">AI Evolution →</a></nav>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="site-footer-inner">
+<span>Open Source · Tom Qiao</span><span><a href="https://github.com/tomqiaozc" target="_blank" rel="noreferrer">GitHub ↗</a> · <a href="projects.html">Core Projects</a></span>
+</div></footer>
+</body>
+</html>

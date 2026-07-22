@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07101c">
+  <meta name="description" content="Office Plus business backend platform: engineering cases from payment, entitlement fulfillment to asynchronous delivery, refund and account status management.">
+  <title>Office Plus — Tom Qiao</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/longform.css">
+<script src="../assets/site.js" defer></script>
+</head>
+<body class="longform-page office-plus">
+  <header class="site-header"><nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a><button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button><div class="nav-links" id="site-navigation">
+<a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
+</div></nav></header>
+  <main class="longform-wrap"><div class="doc-layout">
+    <aside class="doc-toc" data-toc aria-label="Table of contents on this page"><div class="doc-toc-title">Office Plus</div>
+<span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span><a href="#brief">60 second summary</a><div class="doc-toc-group">Team platform background</div>
+<a href="#platform">Business composition</a><a href="#evolution">Platform extension</a><a href="#loop">From payment to delivery</a><div class="doc-toc-group">My Responsibility</div>
+<a href="#paper">Paper Check transactions and delivery</a><a href="#deletion">Account deletion and recovery</a><a href="#token">Tokens and devices</a><a href="#partner">Channel direct charging (team background)</a><a href="#principles">common engineering practices</a></aside>
+    <div class="doc-main">
+      <header class="doc-hero"><div class="doc-hero-label">
+<span class="doc-chip">Commercial backend</span><span class="doc-chip">Entitlement fulfillment</span><span class="doc-chip">Account and session management</span>
+</div>
+<h1 class="doc-title">After payment, the system must <br><span class="accent">deliver the result.</span>
+</h1>
+<p class="doc-lead">Office Plus evolved from subscriptions into a multi-service commercial platform. The backend must confirm payment, grant entitlements, run asynchronous work, handle refunds, and restrict access when account or session state changes. Every step must be <strong>queryable, retryable, and recoverable</strong>.</p>
+<div class="fact-ledger">
+<span>Payment → Entitlement fulfillment</span><span>Asynchronous execution → result delivery</span><span>Account Status → Access Control</span>
+</div></header>
+
+      <section class="doc-section interviewer-brief" id="brief"><span class="section-label">00 · 60 seconds summary</span><h2>This page separates the team platform from the backend changes I personally owned.</h2>
+<div class="brief-grid">
+<article class="brief-card"><span class="brief-label">Team/Platform Background</span><h3>Multi-service commercial platform</h3>
+<p>Membership, transaction, growth, entitlement, and channel capabilities are team platform context. The architecture below explains project constraints; it is not an individual accomplishment.</p></article><article class="brief-card"><span class="brief-label ownership">My Direct Responsibility</span><h3>Commercial delivery plus account and session management</h3>
+<p class="brief-links"><a href="#paper">Paper Check transactions and delivery</a><a href="#deletion">Account deletion and recovery</a><a href="#token">Token/Device Session Management</a></p></article><article class="brief-card"><span class="brief-label">Project Result</span><h3>Paper Check processed 6,320 orders in its first 10 days</h3>
+<p>Device-session record growth changed from <strong>MAU (monthly active users) × devices (number of devices) × 30</strong> reduced to <strong>MAU×devices</strong>.</p></article><article class="brief-card"><span class="brief-label evidence">Scope of evidence</span><h3>No public project artifact</h3>
+<p>Business metrics and system details come from sanitized internal project experience; no external verification link is available.</p></article>
+</div></section>
+
+      <section class="doc-section" id="platform"><span class="section-label">01 · Team platform composition</span><h2>Payment is only one part of a commercial delivery flow.</h2>
+<p class="section-intro">After the user clicks "Purchase", the backend has to deal with six types of issues: what is the product, whether the user meets the conditions, whether the payment is successful, what entitlements should be issued, how to refund or make a replacement after the delivery fails, and whether the current account and token can still be used.</p>
+<div class="prose-grid three">
+<article class="info-card"><span class="card-kicker">Commodities and funds</span><h3>Record transaction status</h3>
+<p>SKUs, pre-orders, orders, payments, refunds, and invoices together record transaction state.</p></article><article class="info-card"><span class="card-kicker">Marketing activities</span><h3>Evaluate campaign eligibility separately</h3>
+<p>Purchase qualifications, purchase bonuses, prize packages and prize redemption rules are separated from the order condition branch and treated as independent activity capabilities.</p></article><article class="info-card"><span class="card-kicker">User entitlements</span><h3>Issue or revoke benefits</h3>
+<p>Membership duration, usage-based assets and exchange entitlements define issuance, consumption and rollback rules respectively.</p></article><article class="info-card"><span class="card-kicker">Long task delivery</span><h3>Asynchronous execution and support for retries</h3>
+<p>Callbacks, detections, notifications, and refunds are performed through retryable background tasks and do not rely on a single request to be completed.</p></article><article class="info-card"><span class="card-kicker">Accounts and sessions</span><h3>Check if access is valid</h3>
+<p>Logins, tokens, device sessions, and account status collectively determine whether a user can continue to use benefits.</p></article><article class="info-card"><span class="card-kicker">Result check</span><h3>Find and handle status differences</h3>
+<p>Discrepancies between transactions, entitlement delivery, and external processing results can be queried and corrected through refunds, retries, or manual processing.</p></article>
+</div></section>
+
+      <section class="doc-section" id="evolution"><span class="section-label">02 · Team platform expansion</span><h2>The platform gradually supports subscriptions, marketing activities, new benefits and long-term operations.</h2>
+<div class="evidence-ledger">
+<div class="evidence-row">
+<div>
+<h3>Stage 1 · Member Subscription</h3>
+<span>subscription</span>
+</div>
+<p>The initial flow combined SKUs, orders, payments, and membership entitlement fulfillment.</p>
+<span class="status">Basic abilities</span>
+</div>
+<div class="evidence-row">
+<div>
+<h3>Phase 2 · Marketing Campaign</h3>
+<span>campaign</span>
+</div>
+<p>Separate purchases, event qualifications, and prizes from the order conditions branch, and manage event rules separately.</p>
+<span class="status">Platform capabilities</span>
+</div>
+<div class="evidence-row">
+<div>
+<h3>Phase 3 · New benefits and services</h3>
+<span>service delivery</span>
+</div>
+<p>The platform adds usage entitlements, document delivery, third-party testing and failure refunds.</p>
+<span class="status">business expansion</span>
+</div>
+<div class="evidence-row">
+<div>
+<h3>Phase 4 · Long-term operation</h3>
+<span>operations</span>
+</div>
+<p>The platform adds account life cycle, message notification, operation tasks and status difference checking.</p>
+<span class="status">Operational capabilities</span>
+</div>
+</div></section>
+
+      <section class="doc-section" id="loop"><span class="section-label">03 · From payment to delivery</span><h2>A successful order does not mean the user has received the entitlement or result.</h2>
+<p class="section-intro">Orders, payments, entitlement fulfillment, and asynchronous tasks keep separate state. Idempotency keys ensure repeated requests take effect once, while durable tasks record progress. A failed step can be retried, compensated, refunded, or routed to manual handling.</p>
+<div class="state-loop">
+<div class="state-loop-line">
+<div class="state">Create order</div>
+<div class="state current">Confirm payment</div>
+<div class="state">Issuance of entitlements and interests</div>
+<div class="state">Execute asynchronous tasks</div>
+<div class="state">Check results</div>
+</div>
+<div class="loop-return">Failure → Retry/Rollback/Refund/Manual processing ↺</div>
+</div>
+<div class="prose-grid">
+<article class="decision-card"><span class="card-kicker">Prevent repeated execution</span><h3>The same business action can only take effect once</h3>
+<p>External callbacks, message re-delivery and client retries may all arrive repeatedly; idempotent keys and state transitions are used to prevent repeated deductions or repeated issuances.</p></article><article class="decision-card"><span class="card-kicker">Failure handling</span><h3>Define recovery methods for each failure</h3>
+<p>After a third-party timeout, asynchronous task failure, or notification loss, retry, rollback, or enter manual compensation processing as appropriate.</p></article>
+</div></section>
+
+      <section class="doc-section" id="paper"><span class="section-label">My Responsibility 01 · Paper Check commercialization</span><h2>Paper Check connects purchase, processing, notification, and failure refunds into one flow.</h2>
+<p class="section-intro">A third-party processing API is only one step. The full flow covers purchase and upload, background processing, result persistence and notification, entitlement restoration or refund on failure, and queryable order, entitlement, and task state.</p>
+<article class="case-study"><header class="case-head"><div>
+<h3>How one Paper Check task reaches delivery</h3>
+<p>Connect transactions, files, third-party processing, entitlements, campaigns, refunds, and notifications.</p>
+</div>
+<span class="status">My Responsibility</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">entitlement rules</span><p>Usage-based entitlements differ from subscription duration: check the balance before use, restore usage after a failed job, and associate the result with the original task.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Execution steps</span><p>Upload → order or deduct entitlement → background processing → save result → notify. Each failed step records state and enters the appropriate retry, entitlement restoration, or refund path.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Operational processing</span><p>Status queries, retries, refunds, and re-notifications of results use independent operations and do not rely on the initial web page request to stay online.</p>
+</div>
+</div></article><div class="flow-strip">
+<div class="flow-node">Upload files</div>
+<div class="flow-node">Place an order/deduct benefits</div>
+<div class="flow-node active">Background detection</div>
+<div class="flow-node">Save results</div>
+<div class="flow-node">Notice/Refund</div>
+</div></section>
+
+      <section class="doc-section" id="deletion"><span class="section-label">Personal responsibility 02 · Account life cycle</span><h2>Account soft deletion revokes access first while preserving recoverable state.</h2>
+<p class="section-intro">Deleting an account will also affect login tokens, device sessions, entitlements and risk control. Immediate physical deletion from the database will lose recovery and audit records; simply marking it as "deleted" may allow old sessions to continue to be accessed. Therefore, deletion needs to be performed step by step according to status.</p>
+<article class="case-study"><header class="case-head"><div>
+<h3>Perform deletion in steps and support duplicate requests and recovery</h3>
+<p>Turn one database update into a retryable account workflow with explicit state.</p>
+</div>
+<span class="status">My Responsibility</span></header><div class="case-body">
+<div class="case-row">
+<span class="case-label">revoke access first</span><p>After receiving the deletion request, revoke the token, invalidate the device session, and prevent further token refreshes.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Record processing status</span><p>Clearly record the status of "requested, processing, deleted, restored"; submitting the same request repeatedly will not cause repeated side effects.</p>
+</div>
+<div class="case-row">
+<span class="case-label">Handle concurrent requests</span><p>When deletion occurs at the same time as login or token refresh, the server account status will be used as the final judgment to prevent the account from being reactivated with old credentials.</p>
+</div>
+</div></article></section>
+
+      <section class="doc-section" id="token"><span class="section-label">Personal responsibility 03 · Token and device session</span><h2>Token refresh, revocation, and device state must be validated together.</h2>
+<p class="section-intro">Access tokens provide short-lived access; refresh tokens extend a session. The change covers refresh and rotation, active revocation, device limits, expired-record cleanup, and legacy compatibility, not only token generation.</p>
+<div class="pillar-grid">
+<article class="pillar"><span class="pillar-no">01/Token</span><h3>Revoke old token after refresh</h3>
+<p>After the refresh is successful, the old credentials become invalid; the server saves the token status and can revoke it immediately when needed without waiting for natural expiration.</p>
+<span class="pillar-result">Limit credential validity period</span></article><article class="pillar"><span class="pillar-no">02 / Equipment</span><h3>Refresh token binding device records</h3>
+<p>When the device has expired, the account has been deleted, or the number of devices exceeds the limit, the server refuses to continue refreshing.</p>
+<span class="pillar-result">Control sessions by device</span></article><article class="pillar"><span class="pillar-no">03 / Clean up</span><h3>Delete expired records in batches in the background</h3>
+<p>Recoverable background tasks clean expired tokens and device records in batches to avoid processing all data in one large transaction.</p>
+<span class="pillar-result">Continue cleaning after failure</span></article>
+</div>
+<p class="signal-note"><strong>Migration: </strong>Support both token formats for a bounded migration period. Unify validation, refresh, and revocation first, then phase out the legacy format.</p></section>
+
+      <section class="doc-section" id="partner"><span class="section-label">Team platform background · Channel access</span><h2>Channel direct charging: Verify requests, prevent repeated fulfillment, and record callback failures.</h2>
+<p class="section-intro">Channel requests come from external systems. The platform first verifies the identity of the caller and whether the request has been tampered with, then accepts the request and completes the fulfillment in the background; the fulfillment results are saved separately, and can be queried and resent even if the callback of the notification channel fails.</p>
+<div class="gate-grid">
+<article class="gate"><span>identity</span><h3>Verify channel permissions</h3>
+<p>Each channel uses clear application identity and permissions; the server confirms that the caller can perform the target operation.</p></article><article class="gate"><span>sign</span><h3>Verify request integrity</h3>
+<p>Combined with request signatures, validity windows, and replay protection, stop forging or resubmitting old requests.</p></article><article class="gate"><span>Anti-duplication</span><h3>Orders from the same channel are only fulfilled once</h3>
+<p>Use the channel order ID as the idempotency key. Repeated requests return the same business result without running fulfillment again.</p></article><article class="gate"><span>Failure handling</span><h3>Logging and retrying callbacks individually</h3>
+<p>The fulfillment status and callback status are persisted separately; after the callback fails, it can be retried, queried, or resent by the operator.</p></article>
+</div>
+<div class="flow-strip">
+<div class="flow-node">Verify identity and signature</div>
+<div class="flow-node">Accept request</div>
+<div class="flow-node active">Backend fulfillment</div>
+<div class="flow-node">notification channel</div>
+<div class="flow-node">Query/Retry</div>
+</div></section>
+
+      <section class="doc-section" id="principles"><span class="section-label">05 · Common engineering practices</span><h2>These cases use four shared reliability practices.</h2>
+<div class="prose-grid">
+<article class="info-card"><span class="card-kicker">record status</span><h3>Save queryable status at every step</h3>
+<p>Long-running flows are split into multiple clear states; after failure, the decision is made based on the completed steps where to continue.</p></article><article class="info-card"><span class="card-kicker">prevent duplication</span><h3>A repeated request must not repeat the business effect</h3>
+<p>Web page request retries, message retransmissions and external callbacks may all be repeated. The business layer uses idempotent keys and status checks to avoid repeated executions.</p></article><article class="info-card"><span class="card-kicker">failure compensation</span><h3>Take an explicit recovery action after a cross-system failure</h3>
+<p>When payment, entitlement, and third-party state diverge, recover through retry, compensation, refund, or manual handling.</p></article><article class="info-card"><span class="card-kicker">Account life cycle</span><h3>Key operations check account and device status</h3>
+<p>Key operations such as logging in, refreshing tokens, or using benefits require simultaneous determination of account, token, and device status.</p></article>
+</div>
+<p class="ownership-note">Transaction → Entitlement delivery → Failure recovery</p>
+<nav class="next-page" aria-label="Next page"><span>Next page: Public evidence</span><a href="opensource.html">Open Source Contributions →</a></nav></section>
+    </div>
+  </div></main>
+  <footer class="site-footer"><div class="site-footer-inner">
+<span>Office Plus</span><span><a href="projects.html">All Projects</a> · <a href="copilot-epichan.html">Previous Project</a></span>
+</div></footer>
+</body>
+</html>
