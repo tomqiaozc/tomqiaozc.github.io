@@ -17,7 +17,7 @@
   <main class="longform-wrap"><div class="doc-layout">
     <aside class="doc-toc" data-toc aria-label="Table of contents on this page"><div class="doc-toc-title">Copilot + Epichan</div>
 <span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span><a href="#brief">60 second summary</a><div class="doc-toc-group">Copilot · Production Delivery</div>
-<a href="#bridge">two stages</a><a href="#delivery">Release process</a><a href="#flaky">Unstable testing</a><a href="#ci">CI migration/merge queue</a><a href="#a11y">Accessible workflow</a><div class="doc-toc-group">Epichan · Agent execution system</div>
+<a href="#bridge">two stages</a><a href="#delivery">CI efficiency and production release</a><a href="#flaky">Unstable testing</a><a href="#ci">CI migration/merge queue</a><a href="#a11y">Accessible workflow</a><div class="doc-toc-group">Epichan · Agent execution system</div>
 <a href="#harness">execution system</a><a href="#lifecycle">Task status</a><a href="#gates">automatic check</a><a href="#flywheel">Improve based on failure</a></aside>
     <div class="doc-main">
       <header class="doc-hero"><div class="doc-hero-label">
@@ -34,7 +34,7 @@
 <div class="brief-grid">
 <article class="brief-card"><span class="brief-label">Team/system background</span><h3>Copilot Delivery System and Epichan Agent Harness</h3>
 <p>The team built and operates Copilot's production delivery system and the Epichan Agent Harness. The Harness supports Agent coding, review, testing, and delivery.</p></article><article class="brief-card"><span class="brief-label ownership">My Ownership</span><h3>Harness and delivery work I owned</h3>
-<p class="brief-links"><a href="#a11y">Accessibility remediation Agent workflow</a><a href="#ci">Most CI pipeline migrations</a><a href="#delivery">Release promotion (promoting artifacts across environments)</a></p></article><article class="brief-card"><span class="brief-label ownership">personal results</span><h3>Closed 64 Sev2 issues in two months</h3>
+<p class="brief-links"><a href="#a11y">Accessibility remediation Agent workflow</a><a href="#ci">Most CI pipeline migrations</a><a href="#delivery">CI efficiency and production release</a></p></article><article class="brief-card"><span class="brief-label ownership">Personal result</span><h3>Reduced CI wall-clock time by 31%</h3><p>I led CI critical-path optimization and was deeply involved in Copilot's multi-region progressive rollout and production operations.</p></article><article class="brief-card"><span class="brief-label ownership">personal results</span><h3>Closed 64 Sev2 issues in two months</h3>
 <p>I independently designed and ran the accessibility remediation Agent workflow, then incorporated its reusable practices into the Epichan Harness.</p></article><article class="brief-card"><span class="brief-label evidence">Systematic approach</span><h3>Manage Agent delivery with Tasks, Gates, and Traces</h3>
 <p>A Task represents the work, a Gate enforces checks, and a Trace records execution. Together they make Agent output verifiable and traceable.</p></article>
 </div></section>
@@ -54,14 +54,14 @@
 <p>Tasks move through explicit states, every Gate requires evidence, and each execution is recorded. A failure can become a new rule or test.</p></article>
 </div></section>
 
-      <section class="doc-section" id="delivery"><span class="section-label">Personal Responsibility 01 · Release promotion</span><h2>Promote only verified artifacts to the next environment.</h2>
-<p class="section-intro">I owned release promotion across environments. Frontend artifacts, backend services, and runtime flags follow different delivery paths, but all use the same verified artifact, separate deployment from activation, and support rapid blast-radius reduction.</p>
+      <section class="doc-section" id="delivery"><span class="section-label">Personal Responsibility 01 · CI Efficiency & Production Release</span><h2>Shorten the CI critical path while keeping production changes recoverable.</h2>
+<p class="section-intro">I led CI critical-path optimization, reducing wall-clock time by 31%; improved environment selection, image publishing, test-status gating, and the hotfix path on top of the existing dual pipelines; and was deeply involved in Copilot's multi-region progressive rollout and production operations.</p>
 <div class="gate-grid">
-<article class="gate"><span>BUILD</span><h3>Use the same artifact across environments</h3>
-<p>Promote the same verified artifact instead of rebuilding it for each environment.</p></article><article class="gate"><span>VERIFY</span><h3>Check before promotion</h3>
-<p>Require static checks, tests, and integration validation before promotion.</p></article><article class="gate"><span>RAMP</span><h3>Roll out in stages</h3>
-<p>Expand exposure gradually and observe results so failures affect a smaller group.</p></article><article class="gate"><span>CONTROL</span><h3>Feature flags</h3>
-<p>Separate deployment from activation so a feature can be disabled without another release.</p></article>
+<article class="gate"><span>CI</span><h3>Reduce the critical path by 31%</h3>
+<p>Used change classification, performance-test sampling, shard rebalancing, and parallelized SSR testing to reduce critical-path latency.</p></article><article class="gate"><span>PROMOTE</span><h3>Parameterize the existing dual pipelines</h3>
+<p>Parameterized environment selection and image publishing, added a GitHub test-status gate, and enabled the hotfix path so validated artifacts from the same build could be promoted quickly from pre-prod to production.</p></article><article class="gate"><span>ROLLOUT</span><h3>Participate in multi-region progressive rollout</h3>
+<p>Used automated testing and health checks during rollout, expanding exposure in stages while observing the effect of each change across regions.</p></article><article class="gate"><span>RECOVER</span><h3>Diagnose, contain, and restore</h3>
+<p>Used release history and monitoring signals to diagnose incidents, then feature flags, kill switches, rollback, or regional traffic shifting to contain impact and restore service.</p></article>
 </div></section>
 
       <section class="doc-section" id="flaky"><span class="section-label">Participate in work · Test stability</span><h2>Flaky tests: identify, quarantine, fix, then restore.</h2>
