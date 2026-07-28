@@ -2,193 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07101c">
-  <meta name="description" content="Copilot Production Delivery and Epichan Agent Execution System: Describes release processes, CI migrations, frictionless Agent workflows, and methods for constraining agents with checks and evidence.">
-  <title>Copilot + Epichan — Tom Qiao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="From Copilot production engineering to Epichan Loop Engineering: message orchestration and progressive delivery for a production AI product, plus the execution, verification, delivery, and feedback loop for Agent-driven development.">
+  <title>Copilot Production Engineering × Epichan Loop Engineering — Tom Qiao</title>
   <link rel="stylesheet" href="../assets/styles.css">
-<link rel="stylesheet" href="../assets/longform.css">
-<script src="../assets/site.js" defer></script>
+  <link rel="stylesheet" href="../assets/longform.css">
+  <script src="../assets/site.js" defer></script>
 </head>
 <body class="longform-page copilot-harness">
-  <header class="site-header"><nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a><button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button><div class="nav-links" id="site-navigation">
-<a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
-</div></nav></header>
-  <main class="longform-wrap"><div class="doc-layout">
-    <aside class="doc-toc" data-toc aria-label="Table of contents on this page"><div class="doc-toc-title">Copilot + Epichan</div>
-<span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span><a href="#brief">60 second summary</a><div class="doc-toc-group">Copilot · Production Delivery</div>
-<a href="#bridge">two stages</a><a href="#delivery">CI/CD optimization and production reliability</a><a href="#flaky">Unstable testing</a><a href="#ci">CI migration/merge queue</a><a href="#a11y">Accessible workflow</a><div class="doc-toc-group">Epichan · Agent execution system</div>
-<a href="#harness">execution system</a><a href="#lifecycle">Task status</a><a href="#gates">automatic check</a><a href="#flywheel">Improve based on failure</a></aside>
-    <div class="doc-main">
-      <header class="doc-hero"><div class="doc-hero-label">
-<span class="doc-chip">production delivery</span><span class="doc-chip">Agent execution system</span><span class="doc-chip">Development efficiency</span>
-</div>
-<h1 class="doc-title">First make delivery reliable, <br><span class="accent">then make experience <wbr><span class="title-tail">executable.</span></wbr></span>
-</h1>
-<p class="doc-lead">This page covers two stages. The Copilot section shows how release processes and CI reduce production-change risk. The Epichan section shows how explicit states, automated checks, and execution traces constrain Agent delivery. Both address the same requirement: <strong>a change must be verified before it reaches production.</strong></p>
-<div class="fact-ledger">
-<span>Release and CI</span><span>Task → Check → Evidence</span><span>Failure → Rule or test</span>
-</div></header>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button>
+      <div class="nav-links" id="site-navigation"><a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a></div>
+    </nav>
+  </header>
 
-      <section class="doc-section interviewer-brief" id="brief"><span class="section-label">00 · 60 seconds summary</span><h2>First, the team context; then the three areas I owned.</h2>
-<div class="brief-grid">
-<article class="brief-card"><span class="brief-label">Team/system background</span><h3>Copilot Delivery System and Epichan Agent Harness</h3>
-<p>The team built and operates Copilot's production delivery system and the Epichan Agent Harness. The Harness supports Agent coding, review, testing, and delivery.</p></article><article class="brief-card"><span class="brief-label ownership">My Ownership</span><h3>Harness and delivery work I owned</h3>
-<p class="brief-links"><a href="#a11y">Accessibility remediation Agent workflow</a><a href="#ci">Most CI pipeline migrations</a><a href="#delivery">CI/CD optimization and production reliability</a></p></article><article class="brief-card"><span class="brief-label ownership">Personal result</span><h3>Reduced CI runtime by 31%</h3><p>I led CI critical-path optimization and was deeply involved in Copilot's multi-region progressive rollout and production operations.</p></article><article class="brief-card"><span class="brief-label ownership">personal results</span><h3>Closed 64 Sev2 issues in two months</h3>
-<p>I independently designed and ran the accessibility remediation Agent workflow, then incorporated its reusable practices into the Epichan Harness.</p></article><article class="brief-card"><span class="brief-label evidence">Systematic approach</span><h3>Manage Agent delivery with Tasks, Gates, and Traces</h3>
-<p>A Task represents the work, a Gate enforces checks, and a Trace records execution. Together they make Agent output verifiable and traceable.</p></article>
-</div></section>
+  <main class="longform-wrap" id="main-content">
+    <div class="doc-layout">
+      <aside class="doc-toc" data-toc aria-label="Table of contents">
+        <div class="doc-toc-title">Copilot × Epichan</div><span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span>
+        <a href="#positioning">00 · Positioning</a><a href="#frontends">01 · Two frontend environments</a><a href="#message-flow">02 · Copilot orchestration</a><a href="#production">03 · Copilot delivery</a><a href="#copilot-work">04 · My Copilot work</a>
+        <div class="doc-toc-group">Epichan · Loop Engineering</div>
+        <a href="#loop">05 · Harness and Loop</a><a href="#lifecycle">06 · Task lifecycle</a><a href="#example">07 · Representative flow</a><a href="#a11y-loop">08 · Method to workflow</a><a href="#takeaways">09 · Engineering takeaways</a>
+      </aside>
 
-      <section class="doc-section" id="bridge"><span class="section-label">Team/System Background · Two Phases</span><h2>From reliable releases <br>to controlled Agent execution.</h2>
-<p class="section-intro">The Copilot stage focuses on releasing a complex product reliably. The Epichan stage turns delivery experience into rules the system can enforce while an Agent works.</p>
-<div class="flow-strip">
-<div class="flow-node">Product changes</div>
-<div class="flow-node">CI check results</div>
-<div class="flow-node active">Publish a level</div>
-<div class="flow-node">Execution record</div>
-<div class="flow-node">Rule updates</div>
-</div>
-<div class="prose-grid">
-<article class="info-card"><span class="card-kicker">Phase 1 Copilot</span><h3>Control release risk</h3>
-<p>Immutable artifacts, staged rollout, feature flags, test isolation, and a Merge Queue reduce build, activation, test, and merge risk.</p></article><article class="info-card"><span class="card-kicker">Stage 2 · Epichan</span><h3>Encode execution requirements in the system</h3>
-<p>Tasks move through explicit states, every Gate requires evidence, and each execution is recorded. A failure can become a new rule or test.</p></article>
-</div></section>
+      <div class="doc-main">
+        <header class="doc-hero">
+          <div class="doc-hero-label"><span class="doc-chip">Production AI Engineering</span><span class="doc-chip">Agentic Loop Engineering</span><span class="doc-chip">Developer Experience</span></div>
+          <p class="hero-eyebrow">Microsoft Copilot · Studio × Epichan</p>
+          <h1 class="doc-title">From Copilot production<br>to <span class="accent">Epichan</span><br><span class="accent title-tail">Loop Engineering</span></h1>
+          <p class="doc-lead">Copilot shows how a production AI product accepts user messages, orchestrates models and tools, and reaches production through CI/CD, progressive rollout, and runtime controls. Epichan goes further by organizing software-development work into an Agentic Loop that is executable, verifiable, deliverable, and continuously improvable.</p>
+          <div class="hero-actions"><a class="button primary" href="#loop">Understand the Epichan Loop</a><a class="button" href="#copilot-work">See my work</a></div>
+          <div class="fact-ledger" aria-label="Key outcomes and engineering themes"><span><strong>~31%</strong><small>reduction in CI runtime</small></span><span><strong>64</strong><small>Sev2 accessibility issues closed</small></span><span><strong>2</strong><small>threads: Production AI / Loop Engineering</small></span></div>
+        </header>
 
-      <section class="doc-section" id="delivery"><span class="section-label">Personal Responsibility 01 · CI/CD Optimization & Production Reliability</span><h2>Shorten the CI critical path while keeping production changes recoverable.</h2>
-<p class="section-intro">I led CI/CD improvements, reducing CI runtime by 31%; parameterized the existing dual-pipeline release flow, added test gating and hotfix support to eliminate rebuilds and shorten validation-to-release time; and was deeply involved in Copilot's multi-region progressive rollout and production operations.</p>
-<div class="gate-grid">
-<article class="gate"><span>CI</span><h3>Reduce CI runtime by 31%</h3>
-<p>Used change classification, test-strategy optimization, and parallelization to shorten feedback cycles and reduce compute usage.</p></article><article class="gate"><span>PROMOTE</span><h3>Parameterize the existing dual pipelines</h3>
-<p>Parameterized environment selection and image publishing, added a GitHub test-status gate, and enabled the hotfix path so validated artifacts from the same build could be promoted quickly from pre-prod to production.</p></article><article class="gate"><span>ROLLOUT</span><h3>Participate in multi-region progressive rollout</h3>
-<p>Used automated testing and health checks during rollout, expanding exposure in stages while observing the effect of each change across regions.</p></article><article class="gate"><span>RECOVER</span><h3>Diagnose, contain, and restore</h3>
-<p>Used release history and monitoring signals to diagnose incidents, then feature flags, kill switches, rollback, or regional traffic shifting to contain impact and restore service.</p></article>
-</div></section>
+        <section class="doc-section interviewer-brief" id="positioning">
+          <span class="section-label">00 · Positioning</span><h2>One class of AI product, two engineering concerns.</h2>
+          <div class="brief-grid">
+            <article class="brief-card"><span class="brief-label">Copilot / Studio</span><h3>Production product and delivery system</h3><p>Studio powers Copilot Web experiences across multiple surfaces. The focus here is how messages enter backend orchestration and how code moves through CI, artifacts promotion, regional rollout, and runtime controls into production.</p></article>
+            <article class="brief-card"><span class="brief-label evidence">Epichan / Bebop Lite</span><h3>An Agent-first engineering environment</h3><p>Bebop Lite connects to real Copilot services and gives Agents a product environment for coding, review, and verification. Epichan centers on the Harness and the end-to-end delivery loop built around it.</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Copilot engineering work</span><h3>CI/CD, test stability, and production operations</h3><p>Optimized the CI critical path and release flow, contributed to progressive production rollout and incident recovery, and designed and delivered automated flaky-test quarantine.</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Epichan engineering work</span><h3>Connecting an accessibility method to the Agentic Loop</h3><p>Integrated an accessibility-remediation Skill into the Epichan Harness as a multi-role Agentic Loop workflow.</p></article>
+          </div>
+        </section>
 
-      <section class="doc-section" id="flaky"><span class="section-label">Participate in work · Test stability</span><h2>Flaky tests: identify, quarantine, fix, then restore.</h2>
-<p class="section-intro">A flaky test can pass or fail against the same code. Too many false failures erode trust in CI, so the workflow identifies suspect failures, confirms them through controlled reruns, preserves evidence, and quarantines confirmed cases without blocking unrelated work.</p>
-<article class="case-study"><header class="case-head"><div>
-<h3>Give every flaky test a clear state, evidence, and owner</h3>
-<p>Every step, from suspected to confirmed, quarantined, fixed, and restored, is queryable and traceable.</p>
-</div>
-<span class="status">CONTRIBUTED</span></header><div class="case-body">
-<div class="case-row">
-<span class="case-label">identify</span><p>Identify suspected flaky tests from CI failures, then use controlled reruns and history to separate real regressions from noise.</p>
-</div>
-<div class="case-row">
-<span class="case-label">isolation</span><p>Temporarily quarantine confirmed flaky tests with a recorded state so one false failure does not keep blocking the main branch.</p>
-</div>
-<div class="case-row">
-<span class="case-label">recover</span><p>Quarantine is not a permanent skip. Restore the test after the fix passes verification.</p>
-</div>
-</div></article><p class="signal-note"><strong>Goal: </strong>Do not hide failures; separate real regressions from test noise and preserve trust in CI.</p></section>
+        <section class="doc-section" id="frontends">
+          <span class="section-label">01 · Two frontend environments</span><h2>Studio serves production at scale; Epichan tests Agent-first development on real product work.</h2>
+          <p class="section-intro">Both belong to Copilot frontend engineering, but they serve different roles. Studio is the production frontend for multiple surfaces. Bebop Lite in Epichan is a frontend connected to real Copilot APIs and a proving ground for Harness and Loop Engineering.</p>
+          <div class="prose-grid">
+            <article class="info-card"><span class="card-kicker">Studio · Production Frontend</span><h3>A shared Copilot Web frontend across surfaces</h3><p>One React codebase supports multiple product surfaces, sharing chat, design-system, and platform capabilities while configuration controls surface-specific behavior. It operates under continuous delivery, compatibility, experimentation, and real-user traffic.</p></article>
+            <article class="info-card"><span class="card-kicker">Epichan · Agent-first Monorepo</span><h3>The product code is also the Loop's proving ground</h3><p>Bebop Lite provides a real chat-product environment. Shared components, architectural rules, performance checks, and CI expose Agent execution to real engineering constraints rather than isolated code-generation examples.</p></article>
+          </div>
+          <div class="decision-line"><span>Relationship</span><p>The <strong>product frontend</strong> supplies real requirements and quality standards; the <strong>Harness</strong> makes one task execute reliably; <strong>Loop Engineering</strong> connects intake, verification, delivery, and learning.</p></div>
+        </section>
 
-      <section class="doc-section" id="ci"><span class="section-label">Personal Responsibility 02 · Most CI pipeline migration</span><h2>CI migration: verify parity first, then cut over gradually.</h2>
-<p class="section-intro">I owned most pipeline migrations. I compared platform capabilities, caches, permissions, required checks, and triggers; ran old and new pipelines in parallel; then cut over one item at a time. The Merge Queue revalidates each candidate against the latest main branch before merging.</p>
-<div class="prose-grid">
-<article class="decision-card"><span class="card-kicker">CI migration</span><h3>Parallel verification of old and new pipelines</h3>
-<p>Run old and new pipelines in parallel, verify that key behavior and results match, then cut over required checks and triggers one at a time.</p></article><article class="decision-card"><span class="card-kicker">merge queue</span><h3>Recheck based on the latest mainline before merging</h3>
-<p>Revalidate every candidate against the latest main branch to catch conflicts that appear only when individually passing PRs are combined.</p></article>
-</div>
-<div class="flow-strip">
-<div class="flow-node">Candidate PR</div>
-<div class="flow-node">Update to the latest mainline/group</div>
-<div class="flow-node active">Required check</div>
-<div class="flow-node">merge</div>
-<div class="flow-node">next candidate</div>
-</div></section>
+        <section class="doc-section" id="message-flow">
+          <span class="section-label">02 · Copilot message orchestration</span><h2>A user message moves through session, orchestration, model, and tool loops before streaming back to the frontend.</h2>
+          <p class="section-intro">The frontend does not make one model call and wait for a complete answer. It first obtains user configuration and feature flags, then sends the message over a long-lived connection. The backend represents the request as a Turn; the Orchestrator selects an execution path; and the Responder loops between model inference and tool execution before safety, citation, and protocol processing stream the result back.</p>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete orchestration path →</div>
+          <div class="state-loop">
+            <div class="state-loop-line"><div class="state">User input</div><div class="state">Streaming session</div><div class="state current">Turn / Orchestrator</div><div class="state">Model ↔ tools</div><div class="state">Streaming response</div></div>
+            <div class="loop-return">Tool results return to the current Turn; the Responder continues with the new context ↺</div>
+          </div>
+          <div class="prose-grid three">
+            <article class="decision-card"><span class="card-kicker">Session entry</span><h3>Configuration initialization and bidirectional streaming</h3><p>Initialization fetches experiments and user configuration. The long-lived connection carries messages, stop signals, and streamed responses so the frontend can update the active conversation continuously.</p></article>
+            <article class="decision-card"><span class="card-kicker">Orchestration core</span><h3>Each Turn organizes its own execution</h3><p>The Orchestrator selects the appropriate plugin for the conversation mode. The Responder advances model calls, tool calls, and result injection instead of placing all behavior in one prompt.</p></article>
+            <article class="decision-card"><span class="card-kicker">Output path</span><h3>Results continue through processing before display</h3><p>Events produced by models and tools pass through safety, citation, and protocol handling before reaching frontend rendering and state management as streamed events.</p></article>
+          </div>
+        </section>
 
-      <section class="doc-section" id="a11y"><span class="section-label">Personal Responsibility 03 · Accessibility Repair Workflow</span><h2>Turn accessibility remediation into a repeatable Agent workflow.</h2>
-<p class="section-intro">I owned this accessibility remediation workflow. It turns issue localization, code changes, browser verification, and evidence capture into repeatable steps for keyboard focus, screen-reader announcements, ARIA semantics, high contrast, and small-screen layouts.</p>
-<div class="pillar-grid">
-<article class="pillar"><span class="pillar-no">01 / Recurrence</span><h3>Reproduce in real interactions</h3>
-<p>Reproduce the issue with keyboard interaction, accessibility semantics, and the target viewport rather than checking static markup alone.</p>
-<span class="pillar-result">Confirm the behavior first</span></article><article class="pillar"><span class="pillar-no">02 / Repair</span><h3>Fixes by common problem type</h3>
-<p>Turn focus restoration, live regions, accessible names, and small-screen layout rules into reusable remediation patterns.</p>
-<span class="pillar-result">Reuse repair method</span></article><article class="pillar"><span class="pillar-no">03 / Verification</span><h3>Use tests and screenshots for acceptance</h3>
-<p>Automated tests, accessibility-tree snapshots, and before/after screenshots jointly verify the fix.</p>
-<span class="pillar-result">Delivered after evidence is passed</span></article>
-</div></section>
+        <section class="doc-section" id="production">
+          <span class="section-label">03 · Copilot production delivery</span><h2>Build, release, and feature activation are three independently controllable stages.</h2>
+          <p class="section-intro">Copilot delivery does not depend on a single full cutover. Content hashes make frontend artifacts immutable; the same verified artifacts are promoted from pre-production to production; regions and users receive them progressively; and Feature Flags or a Kill Switch separate code deployment from feature activation.</p>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete release flow →</div>
+          <div class="flow-strip" aria-label="Copilot production release flow"><div class="flow-node">Build immutable artifacts</div><div class="flow-node">Pre-production verification</div><div class="flow-node active">Promote the same artifacts</div><div class="flow-node">Regional rollout</div><div class="flow-node">Observe / recover</div></div>
+          <div class="gate-grid">
+            <article class="gate"><span>ARTIFACT</span><h3>Release what was tested</h3><p>Content-addressed static resources are not overwritten in place. Production promotion reuses the verified build, reducing differences introduced by rebuilding.</p></article>
+            <article class="gate"><span>ROLLOUT</span><h3>Use time to limit the blast radius</h3><p>Exposure expands by stage and region while automated checks and health signals track the change. A problem can stop subsequent stages.</p></article>
+            <article class="gate"><span>RUNTIME</span><h3>Deployment does not mean immediate activation</h3><p>Feature Flags support experiments and gradual enablement. A Kill Switch can disable a high-risk capability without another deployment.</p></article>
+            <article class="gate"><span>RECOVERY</span><h3>Prepare recovery paths before release</h3><p>Rollback, feature shutdown, and regional traffic adjustment address different failure scopes. The response follows the layer where the fault appears rather than one universal redeployment.</p></article>
+          </div>
+        </section>
 
-      <section class="doc-section" id="harness"><span class="section-label">Phase 2 · System design principles</span><h2>The Agent execution system records tasks, check results, and the full execution trace.</h2>
-<p class="section-intro">Here, Harness means the system that accepts a requirement, schedules Agents, checks results, and records execution. People still define and confirm requirements. The system turns them into stateful tasks and requires evidence before each transition; the Trace supports later review and audit.</p>
-<div class="prose-grid three">
-<article class="info-card"><span class="card-kicker">Task</span><h3>Tasks have a clear status</h3>
-<p>Each task records its state, owner, logs, and external links instead of relying on one chat session.</p></article><article class="info-card"><span class="card-kicker">Gate · Check</span><h3>Advance only after checks pass</h3>
-<p>A Gate makes permissions, architecture rules, evaluations, code review, and CI prerequisites for a state transition.</p></article><article class="info-card"><span class="card-kicker">Trace·Record</span><h3>The execution process can be traced</h3>
-<p>Logs, state changes, evaluation results, and screenshots are assembled into a report for human review.</p></article>
-</div></section>
+        <section class="doc-section" id="copilot-work">
+          <span class="section-label">04 · My Copilot engineering work</span><h2>CI/CD, production rollout, and test stability.</h2>
+          <article class="case-study">
+            <header class="case-head"><div><h3>Optimize the CI/CD critical path and release flow</h3><p>Reduce the wait from code validation to artifacts promotion while preserving test gates and artifact consistency.</p></div><span class="status">~31% CI REDUCTION</span></header>
+            <div class="case-body">
+              <div class="case-row"><span class="case-label">CI</span><p>Shortened the critical path through change classification, test strategy, and parallelization. The approximately 31% figure is the aggregate result recorded in the project proposal and measurements.</p></div>
+              <div class="case-row"><span class="case-label">CD</span><p>Parameterized environment selection and artifacts promotion in the existing dual-pipeline setup, added a test-status gate, and connected the hotfix path so verified artifacts could reach production faster.</p></div>
+            </div>
+          </article>
+          <article class="case-study">
+            <header class="case-head"><div><h3>Contribute to progressive production rollout and operations</h3><p>Observe production changes stage by stage and choose whether to stop, disable, or roll back based on the affected layer.</p></div><span class="status">PRODUCTION ROLLOUT</span></header>
+            <div class="case-body">
+              <div class="case-row"><span class="case-label">Release</span><p>Contributed to Copilot's multi-region progressive rollout, using automated checks and health signals at each stage rather than expanding the blast radius at once.</p></div>
+              <div class="case-row"><span class="case-label">Control</span><p>Used Feature Flags, a Kill Switch, rollback, or traffic adjustment according to whether an anomaly originated in code, feature activation, or regional traffic.</p></div>
+              <div class="case-row"><span class="case-label">Recovery</span><p>Combined release records, monitoring signals, and regional state to locate the source of change, stop further rollout, and restore service.</p></div>
+            </div>
+          </article>
+          <article class="decision-card secondary-work"><span class="card-kicker">Additional work · Flaky Tests</span><h3>Turn test noise into a stateful governance object</h3><p>Identify unstable tests from historical failures and controlled reruns, quarantine confirmed cases while retaining records, and restore them after a verified fix so quarantine does not become a permanent skip.</p></article>
+        </section>
 
-      <section class="doc-section" id="lifecycle"><span class="section-label">System design principles · Task status</span><h2>Tasks advance through explicit states; a failure returns to the relevant step.</h2>
-<p class="section-intro">Every state defines an owner, entry conditions, required evidence, and the return path on failure. An Agent can execute the work but cannot skip the checks.</p>
-<div class="state-loop">
-<div class="state-loop-line">
-<div class="state">INGESTED</div>
-<div class="state current">IMPLEMENTING</div>
-<div class="state">REVIEWING</div>
-<div class="state">JUDGING</div>
-<div class="state">MERGED</div>
-</div>
-<div class="loop-return">Request modification → Return to the corresponding person in charge and processing steps ↺</div>
-</div>
-<div class="data-table-wrap"><table class="data-table">
-<thead><tr>
-<th>Role</th>
-<th>Responsible for content</th>
-<th>What not to do</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Developer Agent (execution)</td>
-<td>Make only the scoped changes, run tests, and submit evidence</td>
-<td>Approve its own implementation</td>
-</tr>
-<tr>
-<td>Reviewer Agent</td>
-<td>Review against the defined checks and record evidence</td>
-<td>Approve work only because it looks fine</td>
-</tr>
-<tr>
-<td>Planner/Triage (Split and Assign)</td>
-<td>Classify, decompose, and assign tasks</td>
-<td>Decide requirements on behalf of stakeholders</td>
-</tr>
-<tr>
-<td>Judge / Auditor (Acceptance)</td>
-<td>Accept or reject based on evidence</td>
-<td>Ignore automated check results</td>
-</tr>
-</tbody>
-</table></div></section>
+        <section class="doc-section epichan-entry" id="loop">
+          <span class="section-label">05 · Epichan Harness and Loop</span><h2>The Harness governs how one task executes; Loop Engineering governs how the delivery system keeps improving.</h2>
+          <p class="section-intro">Epichan is more than another Copilot frontend repository. Bebop Lite provides a real product and proving ground. The Harness organizes tasks, roles, permissions, state, and evidence into a reliable execution kernel. The Loop connects intake, quality verification, real delivery, feedback, and later validation.</p>
+          <div class="prose-grid three">
+            <article class="info-card"><span class="card-kicker">Product Surface</span><h3>Bebop Lite provides a real engineering environment</h3><p>Agents modify product code with shared components, architectural constraints, performance requirements, and real backend connections, so their output must meet normal software-delivery standards.</p></article>
+            <article class="info-card"><span class="card-kicker">Harness Engineering</span><h3>Make one execution schedulable and recoverable</h3><p>A task has persistent state, roles, a claim, execution records, and check conditions. If an Agent fails or hands off, the system still knows what was completed and who acts next.</p></article>
+            <article class="info-card"><span class="card-kicker">Loop Engineering</span><h3>Feed evidence and failure into the next cycle</h3><p>Post-delivery traces, evaluations, and reports are classified into product tasks, Skills, deterministic checks, or Harness improvements, then validated on later comparable tasks.</p></article>
+          </div>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete Loop →</div>
+          <div class="flow-strip" aria-label="Epichan Loop Engineering cycle"><div class="flow-node">Intake</div><div class="flow-node">Harness Execution</div><div class="flow-node active">Verification</div><div class="flow-node">Delivery</div><div class="flow-node">Feedback / Validation</div></div>
+          <p class="signal-note"><strong>A closed loop:</strong> writing back a Skill, test, or rule is only an improvement action. The Loop improves only when later tasks show a verifiable change in pass rate, rework, evidence completeness, or failure modes.</p>
+        </section>
 
-      <section class="doc-section" id="gates"><span class="section-label">System design principles · Automatic check and manual judgment</span><h2>Models or people judge semantic quality; scripts enforce deterministic rules.</h2>
-<p class="section-intro">Whether code meets a requirement usually needs model or human judgment. Formatting, permissions, dependency direction, performance budgets, and test results are better checked deterministically. A Gate combines both kinds of evidence.</p>
-<div class="gate-grid">
-<article class="gate"><span>PERMISSION</span><h3>Restrict execution permissions</h3>
-<p>Provide only the permissions needed to complete the current task; dangerous operations require tighter restrictions.</p></article><article class="gate"><span>ARCH</span><h3>Check dependencies and structure</h3>
-<p>Dependency direction, usage of common components, and existing architectural rules are checked by scripts.</p></article><article class="gate"><span>QUALITY</span><h3>Pass the test first, then do the semantic review</h3>
-<p>Run tests and deterministic checks first, and then determine whether the implementation meets the requirements.</p></article><article class="gate"><span>PROOF</span><h3>Provide verifiable evidence</h3>
-<p>UI changes require real screenshots or interaction records, not just checking code differences.</p></article>
-</div></section>
+        <section class="doc-section" id="lifecycle">
+          <span class="section-label">06 · Task lifecycle</span><h2>Tasks advance through explicit states; semantic judgment, system facts, and risk ownership belong to different roles.</h2>
+          <p class="section-intro">A human request is not simply picked up and executed. The Task Engine records current state, execution ownership, and evidence. Developer, Reviewer, and Judge roles handle different stages; CI and reconciliation provide deterministic facts; humans handle exceptions and risk decisions when required.</p>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete task lifecycle →</div>
+          <div class="state-loop">
+            <div class="state-loop-line"><div class="state">INGESTED</div><div class="state">QUEUED</div><div class="state current">IMPLEMENTING</div><div class="state">REVIEWING</div><div class="state">JUDGING</div><div class="state">READY / MERGED</div></div>
+            <div class="loop-return">Review, CI, or conflict failure → ITERATING → return to checks after repair ↺</div>
+          </div>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete role boundaries →</div>
+          <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Actor</th><th>Responsible judgment</th><th>Boundary</th></tr></thead><tbody><tr><td>Developer Agent</td><td>Implement the request, run checks, and submit the PR and evidence</td><td>Cannot approve its own implementation</td></tr><tr><td>Reviewer / Judge</td><td>Whether requirements are met and evidence is sufficient</td><td>Cannot ignore deterministic check results</td></tr><tr><td>CI / Reconcile</td><td>Tests, conflicts, PR state, and actual merge state</td><td>Cannot replace product-semantic judgment</td></tr><tr><td>Human Operator</td><td>Risk acceptance, exception approval, and product direction</td><td>Does not delegate accountability decisions to a model</td></tr></tbody></table></div>
+          <p class="signal-note"><strong>Two domains of truth:</strong> the Task Engine stores internal execution state; GitHub stores Issues, PRs, CI, and the actual merge state. “Ready to merge” is not delivery—the system must reconcile the two continuously.</p>
+        </section>
 
-      <section class="doc-section" id="flywheel"><span class="section-label">System design principles · Improve rules based on failure</span><h2>Each failure should produce a reusable rule, test, or check.</h2>
-<p class="section-intro">Fixing only the current task allows the same failure to recur. The system records the cause and converts it into a reusable Skill, rule, evaluation, architecture check, or new Gate for future tasks.</p>
-<div class="state-loop">
-<div class="state-loop-line">
-<div class="state">current task</div>
-<div class="state">implement</div>
-<div class="state">Record</div>
-<div class="state current">Update rules/tests</div>
-<div class="state">next task</div>
-</div>
-<div class="loop-return">Discover the cause of failure → Add work steps, tests or checks → Use them for subsequent tasks ↺</div>
-</div>
-<p class="signal-note"><strong>My focus: </strong>In addition to fixing a bug, I turn reusable solutions into workflow steps, tests, or checks so Agents are less likely to repeat the same failure. Copilot delivery experience provides concrete inputs for these constraints.</p>
-<p class="ownership-note">Delivery process → Agent execution constraints → Continuous improvement based on failures</p>
-<nav class="next-page" aria-label="Next page"><span>Next Project</span><a href="office-plus.html">Office Plus →</a></nav></section>
+        <section class="doc-section" id="example">
+          <span class="section-label">07 · Representative requirement</span><h2>Adding a copy action to chat messages: how an ordinary feature traverses the full Loop.</h2>
+          <p class="section-intro">This common frontend requirement illustrates how Epichan works: add a copy action beneath Assistant messages and support both desktop and mobile. It is a mechanism example, used to show how the stages collaborate.</p>
+          <article class="case-study">
+            <header class="case-head"><div><h3>The requirement becomes more than code—it becomes a verifiable delivery outcome</h3><p>Each stage leaves state and evidence that the next role can independently inspect.</p></div><span class="status">REPRESENTATIVE FLOW</span></header>
+            <div class="case-body">
+              <div class="case-row"><span class="case-label">Intake</span><p>The task describes user behavior, interaction placement, desktop and mobile requirements, and feedback for copy success and failure.</p></div>
+              <div class="case-row"><span class="case-label">Implement</span><p>The Developer Agent locates the shared message component and design-system capability, implements behavior and state handling, runs tests, and submits a PR.</p></div>
+              <div class="case-row"><span class="case-label">Verify</span><p>Type checking, unit tests, lint, and architecture rules cover deterministic requirements; the Reviewer then examines component reuse, interaction behavior, and edge cases.</p></div>
+              <div class="case-row"><span class="case-label">Judge</span><p>The Judge evaluates the PR, test results, and desktop/mobile screenshots against the acceptance criteria. Missing evidence or incorrect behavior returns the task for revision.</p></div>
+              <div class="case-row"><span class="case-label">Deliver</span><p>After every check passes, the task becomes ready to merge. The internal task records actual delivery only after GitHub confirms the PR was merged.</p></div>
+              <div class="case-row"><span class="case-label">Improve</span><p>If multiple surfaces repeatedly implement the same action, the team can write back a shared-component rule or check, then observe whether later tasks reuse the common implementation.</p></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="doc-section" id="a11y-loop">
+          <span class="section-label">08 · From personal method to Epichan workflow</span><h2>The accessibility-remediation method evolved from a reusable Skill into a multi-role workflow inside the Loop.</h2>
+          <p class="section-intro">In Studio, I first organized the reproduction, repair, and verification method for accessibility issues into a repeatable Agent Skill, closing 64 Sev2 issues in two months. The method then moved into Epichan's <code>a11y-remediation-workflow</code>, where the Harness coordinates separate roles for implementation, independent replay, and final judgment.</p>
+          <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete workflow evolution →</div>
+          <div class="flow-strip" aria-label="Accessibility workflow evolution"><div class="flow-node">Issue reproduction method</div><div class="flow-node">Personal Agent Skill</div><div class="flow-node active">Epichan Workflow</div><div class="flow-node">Developer / Reviewer</div><div class="flow-node">Judge acceptance</div></div>
+          <div class="pillar-grid">
+            <article class="pillar"><span class="pillar-no">01 / Developer</span><h3>Reproduce and make the minimal repair</h3><p>Confirm the issue on the target page and under the target interaction, locate the responsible component, make the necessary change, and run the relevant tests.</p><span class="pillar-result">Implementation and initial evidence</span></article>
+            <article class="pillar"><span class="pillar-no">02 / Reviewer</span><h3>Replay user behavior independently</h3><p>Repeat keyboard, semantic, or target-viewport verification instead of inheriting the implementer's claim that the issue is fixed.</p><span class="pillar-result">Independent verification</span></article>
+            <article class="pillar"><span class="pillar-no">03 / Judge</span><h3>Decide from requirements and evidence</h3><p>Combine the issue description, code changes, tests, and replay results to accept the work or return it for revision.</p><span class="pillar-result">Evidence-driven acceptance</span></article>
+          </div>
+          <div class="decision-line"><span>Evolution</span><p>The change is not moving the same prompt into another repository. It connects a repeatable personal method to task state, role separation, and delivery reconciliation, making it a domain workflow inside the complete Loop.</p></div>
+        </section>
+
+        <section class="doc-section" id="takeaways">
+          <span class="section-label">09 · Engineering takeaways</span><h2>Four lessons from production AI and the Agentic Loop.</h2>
+          <div class="takeaway-list">
+            <article><span>01</span><div><h3>Autonomous execution starts by making work a durable task</h3><p>Only when a requirement becomes persistent, queryable, claimable, and recoverable can the system manage unsupervised Agent work instead of depending on one chat session.</p></div></article>
+            <article><span>02</span><div><h3>A model's self-report cannot replace acceptance evidence</h3><p>Deterministic tests, architecture checks, independent review, and inspectable outputs must enter the execution graph. An Agent cannot advance state merely by saying the task is complete.</p></div></article>
+            <article><span>03</span><div><h3>Internal state cannot replace external delivery facts</h3><p>The Task Engine records execution progress, but systems such as GitHub still own PR, CI, and actual merge state. The two domains require continuous reconciliation.</p></div></article>
+            <article><span>04</span><div><h3>A write-back still needs later validation</h3><p>Fixing one task or adding a Skill or rule does not prove the system improved. The evidence and outcomes of later comparable tasks determine whether the loop is effective.</p></div></article>
+          </div>
+          <div class="closing-statement"><span>Topics for a deeper discussion</span><p>Production AI · Message Orchestration · CI/CD · Harness Engineering · Agentic Loop · Developer Experience</p></div>
+          <nav class="next-page" aria-label="Next page"><span>Next project</span><a href="office-plus.html">Office Plus →</a></nav>
+        </section>
+      </div>
     </div>
-  </div></main>
-  <footer class="site-footer"><div class="site-footer-inner">
-<span>Copilot + Epichan</span><span><a href="projects.html">All Projects</a> · <a href="societas.html">Previous Project</a></span>
-</div></footer>
+  </main>
+
+  <footer class="site-footer"><div class="site-footer-inner"><span>Copilot × Epichan</span><span><a href="projects.html">All Projects</a> · <a href="societas.html">Previous Project</a></span></div></footer>
 </body>
 </html>

@@ -2,159 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#07101c">
-  <meta name="description" content="Office Agent Societas: Agent Runtime engineering examples from document generation to execution, recording and recovery of complete tasks.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07101c">
+  <meta name="description" content="Office Agent · Societas: engineering a recoverable, integrable, and secure production system for long-running Agent tasks.">
   <title>Office Agent · Societas — Tom Qiao</title>
   <link rel="stylesheet" href="../assets/styles.css">
-<link rel="stylesheet" href="../assets/longform.css">
-<script src="../assets/site.js" defer></script>
+  <link rel="stylesheet" href="../assets/longform.css">
+  <script src="../assets/site.js" defer></script>
 </head>
-<body class="longform-page societas">
-  <header class="site-header"><nav class="site-nav" aria-label="Primary navigation"><a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a><button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button><div class="nav-links" id="site-navigation">
-<a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
-</div></nav></header>
-  <main class="longform-wrap"><div class="doc-layout">
-    <aside class="doc-toc" data-toc aria-label="Table of contents on this page"><div class="doc-toc-title">Societas</div>
-<span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span><a href="#brief">60-second summary</a><a href="#product-view">Product interface</a><div class="doc-toc-group">Project understanding</div>
-<a href="#thesis">What Societas is</a><a href="#why">What problem it solves</a><a href="#evolution">Evolution</a><div class="doc-toc-group">Methods and system design</div>
-<a href="#taste">TDD methodology</a><a href="#pillars">Three core capabilities</a><a href="#runtime">Agent Runtime</a><div class="doc-toc-group">My Responsibility</div>
-<a href="#native">Native Tool Call</a><a href="#messages">Reliable message delivery</a><a href="#proxy">Agent Proxy</a><a href="#crypto">Data security &amp; compliance</a></aside>
-    <div class="doc-main">
-      <header class="doc-hero"><div class="doc-hero-label">
-<span class="doc-chip">Agent Runtime</span><span class="doc-chip">Skills and Workflows</span><span class="doc-chip">Reliable execution</span>
-</div>
-<h1 class="doc-title">Beyond generating content, <br>the system must <span class="accent">deliver usable outcomes.</span>
-</h1>
-<p class="doc-lead">Societas is a general-purpose Agent system for knowledge work. It records plans and execution state, invokes tools, processes files in isolated environments, and retries or recovers after failures to deliver <strong>verifiable, reusable results</strong>.</p>
-<div class="fact-ledger">
-<span>Skills/Workflow/Execution</span><span>Structured tool calling</span><span>persistence and recovery</span>
-</div></header>
+<body class="longform-page societas societas-case-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation"><span aria-hidden="true">☰</span></button>
+      <div class="nav-links" id="site-navigation">
+        <a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
+      </div>
+    </nav>
+  </header>
 
-      <section class="doc-section interviewer-brief" id="brief"><span class="section-label">00 · 60-second summary</span><h2>Understand the product first, then examine the four backend changes I owned.</h2>
-<div class="brief-grid">
-<article class="brief-card"><span class="brief-label">Team/Product Background</span><h3>A general-purpose Agent product built by the team</h3>
-<p>Product positioning, overall direction, Agent Runtime, Skills, and Workflows are team context, not individual accomplishments.</p></article><article class="brief-card"><span class="brief-label ownership">My Direct Responsibility</span><h3>Four backend engineering changes</h3>
-<p class="brief-links"><a href="#native">Native Tool Call</a><a href="#messages">Reliable message delivery</a><a href="#proxy">Agent Proxy</a><a href="#crypto">Data security &amp; compliance</a></p></article><article class="brief-card"><span class="brief-label">Team product results</span><h3>Societas reached 27K weekly active users (about 8.5% of eligible users) two months after global launch</h3>
-<p>This is a team product metric, not an individual result.</p></article><article class="brief-card"><span class="brief-label evidence">Scope of evidence</span><h3>Sanitized internal system information</h3>
-<p>No public artifact is available for external verification; architecture and outcomes are sanitized for public disclosure.</p></article>
-</div></section>
+  <main class="longform-wrap" id="main-content">
+    <div class="doc-layout">
+      <aside class="doc-toc" data-toc aria-label="Table of contents">
+        <div class="doc-toc-title">Societas</div><span class="toc-scroll-hint" aria-hidden="true">Swipe to explore →</span>
+        <a href="#snapshot">00 · Project snapshot</a><a href="#product">01 · Product and system</a><a href="#capabilities">02 · Evolution and capabilities</a><a href="#architecture">03 · Simplified architecture</a><a href="#ownership">04 · My work</a>
+        <div class="doc-toc-group">Engineering Cases</div>
+        <a href="#tool-runtime">05 · Tool-call migration</a><a href="#reliability">06 · Long-task reliability</a><a href="#platform">07 · Interface and security</a><a href="#takeaways">08 · Engineering judgment</a>
+      </aside>
 
-      <section class="doc-section product-view" id="product-view"><span class="section-label">Product interface</span><h2>From one conversation to a reusable workflow and an editable deliverable.</h2>
-<figure class="product-figure"><img src="../assets/societas-building-on-skills.png" width="936" height="523" loading="lazy" decoding="async" alt="Office Agent interface: a reusable workflow extracted from a completed research and presentation task on the left, and the generated editable presentation on the right"><figcaption><span class="figure-tag">Product screenshot</span><strong>From a conversation to a reusable Skill.</strong> On the left, after the user completes a full "research → business-plan presentation" conversation, Office Agent uses the <code>workflow-creator</code> Skill <strong>to extract the successful conversation into a reusable workflow/Skill</strong>. On the right is the presentation-quality PPT deliverable. The image shows three core Societas capabilities at a glance: conversational interaction + capability distillation + high-quality output.</figcaption></figure></section>
+      <div class="doc-main">
+        <header class="doc-hero societas-hero">
+          <div class="doc-hero-label"><span class="doc-chip">Office Agent</span><span class="doc-chip">Agent Backend</span><span class="doc-chip">Production Engineering</span></div>
+          <p class="hero-eyebrow">Microsoft 365 · General-purpose knowledge-work Agent</p>
+          <h1 class="doc-title">Societas: an <span class="accent"><span class="title-phrase">Office Agent</span></span><br>for long-running work.</h1>
+          <p class="doc-lead">Societas evolved from generating high-quality Office artifacts into an Agent system that plans, calls tools, operates on files and browsers, and completes end-to-end work. My backend work covered <strong>tool calling, reliable messaging, asynchronous interfaces, user-level encryption, and service-to-service TLS</strong>.</p>
+          <div class="hero-actions"><a class="button primary" href="#ownership">See my work</a><a class="button" href="#product">Understand the product</a></div>
+          <div class="societas-metrics" aria-label="Key project metrics and personal responsibility">
+            <div class="societas-metric"><strong>27K</strong><span>Peak weekly active users</span></div>
+            <div class="societas-metric"><strong>~8.5%</strong><span>Target-user penetration</span></div>
+            <div class="societas-metric"><strong>5</strong><span>Backend engineering workstreams</span></div>
+            <div class="societas-metric ownership"><strong>3 / 1 / 1</strong><span>Independent delivery / led migration / architecture design</span></div>
+          </div>
+        </header>
 
-      <section class="doc-section" id="thesis"><span class="section-label">01 · What Societas is</span><h2>Societas is not a text generator; it is a general-purpose Agent for knowledge work.</h2>
-<p class="section-intro">Societas is built for knowledge workers. It began with high-quality Office artifacts, then expanded to executing and delivering complete tasks. It brings expertise, workflow steps, tool use, and task state into one Agent system that delivers results people can continue editing and using.</p>
-<div class="prose-grid three">
-<article class="info-card"><span class="card-kicker">Outcome-oriented</span><h3>Deliver complete, editable results</h3>
-<p>The system produces working files such as documents, presentations, data analyses, and web pages instead of returning only fragments in a chat window.</p></article><article class="info-card"><span class="card-kicker">Safe execution</span><h3>Work in isolated environments and the browser</h3>
-<p>Code and files are processed in isolation. When a task requires page interaction, the system reads the current page state and performs multi-step actions.</p></article><article class="info-card"><span class="card-kicker">Reusable capability</span><h3>Preserve expertise and successful steps</h3>
-<p>Domain knowledge and quality standards are saved as Skills, while stable steps from successful tasks are saved as Workflows for similar work later.</p></article>
-</div></section>
+        <section class="doc-section project-snapshot" id="snapshot">
+          <span class="section-label">00 · Project snapshot</span><h2>Project outcome and scope of my work.</h2>
+          <div class="snapshot-grid">
+            <article class="snapshot-card outcome"><span class="card-kicker">Product outcome</span><h3>Reached 27K WAU and approximately 8.5% of target users two months after launch.</h3><p>Once the product entered real user workflows, the backend had to handle concurrent execution, reconnect recovery, data security, and integration with external systems.</p></article>
+            <article class="snapshot-card responsibility"><span class="card-kicker">My responsibility</span><h3>Backend engineering for the Agent Runtime and its supporting services.</h3><p>Independently delivered reliable messaging, Agent Proxy, and service-to-service TLS; led the Native Tool Call migration; designed the architecture and protocol for user-level encryption.</p></article>
+          </div>
+          <div class="decision-line"><span>Scope</span><p>This work built on the existing product and runtime, focusing on <strong>protocol migration, task recovery, concurrency, identity propagation, and data protection</strong>.</p></div>
+        </section>
 
-      <section class="doc-section" id="why"><span class="section-label">02 · What problem it solves</span><h2>Traditional Copilot can generate content, but it is not designed to complete an entire real-world task on its own.</h2>
-<p class="section-intro">Societas is not about making AI write more. It closes three gaps between answering a question and completing a task.</p>
-<div class="prose-grid three">
-<article class="decision-card"><span class="card-kicker">Quality gap</span><h3>Generated content is not yet a professional deliverable</h3>
-<p>A draft must still meet factual, structural, layout, and brand requirements before it becomes a result people can use and continue editing.</p></article><article class="decision-card"><span class="card-kicker">Reuse gap</span><h3>One answer does not create reusable capability</h3>
-<p>Team expertise, quality standards, and successful steps must be preserved for later tasks instead of restarting from a prompt every time.</p></article><article class="decision-card"><span class="card-kicker">Execution gap</span><h3>A recommendation does not complete the task</h3>
-<p>Real work also requires processing files, invoking tools, gathering information across pages, checking the result, and delivering the final artifact.</p></article>
-</div>
-<p class="signal-note"><strong>In one sentence: </strong> Move AI from one-off answers to reusable capability, and from content generation to task completion.</p></section>
+        <section class="doc-section product-view" id="product">
+          <span class="section-label">01 · Product and system</span><h2>From answering once to completing an entire piece of work.</h2>
+          <p class="section-intro">A user provides a real work objective. The system decomposes the task, invokes models and tools, handles code and files in an isolated environment, operates a browser when necessary, checks the result, and delivers an editable document, presentation, analysis, or webpage. Successful work can become a reusable capability for later tasks.</p>
+          <figure class="product-figure"><img src="../assets/societas-building-on-skills.png" width="936" height="523" loading="lazy" decoding="async" alt="Office Agent interface extracting a reusable workflow from a completed research and presentation task, with an editable presentation as the final output"><figcaption><span class="figure-tag">Product interface</span><strong>From conversation to reusable capability.</strong> A successful research-to-business-plan presentation process can be distilled into a reusable workflow for later tasks; the right side shows the final editable deliverable.</figcaption></figure>
+          <div class="product-model" aria-label="Societas work model">
+            <article><span>01</span><strong>Understand the objective</strong><p>Clarify the deliverable, audience, and quality bar.</p></article><article><span>02</span><strong>Plan and execute</strong><p>Coordinate models, tools, sub-Agents, sandboxes, and browsers.</p></article><article><span>03</span><strong>Check and recover</strong><p>Record state and handle failures, retries, and reconnects.</p></article><article><span>04</span><strong>Deliver and reuse</strong><p>Produce editable outputs and retain stable steps.</p></article>
+          </div>
+          <p class="signal-note"><strong>System-design scope:</strong> beyond model inference, a long-running task crosses tools, sandboxes, messaging systems, and clients, so it needs corresponding recovery, observability, and execution-control mechanisms.</p>
+        </section>
 
-      <section class="doc-section" id="evolution"><span class="section-label">03 · Evolution</span><h2>Expand from artifact creation to outcome completion.</h2>
-<p class="section-intro">This evolution is not about generating more content. It is about the system taking on more responsibility for completing the work.</p>
-<div class="flow-strip" aria-label="Product evolution">
-<div class="flow-node">
-<strong>1.0</strong><br>Artifact Creation</div>
-<div class="flow-node active">
-<strong>2.0</strong><br>Outcome Completion</div>
-<div class="flow-node">
-<strong>Office Agent</strong><br>End-to-end task collaboration</div>
-</div>
-<p class="signal-note"><strong>1.0 defines what a good work product should look like; 2.0 addresses how the work gets completed.</strong> The system's responsibility expands from producing professional files to clarifying goals, organizing steps, invoking tools, checking results, and completing delivery.</p></section>
+        <section class="doc-section" id="capabilities">
+          <span class="section-label">02 · Product evolution and core capabilities</span><h2>From “generate good content” to “complete real work.”</h2>
+          <p class="section-intro">Societas initially addressed the quality of Office artifacts: generating documents and presentations that were structurally complete, visually professional, and still editable. As the product evolved, the system assumed more responsibility—understanding objectives, organizing steps, calling tools, operating in real environments, checking results, and completing delivery.</p>
+          <div class="flow-strip" aria-label="Societas product evolution">
+            <div class="flow-node"><strong>1.0</strong><br>High-quality outputs<br>Artifact Creation</div>
+            <div class="flow-node active"><strong>2.0</strong><br>Achieve outcomes<br>Outcome Completion</div>
+            <div class="flow-node"><strong>Office Agent</strong><br>End-to-end collaboration<br>Reusable Execution</div>
+          </div>
+          <div class="prose-grid three">
+            <article class="info-card"><span class="card-kicker">Skills</span><h3>Turn expert knowledge into executable steps</h3><p>Skills capture domain knowledge, operating methods, and quality standards. Only relevant Skills are loaded for a task, giving the Agent specialized methods within a bounded context instead of relying on an ever-growing general prompt.</p></article>
+            <article class="info-card"><span class="card-kicker">Workflows</span><h3>Turn successful tasks into reusable processes</h3><p>The system extracts stable steps, key parameters, and decision points from strong completed tasks, producing workflows that later similar work can reuse rather than leaving success inside one conversation.</p></article>
+            <article class="info-card"><span class="card-kicker">Browser Operator</span><h3>Carry plans into real page interactions</h3><p>When work requires a system where the user is already signed in, the Agent can inspect page state, click, type, paginate, and extract information—moving from “tell the user what to do” to acting under the user's control.</p></article>
+          </div>
+          <article class="case-study">
+            <header class="case-head"><div><h3>Taste-Driven Development: quality is not a final polish step</h3><p>Here, TDD means Taste-Driven Development, not test-driven development.</p></div><span class="status">PRODUCT METHOD</span></header>
+            <div class="case-body">
+              <div class="case-row"><span class="case-label">Input</span><p>First define the audience, delivery objective, content priorities, brand, and layout constraints—what a professional result actually means.</p></div>
+              <div class="case-row"><span class="case-label">Execution</span><p>Planning, research, code, files, and browser operations work toward one delivery objective instead of producing disconnected fragments.</p></div>
+              <div class="case-row"><span class="case-label">Review</span><p>The draft is checked for facts, structure, information density, and visual quality. Work continues when it misses the bar instead of shipping the first generation.</p></div>
+            </div>
+          </article>
+        </section>
 
-      <section class="doc-section" id="taste"><span class="section-label">04 · TDD methodology</span><h2>Turn expert judgment into reusable quality standards.</h2>
-<p class="section-intro">Here, TDD means Taste-Driven Development, not test-driven development. It turns brand, layout, narrative, and domain requirements into explicit inputs and review criteria so the system can judge not only whether content is correct, but whether the result is professional and appropriate for its real use case.</p>
-<div class="prose-grid">
-<article class="decision-card"><span class="card-kicker">Input criteria</span><h3>Define a good result first</h3>
-<p>Record the audience, topic, purpose, delivery format, brand colors, and layout requirements, then use them to guide content structure and visual expression.</p></article><article class="decision-card"><span class="card-kicker">Check and modify</span><h3>Every draft must pass a quality review</h3>
-<p>The Workflow checks facts, structure, and visual quality. If it finds imbalance, factual errors, or a standards mismatch, the draft is revised before delivery.</p></article>
-</div>
-<p class="signal-note"><strong>Relationship: </strong> TDD defines the standard the result should meet; Skills, Workflows, and Browser Operator provide the capabilities that complete the work.</p></section>
+        <section class="doc-section" id="architecture">
+          <span class="section-label">03 · Simplified architecture</span><h2>Conventional APIs accept requests; the Agent Runtime owns uncertain, long-running execution.</h2>
+          <p class="section-intro">At a public level, Societas can be understood as two runtime boundaries. The API layer handles identity, task entry, and state queries. The Agent Runtime handles model inference, plan progression, tool execution, and artifact generation. Separating them enables independent scaling, deployment, and recovery for short requests and long-running work.</p>
+          <div class="state-loop">
+            <div class="state-loop-line"><div class="state current">User submits objective</div><div class="state">API creates Run</div><div class="state">Agent plans / calls tools</div><div class="state">Sandbox or browser executes</div><div class="state">Messages / artifacts delivered</div></div>
+            <div class="loop-return">Failure or disconnect → persist progress and events → continue from confirmed state ↺</div>
+          </div>
+          <div class="prose-grid three">
+            <article class="decision-card"><span class="card-kicker">Execution plane</span><h3>The model decides; the backend executes under control</h3><p>The model emits plans and structured tool calls. The backend validates parameters, authorization, and call state before running research, code, file, or browser tools and returning results for continued inference.</p></article>
+            <article class="decision-card"><span class="card-kicker">State and messaging</span><h3>Business facts, process state, and live delivery have separate roles</h3><p>Structured business data goes to databases and files or final artifacts to object storage. Redis holds cache and short-lived process state; reliable messaging carries ordered live events for long-running tasks.</p></article>
+            <article class="decision-card"><span class="card-kicker">Security and observability</span><h3>Do not trust model output or assume the internal network is safe</h3><p>Generated code runs in an isolated sandbox, sensitive data uses user-level encryption, and service communication uses TLS. Logs, metrics, and traces span model, tool, messaging, and storage calls.</p></article>
+          </div>
+          <p class="signal-note"><strong>Why this structure matters:</strong> one Agent run may last several minutes and cross multiple external dependencies. A browser connection or one service process cannot be the source of truth; progress, messages, and final artifacts must live inside recoverable boundaries.</p>
+        </section>
 
-      <section class="doc-section" id="pillars"><span class="section-label">05 · Three core capabilities</span><h2>Three capabilities bring knowledge, successful steps, and real interactions into the system.</h2>
-<div class="pillar-grid">
-<article class="pillar"><span class="pillar-no">I / SKILLS</span><h3>Load domain knowledge on demand</h3>
-<p>Skills record expert knowledge, operating steps, and quality standards. The system loads only what a task needs and turns that knowledge into steps an Agent can follow.</p>
-<span class="pillar-result">Expert knowledge → Executable steps</span></article><article class="pillar"><span class="pillar-no">II / WORKFLOWS</span><h3>Turn successful tasks into reusable workflows</h3>
-<p>The system extracts stable steps, parameters, and decision points from successful tasks, reviews them, and saves them as Workflows for similar tasks later.</p>
-<span class="pillar-result">Successful task → Reusable process</span></article><article class="pillar"><span class="pillar-no">III / BROWSER OPERATOR</span><h3>Complete page interactions in the user's browser</h3>
-<p>The system reads the current page state and performs clicks, input, and multi-step navigation in the user's signed-in context. The process remains visible and under the user's control.</p>
-<span class="pillar-result">Task intent → Real page interactions</span></article>
-</div></section>
+        <section class="doc-section" id="ownership">
+          <span class="section-label">04 · My work</span><h2>Five engineering workstreams across three explicit ownership modes.</h2>
+          <p class="section-intro">Each item states the responsibility I held, the problem addressed, and the capability left in the system.</p>
+          <div class="ownership-grid">
+            <article class="ownership-card featured"><header><span class="ownership-kind led">LED MIGRATION</span><span class="ownership-index">01</span></header><h3>Native Tool Call</h3><p>Led the migration from convention-based text tool calls to the model's native structured protocol and served as a primary developer across dual-mode operation, sub-Agents, multiple model SDKs, streamed result injection, and runtime metrics.</p><strong class="ownership-result">Gradual rollout, rollback, cross-Agent consistency</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">INDEPENDENT DELIVERY</span><span class="ownership-index">02</span></header><h3>Reliable Messaging</h3><p>Diagnosed, designed, and implemented a new real-time message path for long-running Agent tasks so a disconnected stream recovered automatically instead of depending on a manual refresh.</p><strong class="ownership-result">Retention, ack, redelivery, per-session ordering</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">INDEPENDENT DELIVERY</span><span class="ownership-index">03</span></header><h3>Agent Proxy</h3><p>Designed and delivered a standalone service from zero, exposing the Agent as persistent, queryable, recoverable asynchronous tasks while handling delegated user identity and production deployment.</p><strong class="ownership-result">End-to-end API, auth, state, and deployment</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind designed">ARCHITECTURE DESIGN</span><span class="ownership-index">04</span></header><h3>User-Level Encryption</h3><p>Designed the key hierarchy, ciphertext protocol, lookup method, rotation, and progressive migration. Teams integrated their data layers through the shared contract.</p><strong class="ownership-result">Limited exposure and online evolution</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">INDEPENDENT DELIVERY</span><span class="ownership-index">05</span></header><h3>Service-to-Service TLS</h3><p>Independently delivered the HTTP-to-HTTPS integration and deployment migration between nodes, including runtime certificate injection, server loading, client verification, and multi-environment rollout.</p><strong class="ownership-result">Eliminated plaintext internal transport</strong></article>
+          </div>
+        </section>
 
-      <section class="doc-section" id="runtime"><span class="section-label">06 · Agent Runtime</span><h2>How the Agent Runtime executes and recovers a task.</h2>
-<p class="section-intro">The Agent Runtime persists task goals and state. A primary Agent decomposes work and assembles results; specialized Agents handle code, retrieval, and other tasks. Tools use a unified interface, code and files run in isolation, and durable state supports recovery after disconnects or restarts.</p>
-<div class="state-loop">
-<div class="state-loop-line">
-<div class="state current">Receive request</div>
-<div class="state">Create plan</div>
-<div class="state">Invoke tools / Agents</div>
-<div class="state">Persist state</div>
-<div class="state">Deliver result</div>
-</div>
-<div class="loop-return">Failure → Persist state → Retry or resume ↺</div>
-</div>
-<div class="prose-grid three">
-<article class="info-card"><span class="card-kicker">Task coordination</span><h3>The primary Agent coordinates the task</h3>
-<p>The main Agent is responsible for decomposing tasks, scheduling sub-agents, summarizing results, and organizing task memories.</p></article><article class="info-card"><span class="card-kicker">Tool calling</span><h3>All tools use a unified interface</h3>
-<p>All Agents invoke tools through one interface, and results are recorded in a common event stream and task state.</p></article><article class="info-card"><span class="card-kicker">Execution isolation</span><h3>Process code and files in a sandbox</h3>
-<p>The sandbox is isolated from the main service; input files and output artifacts move through controlled interfaces.</p></article>
-</div></section>
+        <section class="doc-section case-chapter" id="tool-runtime">
+          <span class="section-label">05 · Engineering case one</span><h2>Migrating a tool protocol is not replacing one parser.</h2>
+          <p class="section-intro">Tool calling is the Agent Runtime's main loop: the model requests a call, the backend validates and executes it, and the result returns to context. The old approach depended on convention-formatted model text and was vulnerable to format drift. Native structured calls are more reliable, but migration touches message protocols, streaming events, sub-Agents, and multi-model compatibility at once.</p>
+          <article class="case-study"><header class="case-head"><div><h3>Use dual mode to turn a high-risk cutover into an observable, reversible evolution</h3><p>The two protocols coexist under control inside the same runtime instead of switching at once.</p></div><span class="status">LED / PRIMARY DEVELOPER</span></header><div class="case-body">
+            <div class="case-row"><span class="case-label">Problem</span><p>Structured calls use different message blocks and streaming events across model SDKs. Once the main Agent changes, sub-Agents, result injection, and conversation history must stay on the same protocol.</p></div>
+            <div class="case-row"><span class="case-label">Design</span><p>Retain the old protocol as fallback, select mode through configuration, expose the same tools through either protocol, propagate mode to sub-Agents, and adapt streaming aggregation and result pairing.</p></div>
+            <div class="case-row"><span class="case-label">Correctness</span><p>Validate tool name, call ID, and argument completeness before execution. Incomplete streamed calls cannot produce side effects, preventing partial JSON from contaminating later context.</p></div>
+            <div class="case-row"><span class="case-label">Release</span><p>Runtime metrics record call mode and failure type; limited enablement, comparison, and fast rollback replace a one-time global migration.</p></div>
+          </div></article>
+          <div class="senior-signal"><span>Engineering judgment</span><p>Protocol risk exists not only in the producer but in every consumer and historical record. Completion means the main Agent, sub-Agents, executor, message history, and observability all understand the same protocol version.</p></div>
+        </section>
 
-      <section class="doc-section" id="native"><span class="section-label">My Responsibility 01 · Structured tool calling</span><h2>Structured tool calling replaces parsing model-generated protocol text.</h2>
-<p class="section-intro">The old path required the model to emit text in a custom format for the Agent Runtime to parse. Native Tool Call uses structured fields from the model SDK for tool names, arguments, and results. The migration covered the primary Agent, sub-Agents, streaming events, result messages, and runtime telemetry, not only the parser.</p>
-<article class="case-study"><header class="case-head"><div>
-<h3>Run both paths in parallel and cut over using runtime telemetry</h3>
-<p>The main Agent and sub-Agent use the same calling method, while retaining the old method as a fallback.</p>
-</div>
-<span class="status">My Responsibility</span></header><div class="case-body">
-<div class="case-row">
-<span class="case-label">Compatibility differences</span><p>Different model SDKs have inconsistent formats for tool call messages, streaming events, and result backfill.</p>
-</div>
-<div class="case-row">
-<span class="case-label">Implementation method</span><p>Templates and Agent Runtime can choose structured calling (Native) or old text mode (legacy) according to configuration. The main Agent and sub-Agents use the same interface.</p>
-</div>
-<div class="case-row">
-<span class="case-label">Migration basis</span><p>Runtime telemetry records which mode was used. Success rates and failure categories guide a gradual cutover instead of a one-time replacement.</p>
-</div>
-</div></article></section>
+        <section class="doc-section case-chapter" id="reliability">
+          <span class="section-label">06 · Engineering case two</span><h2>Upgrade “the message exists” to “the live stream recovers automatically.”</h2>
+          <p class="section-intro">Long-running Agent tasks last minutes and produce many ordered events. The old design stored history fragments in Redis Lists but used Redis Pub/Sub for live delivery. Messages did not wait for a temporarily disconnected subscriber, so users had to refresh and replay history.</p>
+          <div class="reliability-model"><div class="reliability-layer"><span>Persistent process history</span><strong>Redis List</strong><p>Stores short-term history for refresh and reconnect replay.</p></div><div class="reliability-plus" aria-hidden="true">+</div><div class="reliability-layer active"><span>Reliable live layer</span><strong>Service Bus Session</strong><p>Retains unacknowledged messages with ack, redelivery, and per-session FIFO.</p></div></div>
+          <div class="prose-grid">
+            <article class="decision-card"><span class="card-kicker">Architecture judgment</span><h3>The problem is delivery semantics, not retry count</h3><p>Retry wrappers cannot turn Pub/Sub broadcast semantics into offline retention. The fix must redefine which layer owns real-time reliability.</p></article>
+            <article class="decision-card"><span class="card-kicker">Migration control</span><h3>Abstract transport and retain rollout and rollback</h3><p>A shared MessageTransport interface isolates business code so old and new transports can switch by configuration without spreading infrastructure migration across callers.</p></article>
+            <article class="decision-card"><span class="card-kicker">Concurrency failure</span><h3>Resource lifecycles must follow failure boundaries</h3><p>Shared send resources affected one another under concurrency. The fix separated resources by channel, coordinated concurrent creation, locked use, and rebuilt only the failed entry.</p></article>
+            <article class="decision-card"><span class="card-kicker">Honest boundary</span><h3>At-least-once is not exactly-once</h3><p>The queue may redeliver. Display messages and side-effecting tool execution still need business-level idempotency keys and state machines.</p></article>
+          </div><p class="ownership-note">Independent delivery · diagnosis / transport abstraction / Service Bus Session / concurrency and recovery</p>
+        </section>
 
-      <section class="doc-section" id="messages"><span class="section-label">My Responsibility 02 · Reliable message delivery</span><h2>Redis Lists handle reconnect replay; Service Bus Sessions handle reliable live delivery.</h2>
-<p class="section-intro">Long-running Agent tasks continuously emit message fragments. The old design temporarily stored fragments in Redis Lists, but its live Redis Pub/Sub path had no retention or acknowledgement and could miss messages while the backend was briefly unavailable. I independently abstracted the transport layer and migrated live delivery to Service Bus Sessions while retaining 24-hour replayable state in Redis.</p>
-<div class="flow-strip"><div class="flow-node">Agent emits fragments</div><div class="flow-node active">Redis List stores 24h</div><div class="flow-node">Service Bus Session delivers</div><div class="flow-node">API acknowledges and streams</div><div class="flow-node">Redis replays on reconnect</div></div>
-<div class="prose-grid"><article class="decision-card"><span class="card-kicker">Live reliability</span><h3>Retention, acknowledgement, redelivery, and per-session FIFO</h3><p>Service Bus Sessions retain unacknowledged messages while the backend is unavailable and isolate and order different Agent runs by session.</p></article><article class="decision-card"><span class="card-kicker">Migration and rollback</span><h3>Switch transport implementations through configuration</h3><p>A unified MessageTransport interface supports staged rollout and rollback between Redis and Service Bus without rewriting the business layer.</p></article></div>
-<p class="ownership-note">Personal responsibility · Problem diagnosis / transport design / Service Bus Session migration</p></section>
+        <section class="doc-section case-chapter" id="platform">
+          <span class="section-label">07 · Engineering case three</span><h2>Make the Agent safe to integrate while protecting user data.</h2>
+          <p class="section-intro">A production Agent must be callable by external products while handling user files and sensitive data. Interfaces, identity, task state, encryption at rest, and transport security need one continuous boundary rather than isolated features.</p>
+          <div class="platform-grid">
+            <article class="platform-card proxy"><span class="platform-no">A / Agent Proxy</span><h3>Wrap long-running work in a recoverable asynchronous API</h3><p>Callers create a task, query or subscribe to state, and retrieve results. Persistent task state allows in-flight work to recover after a restart, while delegated user identity remains across the call chain.</p><ul><li>Designed and delivered independently from zero</li><li>Authentication, task state, containerization, and CI/CD</li><li>Decoupled from the main Runtime for independent release and scaling</li></ul></article>
+            <article class="platform-card crypto"><span class="platform-no">B / User Encryption</span><h3>Design lookup, key isolation, and rotation together</h3><p>A stable hash supports lookup while original identity and user data remain encrypted. Layered keys limit exposure, and self-describing ciphertext allows old and new keys to coexist during progressive migration.</p><ul><li>Owned system architecture and protocol design</li><li>Teams integrated data layers through one contract</li><li>Sharing separates authorization identity from decryption identity</li></ul></article>
+            <article class="platform-card tls"><span class="platform-no">C / Service TLS</span><h3>Eliminate plaintext communication between service nodes</h3><p>Delivered runtime certificate injection, format conversion, server-side HTTPS, client CA verification, and multi-environment migration. The accurate boundary is one-way TLS engineering integration—not implementing TLS itself or mTLS.</p><ul><li>Independently delivered integration and deployment migration</li><li>Private keys stay out of code and images</li><li>Leaves room for stronger service identity verification</li></ul></article>
+          </div>
+        </section>
 
-      <section class="doc-section" id="proxy"><span class="section-label">My Responsibility 03 · Agent Proxy</span><h2>Expose the Agent through a resumable asynchronous task API.</h2>
-<p class="section-intro">Long-running Agent work cannot depend on one synchronous request. I designed and delivered Agent Proxy from scratch: create durable tasks, expose status through subscription or polling, return final results, and preserve user identity and permission boundaries when accessing downstream resources on a user's behalf.</p>
-<div class="gate-grid"><article class="gate"><span>01</span><h3>Create a persistent task</h3><p>The request is written to task storage instead of living only in the current service process.</p></article><article class="gate"><span>02</span><h3>Enforce delegated authorization</h3><p>OBO authorization preserves the user's identity and permission boundaries for downstream access.</p></article><article class="gate"><span>03</span><h3>Recover after restart</h3><p>The service can recover in-flight tasks after a restart and continue reporting their status.</p></article><article class="gate"><span>04</span><h3>Deploy and release independently</h3><p>Containerization and CI/CD support independent deployment and a stable integration surface for external systems.</p></article></div>
-<p class="ownership-note">Personal responsibility · Greenfield design / production delivery / service boundary</p></section>
-
-      <section class="doc-section" id="crypto"><span class="section-label">My Responsibility 04 · Data security &amp; compliance</span><h2>User-level encryption protects data at rest; TLS protects service-to-service traffic.</h2>
-<p class="section-intro">I designed the architecture and protocol for user-level encryption, which partner modules adopted in their data layers. I also independently migrated Societas backend node-to-node traffic from HTTP to HTTPS and configured CA verification for Agent Proxy downstream traffic, covering both data at rest and data in transit.</p>
-<article class="case-study"><header class="case-head"><div><h3>Protect database fields and service-to-service links</h3><p>Storage supports key rotation and gradual migration; transport eliminates plaintext communication between nodes.</p></div><span class="status">My Responsibility</span></header><div class="case-body">
-<div class="case-row"><span class="case-label">User-level encryption</span><p>Hierarchical keys, stable hashed lookup, and self-describing ciphertext isolate user data, while key versions support rotation.</p></div>
-<div class="case-row"><span class="case-label">Gradual migration</span><p>The system reads both legacy plaintext and new ciphertext, then backfills data in batches without downtime; partner modules integrate through one shared protocol.</p></div>
-<div class="case-row"><span class="case-label">Backend node-to-node TLS</span><p>Migrated service traffic from HTTP to HTTPS through Key Vault certificate injection, PFX-to-PEM conversion, server certificate loading, and environment-wide configuration cutover.</p></div>
-<div class="case-row"><span class="case-label">Proxy downstream TLS</span><p>Agent Proxy uses a mounted CA certificate to verify the backend, encrypting the internal link and rejecting an impersonated service. This is one-way TLS, not mTLS.</p></div>
-</div></article><p class="ownership-note">Personal responsibility · Encryption architecture and protocol / backend HTTPS migration / Proxy downstream certificate verification</p>
-<nav class="next-page" aria-label="Next page"><span>Next Project</span><a href="copilot-epichan.html">Copilot + Epichan →</a></nav></section>
+        <section class="doc-section" id="takeaways">
+          <span class="section-label">08 · Engineering judgment</span><h2>Four engineering lessons from this work.</h2>
+          <div class="takeaway-list">
+            <article><span>01</span><div><h3>Define delivery semantics before selecting infrastructure</h3><p>Reliable-messaging choices are not a simple Redis-versus-Service-Bus performance comparison. The deciding requirements are offline retention, ordering, acknowledgment, and redelivery for long-running tasks.</p></div></article>
+            <article><span>02</span><div><h3>Keep observation, gradual rollout, and rollback in production migrations</h3><p>Native Tool Call used dual-mode compatibility across protocols; message delivery used one interface across transports. Both retained runtime metrics, staged enablement, and configuration rollback.</p></div></article>
+            <article><span>03</span><div><h3>Model the visitor, data owner, and decryption identity separately</h3><p>In public sharing, a visitor passing authorization does not mean the visitor's own key can decrypt the owner's data. The system first verifies access, then decrypts within a controlled scope using the owner's encryption context.</p></div></article>
+            <article><span>04</span><div><h3>Independent delivery includes development, deployment, and operation</h3><p>Agent Proxy includes more than API code: authentication, persistent task state, restart recovery, containerization, CI/CD, and observability make it independently deployable and maintainable.</p></div></article>
+          </div>
+          <div class="closing-statement"><span>Topics for a deeper discussion</span><p>Agent Runtime · Tool Calling · Distributed Systems · Async API · Data Security · Production Migration</p></div>
+          <nav class="next-page" aria-label="Next page"><span>Next project</span><a href="copilot-epichan.html">Copilot × Epichan →</a></nav>
+        </section>
+      </div>
     </div>
-  </div></main>
-  <footer class="site-footer"><div class="site-footer-inner">
-<span>Office Agent · Societas</span><span><a href="projects.html">All Projects</a> · <a href="opensource.html">Open Source</a></span>
-</div></footer>
+  </main>
+  <footer class="site-footer"><div class="site-footer-inner"><span>Office Agent · Societas</span><span><a href="projects.html">All Projects</a> · <a href="opensource.html">Open Source</a></span></div></footer>
 </body>
 </html>

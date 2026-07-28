@@ -63,6 +63,21 @@ button, a { -webkit-tap-highlight-color: transparent; }
   outline-offset: 4px;
 }
 
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 200;
+  padding: 9px 12px;
+  border: 1px solid var(--mint);
+  color: var(--ink);
+  background: var(--mint);
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus-visible { transform: translateY(0); }
+
 .site-header {
   position: sticky;
   top: 0;

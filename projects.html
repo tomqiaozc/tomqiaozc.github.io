@@ -10,6 +10,7 @@
   <script src="assets/site.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
   <header class="site-header">
     <nav class="site-nav" aria-label="主导航">
       <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
@@ -20,10 +21,10 @@
     </nav>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell" id="main-content">
     <section class="systems-hero">
       <div><p class="eyebrow">核心项目 · 对比表</p><h1>先看职责，<br>再看项目细节。</h1></div>
-      <p>三个项目按时间、团队工作、我的职责、项目结果和证据来源并列展示，便于快速选择要深入了解的案例。</p>
+      <p>三个项目按时间、工作范围、项目结果和深入主题并列展示，便于快速选择要进一步了解的系统与工程案例。</p>
     </section>
 
     <div class="project-matrix" role="table" aria-label="核心项目对比与选择矩阵">
@@ -31,7 +32,7 @@
         <span role="columnheader">项目 / 时间</span>
         <span role="columnheader">团队工作 / 我的职责</span>
         <span role="columnheader">项目结果</span>
-        <span role="columnheader">证据来源</span>
+        <span role="columnheader">深入主题</span>
         <span role="columnheader">详情</span>
       </div>
 
@@ -43,7 +44,7 @@
         </div>
         <div class="project-boundary" role="cell">
           <p><span class="matrix-label">团队工作</span>通用 Office Agent 的产品能力和整体交付由团队共同完成。</p>
-          <p><span class="matrix-label ownership">我的职责</span>Native Tool Call、Agent 长任务可靠传输、Agent Proxy，以及覆盖存储态与传输态的数据安全与合规。</p>
+          <p><span class="matrix-label ownership">我的职责</span>独立交付可靠消息、Agent Proxy 和服务间 TLS；主导 Native Tool Call 迁移；负责用户级加密的架构与协议设计。</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">团队结果</span>
@@ -51,8 +52,8 @@
           <span>≈8.5%</span>
         </div>
         <div class="project-evidence" role="cell">
-          <span class="evidence-badge private">内部项目</span>
-          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+          <span class="evidence-badge private">Agent Runtime</span>
+          <p>Tool Calling、可靠消息、异步接口、用户级加密与服务间 TLS。</p>
         </div>
         <div class="project-action" role="cell"><a href="societas.html">查看详情 ↗</a></div>
       </article>
@@ -60,21 +61,21 @@
       <article class="project-matrix-row" role="row">
         <div class="project-id" role="cell">
           <span class="project-period">2026.03–至今</span>
-          <h2>Copilot<br>+ Epichan</h2>
-          <span class="project-domain">Agent 工作流与生产发布</span>
+          <h2>Copilot<br>× Epichan</h2>
+          <span class="project-domain">Production AI × Agentic Loop</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">团队工作</span>团队建设并运行 Copilot 生产交付体系和 Epichan Agent Harness。</p>
-          <p><span class="matrix-label ownership">我的职责</span>我主导 CI/CD 效率优化，将 CI 运行时间减少 31%，并在既有双流水线基础上参数化发布流程、增加测试状态门禁及 hotfix 路径，缩短代码变更的验证与发布周期；深度参与多区域渐进发布和线上保障。另独立设计无障碍修复 Agent 工作流，两个月内关闭 64 个 Sev2。</p>
+          <p><span class="matrix-label">系统背景</span>Studio 承载 Copilot 生产前端；Epichan 以真实产品任务验证 Harness 与 Agentic Loop Engineering。</p>
+          <p><span class="matrix-label ownership">我的职责</span>优化 Copilot CI/CD 与生产发布；将无障碍修复 Skill 接入 Epichan Harness，形成多角色 Agentic Loop 工作流。</p>
         </div>
         <div class="project-outcome" role="cell">
-          <span class="matrix-label">团队系统</span>
-          <strong>生产级 Agent Harness</strong>
-          <span>支持 Agent 编码、评审、测试与交付</span>
+          <span class="matrix-label">个人结果</span>
+          <strong>~31% CI</strong>
+          <span>两个月关闭 64 个 Sev2 问题</span>
         </div>
         <div class="project-evidence" role="cell">
-          <span class="evidence-badge private">内部交付 / 私有实践</span>
-          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+          <span class="evidence-badge private">Loop Engineering</span>
+          <p>消息编排、生产部署、CI/CD、Harness、任务状态与反馈闭环。</p>
         </div>
         <div class="project-action" role="cell"><a href="copilot-epichan.html">查看详情 ↗</a></div>
       </article>
@@ -95,8 +96,8 @@
           <span>上线首 10 天</span>
         </div>
         <div class="project-evidence" role="cell">
-          <span class="evidence-badge private">内部项目</span>
-          <p>依据：简历和项目复盘；无法用公开源码核验。</p>
+          <span class="evidence-badge private">Commercial Backend</span>
+          <p>商业化链路、身份认证、会话生命周期与跨服务一致性。</p>
         </div>
         <div class="project-action" role="cell"><a href="office-plus.html">查看详情 ↗</a></div>
       </article>
