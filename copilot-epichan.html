@@ -37,9 +37,9 @@
           <div class="doc-hero-label"><span class="doc-chip">Production AI Engineering</span><span class="doc-chip">Graph + Loop Engineering</span><span class="doc-chip">Developer Experience</span></div>
           <p class="hero-eyebrow">Microsoft Copilot · Studio / Epichan</p>
           <h1 class="doc-title">Microsoft Copilot<br><span class="accent">Graph-based Agentic Loop</span><br><span class="accent title-tail">与生产工程</span></h1>
-          <p class="doc-lead">本页先说明 Epichan 与 Studio 在 Microsoft Copilot 中的关系，再展开我的两条工作线：在 Epichan 既有 graph-based Harness 之上，将无障碍修复经验沉淀为接入 Agentic Loop 的多角色工作流；在 Studio 参与生产级 AI 产品的推理架构、研发效能与发布保障。</p>
+          <p class="doc-lead">本页先说明 Epichan 与 Studio 在 Microsoft Copilot 中的关系，再展开我的两条工作线：在 Epichan 既有 graph-based Harness 之上，将无障碍修复经验沉淀为接入 Agentic Loop 的多角色工作流；在 Studio 理解 Copilot 生产推理链路，设计并交付 flaky 测试治理，推进 CI 构建优化并参与渐进发布与线上保障。</p>
           <div class="hero-actions"><a class="button primary" href="#positioning">先看项目与职责</a><a class="button" href="#loop">理解 Epichan Graph + Loop</a></div>
-          <div class="fact-ledger" aria-label="项目关键结果与工程主题"><span><strong>64</strong><small>个 Sev2 · 两个月关闭</small></span><span><strong>~30%</strong><small>团队构建时长降低</small></span><span><strong>0→1</strong><small>hotfix→生产路径</small></span></div>
+          <div class="fact-ledger" aria-label="项目关键结果与工程主题"><span><strong>64</strong><small>个 Sev2 · 两个月关闭</small></span><span><strong>CI/CD</strong><small>构建时长降低约 30%</small></span><span><strong>PROD</strong><small>多区域发布与线上 on-call</small></span></div>
         </header>
 
         <section class="doc-section interviewer-brief" id="positioning">
@@ -47,8 +47,8 @@
           <div class="brief-grid">
             <article class="brief-card"><span class="brief-label evidence">Epichan / Bebop Lite</span><h3>Agent-first 工程环境</h3><p>Bebop Lite 连接真实 Copilot 服务，为 Agent 编码、评审和验证提供产品环境；Epichan 的重点是围绕它构建的 graph-based Harness 与完整交付闭环。</p></article>
             <article class="brief-card"><span class="brief-label">Studio</span><h3>生产产品与交付体系</h3><p>Studio 承载 Copilot Web 的多端用户体验。这里关注消息如何进入后端编排，以及代码如何经过 CI、artifacts promote、分区域发布和运行时控制进入生产。</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Epichan 工程工作</span><h3>把无障碍修复方法接入 Graph + Loop</h3><p>基于 Studio 两个月关闭 64 个 Sev2 的实战，把读屏复验、键盘导航和共享事件改动后的跨 Surface 回归检查写进 a11y-remediation-workflow，并在 Epichan 既有 graph-based Harness 之上持续迭代。</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Studio 工程工作</span><h3>推理架构、CI/CD、稳定性与线上保障</h3><p>理解 Copilot 推理与消息编排架构；参与 CI 提速、flaky 治理和制品 promote，从 0 打通 hotfix→生产路径，并参与渐进发布与 on-call。</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Epichan 工程工作</span><h3>把无障碍修复方法接入 Graph + Loop</h3><p>在 Epichan 既有 graph-based Harness 之上主导设计并迭代 a11y-remediation-workflow，把读屏实测、键盘导航、跨场景回归和证据完整性固化为硬性检查。</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Studio 工程工作</span><h3>AI Coding 研发效能与生产交付</h3><p>理解 Copilot 会话接入至流式返回的生产推理链路；设计并交付 flaky 测试自动检测—隔离—追踪机制，推进变更分类与测试并行，将构建时长降低约 30%，并参与多区域渐进发布与线上 on-call。</p></article>
           </div>
         </section>
 
@@ -106,7 +106,7 @@
 
         <section class="doc-section" id="a11y-loop">
           <span class="section-label">05 · 我的 Epichan 工作流</span><h2>无障碍修复方法从可复用 Skill，演进为 Loop 中的多角色工作流。</h2>
-          <p class="section-intro">在 Studio 中，我先把复现、修复和验证无障碍问题的方法整理为可重复使用的 Agent Skill，并在两个月内关闭 64 个 Sev2 无障碍缺陷，覆盖 6 个 squad。随后，我在 Epichan 既有 graph-based Harness 之上设计并迭代 <code>a11y-remediation-workflow</code>，使其接入 Agentic Loop，由不同角色完成实现、独立复验和结果判断。</p>
+          <p class="section-intro">在 Studio 中，我先把复现、修复和验证无障碍问题的方法整理为可重复使用的 Agent Skill，并在两个月内关闭 64 个 Sev2 无障碍缺陷，覆盖 6 个 squad。随后，我在 Epichan 既有 graph-based Harness 之上主导设计并迭代 <code>a11y-remediation-workflow</code>，使其接入 Agentic Loop，由不同角色完成实现、独立复验和结果判断。</p>
           <p class="signal-note"><strong>具体的检查规则：</strong>我把目标页面、操作步骤和实际读屏表现等复现信息，以及开发、评审、验收各阶段必须提交的证据，写成可重复执行的规则。DOM / ARIA 看似正确但读屏仍异常、键盘导航与预期交互不一致，或共享事件改动导致其他 Surface 回归时，检查直接失败；证据不全，任务不能进入下一阶段。</p>
           <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整工作流演进 →</div>
           <div class="flow-strip" aria-label="无障碍工作流演进"><div class="flow-node">问题复现方法</div><div class="flow-node">个人 Agent Skill</div><div class="flow-node active">Epichan Workflow</div><div class="flow-node">Developer / Reviewer</div><div class="flow-node">Judge 验收</div></div>
@@ -147,13 +147,13 @@
         </section>
 
         <section class="doc-section" id="copilot-work">
-          <span class="section-label">08 · 我的 Studio 工程工作</span><h2>推理与消息编排、研发效能和生产保障。</h2>
-          <p class="section-intro">前文说明我对 Copilot 推理与消息编排架构的理解；以下聚焦实际交付的 CI、flaky 治理、hotfix 路径，以及多区域发布与 on-call 工作。</p>
+          <span class="section-label">08 · 我的 Studio 工程工作</span><h2>AI Coding 研发效能、生产推理链路与线上保障。</h2>
+          <p class="section-intro">前文说明我对 Copilot 生产推理链路的理解；以下聚焦我实际交付的 CI/CD 吞吐与质量门禁优化，以及参与的多区域渐进发布和线上 on-call。</p>
           <article class="case-study">
-            <header class="case-head"><div><h3>优化 CI 关键路径与发布流程</h3><p>缩短代码验证和 artifacts promote 的等待时间，同时保留测试门禁与 artifacts 一致性。</p></div><span class="status">BUILD TIME ~30% LOWER</span></header>
+            <header class="case-head"><div><h3>提升 CI/CD 吞吐并守住质量门禁</h3><p>面向 AI Coding 带来的高频提交，缩短验证关键路径，同时保留可检查的测试结果与发布门禁。</p></div><span class="status">BUILD TIME ~30% LOWER</span></header>
             <div class="case-body">
-              <div class="case-row"><span class="case-label">CI</span><p>作为核心贡献者参与 CI 提速与稳定性治理，交付变更分类与测试并行化等改进；其中 ConsolidateBundleInfo 与 ImageBuild 并行化由我完成，单项节省约 6 分钟。相关团队优化使构建时长约降低 30%。</p></div>
-              <div class="case-row"><span class="case-label">CD</span><p>在既有双流水线基础上参数化环境选择与 artifacts promote，增加测试状态门禁，并从 0 设计、打通 hotfix→生产路径，使已验证 artifacts 能够更快进入生产。</p></div>
+              <div class="case-row"><span class="case-label">CI</span><p>推进变更分类与测试并行等构建优化；其中 ConsolidateBundleInfo 与 ImageBuild 并行化由我完成，单项节省约 6 分钟。上述优化将构建时长降低约 30%。</p></div>
+              <div class="case-row"><span class="case-label">门禁</span><p>吞吐优化不降低测试要求；并行任务与产物状态保留可检查的测试结果，只有满足既有质量门禁才进入后续发布阶段。</p></div>
             </div>
           </article>
           <article class="case-study">
@@ -161,10 +161,10 @@
             <div class="case-body">
               <div class="case-row"><span class="case-label">发布</span><p>参与 Copilot 多区域渐进发布，通过自动化检查和健康信号观察各阶段变化，避免一次性扩大影响范围。</p></div>
               <div class="case-row"><span class="case-label">控制</span><p>根据异常发生在代码、功能启用还是区域流量层，使用 Feature Flag、Kill Switch、回滚或流量调整控制影响。</p></div>
-              <div class="case-row"><span class="case-label">恢复</span><p>结合发布记录、监控信号和区域状态定位变化来源，停止后续放量并恢复服务。</p></div>
+              <div class="case-row"><span class="case-label">止损</span><p>结合发布记录、健康信号和区域状态定位异常来源，并按故障层次停止后续放量、关闭功能、回滚或调整流量。</p></div>
             </div>
           </article>
-          <article class="decision-card secondary-work case-head"><div><span class="card-kicker">补充工作 · Flaky Test</span><h3>把测试噪声变成有状态的治理对象</h3><p>交付自动检测—隔离—追踪闭环：从历史失败和受控复跑识别不稳定测试，确认后隔离并保留记录，修复验证后恢复，使隔离不会退化为永久跳过。</p></div><span class="status">MAIN CI SUCCESS RATE 78.8% → ~88%</span></article>
+          <article class="decision-card secondary-work case-head"><div><span class="card-kicker">补充工作 · Flaky Test</span><h3>把测试噪声变成有状态的治理对象</h3><p>设计并交付自动检测—隔离—追踪机制：从历史失败和受控复跑识别不稳定测试，确认后隔离并保留记录，修复验证后恢复，使隔离不会退化为永久跳过。</p></div><span class="status">MAIN CI SUCCESS RATE 78.8% → ~88%</span></article>
         </section>
 
         <section class="doc-section" id="takeaways">

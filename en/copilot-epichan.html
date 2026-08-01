@@ -37,9 +37,9 @@
           <div class="doc-hero-label"><span class="doc-chip">Production AI Engineering</span><span class="doc-chip">Graph + Loop Engineering</span><span class="doc-chip">Developer Experience</span></div>
           <p class="hero-eyebrow">Microsoft Copilot · Studio / Epichan</p>
           <h1 class="doc-title">Microsoft Copilot<br><span class="accent">Graph-based Agentic Loop</span><br><span class="accent title-tail">&amp; Production Engineering</span></h1>
-          <p class="doc-lead">This page first explains how Epichan and Studio relate within Microsoft Copilot, then follows my two workstreams: turning accessibility-remediation experience into a multi-role workflow on top of Epichan's existing graph-based Harness and within its Agentic Loop; and production AI inference, engineering efficiency, and delivery reliability in Studio.</p>
+          <p class="doc-lead">This page first explains how Epichan and Studio relate within Microsoft Copilot, then follows my two workstreams: turning accessibility-remediation experience into a multi-role workflow on top of Epichan's existing graph-based Harness and within its Agentic Loop; and developing a working understanding of Copilot's production inference path while shipping flaky-test governance, CI build improvements, and progressive-delivery support in Studio.</p>
           <div class="hero-actions"><a class="button primary" href="#positioning">Start with project &amp; role</a><a class="button" href="#loop">Understand Epichan Graph + Loop</a></div>
-          <div class="fact-ledger" aria-label="Key outcomes and engineering themes"><span><strong>64</strong><small>Sev2 · closed in two months</small></span><span><strong>~30%</strong><small>team build-time reduction</small></span><span><strong>0→1</strong><small>hotfix-to-production path</small></span></div>
+          <div class="fact-ledger" aria-label="Key outcomes and engineering themes"><span><strong>64</strong><small>Sev2 · closed in two months</small></span><span><strong>CI/CD</strong><small>~30% lower build time</small></span><span><strong>PROD</strong><small>multi-region rollout &amp; on-call</small></span></div>
         </header>
 
         <section class="doc-section interviewer-brief" id="positioning">
@@ -47,8 +47,8 @@
           <div class="brief-grid">
             <article class="brief-card"><span class="brief-label evidence">Epichan / Bebop Lite</span><h3>An Agent-first engineering environment</h3><p>Bebop Lite connects to real Copilot services and gives Agents a product environment for coding, review, and verification. Epichan centers on the graph-based Harness and the end-to-end delivery loop built around it.</p></article>
             <article class="brief-card"><span class="brief-label">Studio</span><h3>Production product and delivery system</h3><p>Studio powers Copilot Web experiences across multiple surfaces. The focus here is how messages enter backend orchestration and how code moves through CI, artifacts promotion, regional rollout, and runtime controls into production.</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Epichan engineering work</span><h3>Connecting an accessibility method to Graph + Loop</h3><p>Building on the 64 Studio Sev2 defects I closed in two months, I added screen-reader replay, keyboard-navigation checks, and cross-surface regression checks after shared-event changes to <code>a11y-remediation-workflow</code>, then continued iterating it on top of Epichan's existing graph-based Harness.</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Studio engineering work</span><h3>Inference architecture, CI/CD, stability, and operations</h3><p>Developed hands-on understanding of Copilot inference and message orchestration; contributed CI speed, flaky-test governance, and artifact-promotion improvements; built the hotfix-to-production path from scratch; and supported progressive rollout and on-call.</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Epichan engineering work</span><h3>Connecting an accessibility method to Graph + Loop</h3><p>On Epichan's existing graph-based Harness, I led the design and iteration of <code>a11y-remediation-workflow</code>, making screen-reader testing, keyboard navigation, cross-scenario regression, and evidence completeness mandatory checks.</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Studio engineering work</span><h3>AI Coding efficiency and production delivery</h3><p>Developed a working understanding of Copilot's production inference path from session ingress through streaming responses; designed and shipped automated flaky-test detection, quarantine, and tracking, drove change classification and test parallelization to reduce build time by ~30%, and supported multi-region rollout and production on-call.</p></article>
           </div>
         </section>
 
@@ -106,7 +106,7 @@
 
         <section class="doc-section" id="a11y-loop">
           <span class="section-label">05 · My Epichan workflow</span><h2>The accessibility-remediation method evolved from a reusable Skill into a multi-role workflow inside the Loop.</h2>
-          <p class="section-intro">In Studio, I first organized the reproduction, repair, and verification method for accessibility issues into a repeatable Agent Skill, closing 64 Sev2 accessibility defects in two months across 6 squads. I then designed and iterated <code>a11y-remediation-workflow</code> on top of Epichan's existing graph-based Harness, connecting it to the Agentic Loop; the Harness coordinates separate roles for implementation, independent replay, and final judgment.</p>
+          <p class="section-intro">In Studio, I first organized the reproduction, repair, and verification method for accessibility issues into a repeatable Agent Skill, closing 64 Sev2 accessibility defects in two months across 6 squads. I then led the design and iteration of <code>a11y-remediation-workflow</code> on top of Epichan's existing graph-based Harness, connecting it to the Agentic Loop; the Harness coordinates separate roles for implementation, independent replay, and final judgment.</p>
           <p class="signal-note"><strong>Concrete validation rules:</strong> I turned reproduction details—the target page, exact steps, and observed screen-reader behavior—plus evidence required during implementation, review, and acceptance into repeatable rules. A check fails when DOM / ARIA looks correct but screen-reader behavior remains wrong, keyboard navigation differs from the intended interaction, or a shared-event change regresses another surface; missing evidence blocks the next stage.</p>
           <div class="mobile-scroll-hint" aria-hidden="true">Swipe to view the complete workflow evolution →</div>
           <div class="flow-strip" aria-label="Accessibility workflow evolution"><div class="flow-node">Issue reproduction method</div><div class="flow-node">Personal Agent Skill</div><div class="flow-node active">Epichan Workflow</div><div class="flow-node">Developer / Reviewer</div><div class="flow-node">Judge acceptance</div></div>
@@ -147,13 +147,13 @@
         </section>
 
         <section class="doc-section" id="copilot-work">
-          <span class="section-label">08 · My Studio engineering work</span><h2>Inference and message orchestration, engineering efficiency, and production reliability.</h2>
-          <p class="section-intro">The previous section explains my understanding of Copilot's inference and message-orchestration architecture. The work below focuses on delivered CI and flaky-test improvements, the hotfix path, multi-region rollout, and on-call operations.</p>
+          <span class="section-label">08 · My Studio engineering work</span><h2>AI Coding efficiency, the production inference path, and operational support.</h2>
+          <p class="section-intro">The previous section explains my understanding of Copilot's production inference path. The work below focuses on CI/CD throughput and quality-gate improvements I delivered, plus multi-region progressive rollout and production on-call support.</p>
           <article class="case-study">
-            <header class="case-head"><div><h3>Improve the CI critical path and release flow</h3><p>Reduce the wait from code validation to artifacts promotion while preserving test gates and artifact consistency.</p></div><span class="status">BUILD TIME ~30% LOWER</span></header>
+            <header class="case-head"><div><h3>Increase CI/CD throughput without weakening quality gates</h3><p>Handle high-frequency AI Coding submissions by shortening the validation critical path while preserving inspectable test results and release gates.</p></div><span class="status">BUILD TIME ~30% LOWER</span></header>
             <div class="case-body">
-              <div class="case-row"><span class="case-label">CI</span><p>Contributed core CI speed and stability improvements through change classification and test parallelization. I implemented the ConsolidateBundleInfo and ImageBuild parallelization, which saved about six minutes by itself. Across the broader team effort, build time fell by about 30%.</p></div>
-              <div class="case-row"><span class="case-label">CD</span><p>Parameterized environment selection and artifacts promotion in the existing dual-pipeline setup, added a test-status gate, and designed and enabled the hotfix-to-production path from scratch so verified artifacts could reach production faster.</p></div>
+              <div class="case-row"><span class="case-label">CI</span><p>Drove change classification, test parallelization, and related build improvements. I implemented the ConsolidateBundleInfo and ImageBuild parallelization, which saved about six minutes by itself. These optimizations reduced build time by approximately 30%.</p></div>
+              <div class="case-row"><span class="case-label">Gates</span><p>Throughput improvements did not weaken test requirements. Parallel tasks and artifact state retained inspectable test results, and only changes meeting the existing quality gates advanced to later release stages.</p></div>
             </div>
           </article>
           <article class="case-study">
@@ -161,10 +161,10 @@
             <div class="case-body">
               <div class="case-row"><span class="case-label">Release</span><p>Contributed to Copilot's multi-region progressive rollout, using automated checks and health signals at each stage rather than expanding the blast radius at once.</p></div>
               <div class="case-row"><span class="case-label">Control</span><p>Used Feature Flags, a Kill Switch, rollback, or traffic adjustment according to whether an anomaly originated in code, feature activation, or regional traffic.</p></div>
-              <div class="case-row"><span class="case-label">Recovery</span><p>Combined release records, monitoring signals, and regional state to locate the source of change, stop further rollout, and restore service.</p></div>
+              <div class="case-row"><span class="case-label">Mitigation</span><p>Used release records, health signals, and regional state to localize incidents, then stopped rollout, disabled features, rolled back, or shifted traffic according to the affected layer.</p></div>
             </div>
           </article>
-          <article class="decision-card secondary-work case-head"><div><span class="card-kicker">Additional work · Flaky Tests</span><h3>Turn test noise into a stateful governance object</h3><p>Delivered an automated detection–isolation–tracking loop: identify unstable tests from historical failures and controlled reruns, quarantine confirmed cases while retaining records, and restore them after a verified fix so quarantine does not become a permanent skip.</p></div><span class="status">MAIN CI SUCCESS RATE 78.8% → ~88%</span></article>
+          <article class="decision-card secondary-work case-head"><div><span class="card-kicker">Additional work · Flaky Tests</span><h3>Turn test noise into a stateful governance object</h3><p>Designed and shipped automated detection, quarantine, and tracking: identify unstable tests from historical failures and controlled reruns, quarantine confirmed cases while retaining records, and restore them after a verified fix so quarantine does not become a permanent skip.</p></div><span class="status">MAIN CI SUCCESS RATE 78.8% → ~88%</span></article>
         </section>
 
         <section class="doc-section" id="takeaways">
