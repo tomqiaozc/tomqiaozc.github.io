@@ -111,7 +111,7 @@
           <div class="ownership-grid">
             <article class="ownership-card featured"><header><span class="ownership-kind led">主导迁移</span><span class="ownership-index">01</span></header><h3>Native Tool Call</h3><p>主导把基于约定文本的工具调用迁移到模型原生结构化协议，并作为主力开发覆盖 dual-mode、子 Agent、不同模型 SDK、流式结果回填与运行指标。</p><strong class="ownership-result">可灰度、可回退、跨 Agent 一致</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">02</span></header><h3>可靠消息传输</h3><p>从问题诊断到设计和实现，重构 Agent 长任务的实时消息链路，使断连后的实时流能够自动恢复，而不是依赖用户手动刷新。</p><strong class="ownership-result">留存、确认、重投、会话保序</strong></article>
-            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">03</span></header><h3>Agent Proxy</h3><p>从 0 设计并交付独立服务，把 Agent 封装成可持久化、可查询、可恢复的异步任务接口，并处理用户委托身份和部署发布。</p><strong class="ownership-result">API、认证、状态、部署端到端负责</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">03</span></header><h3>Agent Proxy</h3><p>从 0 设计并交付 Agent Proxy 至生产，把 Agent 封装成可持久化、可查询、可恢复的异步任务接口；基于 Client Credentials、App Role 与请求签名校验构建应用级安全接入，并按调用方及外部用户维度隔离任务数据。</p><strong class="ownership-result">安全接入、任务隔离、持久化与生产交付</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind designed">架构设计</span><span class="ownership-index">04</span></header><h3>用户级加密</h3><p>负责密钥层级、密文协议、检索方式、轮换和渐进迁移的系统设计；团队按统一协议把各自数据层接入加密体系。</p><strong class="ownership-result">限制泄露范围，支持不停机演进</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">05</span></header><h3>服务间 TLS</h3><p>独立完成节点间 HTTP→HTTPS 的工程接入和部署迁移，包括证书运行时注入、服务端加载、客户端验证和多环境切换。</p><strong class="ownership-result">消除内部链路明文传输</strong></article>
           </div>
@@ -145,7 +145,7 @@
           <span class="section-label">07 · 工程案例三</span><h2>让 Agent 能被其他系统安全接入，也能保护用户数据。</h2>
           <p class="section-intro">生产 Agent 既要被外部产品调用，又会处理用户文件和敏感数据。接口、身份、任务状态、存储加密和传输安全必须形成连续边界，不能各自成为孤立功能。</p>
           <div class="platform-grid">
-            <article class="platform-card proxy"><span class="platform-no">A / Agent Proxy</span><h3>把长任务封装为可恢复的异步接口</h3><p>调用方先创建任务，再查询或订阅状态，最后获取结果。任务状态写入持久化存储，服务重启后仍可恢复运行中的任务；用户委托身份沿调用链保留。</p><ul><li>从 0 独立设计与交付</li><li>认证、任务状态、容器化与 CI/CD</li><li>与主 Runtime 解耦，独立发布扩缩容</li></ul></article>
+            <article class="platform-card proxy"><span class="platform-no">A / Agent Proxy</span><h3>把长任务封装为可恢复的异步接口</h3><p>调用方通过 Client Credentials 与 App Role 建立应用身份和 API 权限，并使用请求签名校验保护接口调用；Agent Proxy 按调用方及其传入的外部用户维度隔离任务数据。任务状态持久化后，服务重启仍可恢复运行中的任务。</p><ul><li>从 0 独立设计并交付至生产</li><li>应用级安全接入、任务隔离、持久化与恢复</li><li>容器化与 CI/CD，支持独立发布和维护</li></ul></article>
             <article class="platform-card crypto"><span class="platform-no">B / User Encryption</span><h3>把检索、密钥隔离和轮换一起设计</h3><p>稳定哈希承担查找，原始身份和用户数据加密存储；分层密钥限制单点泄露范围，自描述密文支持新旧密钥并存和渐进迁移。</p><ul><li>负责系统架构与协议设计</li><li>团队按统一契约接入各数据层</li><li>分享场景区分授权身份与解密身份</li></ul></article>
             <article class="platform-card tls"><span class="platform-no">C / Service TLS</span><h3>消除服务节点间的明文通信</h3><p>完成证书运行时注入、格式转换、服务端 HTTPS、客户端 CA 验证和多环境迁移；准确边界是单向 TLS 工程接入，不表述为实现 TLS 协议或 mTLS。</p><ul><li>独立完成工程接入与部署迁移</li><li>密钥不进入代码和镜像</li><li>保留更严格服务身份验证的演进空间</li></ul></article>
           </div>
