@@ -47,7 +47,7 @@
           <div class="brief-grid">
             <article class="brief-card"><span class="brief-label evidence">Epichan / Bebop Lite</span><h3>Agent-first 工程环境</h3><p>Bebop Lite 连接真实 Copilot 服务，为 Agent 编码、评审和验证提供产品环境；Epichan 的重点是围绕它构建的 graph-based Harness 与完整交付闭环。</p></article>
             <article class="brief-card"><span class="brief-label">Studio</span><h3>生产产品与交付体系</h3><p>Studio 承载 Copilot Web 的多端用户体验。这里关注消息如何进入后端编排，以及代码如何经过 CI、artifacts promote、分区域发布和运行时控制进入生产。</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Epichan 工程工作</span><h3>把无障碍修复方法接入 Graph + Loop</h3><p>在 Epichan 既有 graph-based Harness 之上主导设计并迭代 a11y-remediation-workflow，把读屏实测、键盘导航、跨场景回归和证据完整性固化为硬性检查。</p></article>
+            <article class="brief-card"><span class="brief-label ownership">Epichan 工程工作</span><h3>把无障碍修复方法接入 Graph + Loop</h3><p>基于 graph-based Harness 主导设计并迭代 a11y-remediation-workflow，将复现流程、角色证据要求和独立验收沉淀为可复用 Skill，并将重复失败写回 Skill 与回归测试。</p></article>
             <article class="brief-card"><span class="brief-label ownership">Studio 工程工作</span><h3>AI Coding 研发效能与生产交付</h3><p>理解 Copilot 会话接入至流式返回的生产推理链路；设计并交付 flaky 测试自动检测—隔离—追踪机制，推进变更分类与测试并行，将构建时长降低约 30%，并参与多区域渐进发布与线上 on-call。</p></article>
           </div>
         </section>
@@ -106,7 +106,7 @@
 
         <section class="doc-section" id="a11y-loop">
           <span class="section-label">05 · 我的 Epichan 工作流</span><h2>无障碍修复方法从可复用 Skill，演进为 Loop 中的多角色工作流。</h2>
-          <p class="section-intro">在 Studio 中，我先把复现、修复和验证无障碍问题的方法整理为可重复使用的 Agent Skill，并在两个月内关闭 64 个 Sev2 无障碍缺陷，覆盖 6 个 squad。随后，我在 Epichan 既有 graph-based Harness 之上主导设计并迭代 <code>a11y-remediation-workflow</code>，使其接入 Agentic Loop，由不同角色完成实现、独立复验和结果判断。</p>
+          <p class="section-intro">在 Studio 中，我先把复现、修复和验证无障碍问题的方法整理为可重复使用的 Agent Skill，并在两个月内关闭 64 个 Sev2 无障碍缺陷，覆盖 6 个 squad。随后，我基于 Epichan graph-based Harness 主导设计并迭代 <code>a11y-remediation-workflow</code>，将复现流程、各角色的证据要求和独立验收沉淀为可复用 Skill；按问题类型验证 ARIA 语义、Accessibility Tree、键盘与焦点行为及跨场景回归，并将重复失败写回 Skill 与回归测试，形成持续改进闭环。</p>
           <p class="signal-note"><strong>具体的检查规则：</strong>我把目标页面、操作步骤和实际读屏表现等复现信息，以及开发、评审、验收各阶段必须提交的证据，写成可重复执行的规则。DOM / ARIA 看似正确但读屏仍异常、键盘导航与预期交互不一致，或共享事件改动导致其他 Surface 回归时，检查直接失败；证据不全，任务不能进入下一阶段。</p>
           <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整工作流演进 →</div>
           <div class="flow-strip" aria-label="无障碍工作流演进"><div class="flow-node">问题复现方法</div><div class="flow-node">个人 Agent Skill</div><div class="flow-node active">Epichan Workflow</div><div class="flow-node">Developer / Reviewer</div><div class="flow-node">Judge 验收</div></div>
