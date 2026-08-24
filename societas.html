@@ -109,7 +109,7 @@
           <span class="section-label">04 · 我的工作</span><h2>五条工程主线，对应三种明确的责任方式。</h2>
           <p class="section-intro">这里不使用笼统的“参与项目”。每项工作都说明我承担的责任、解决的问题和留下的系统能力。</p>
           <div class="ownership-grid">
-            <article class="ownership-card featured"><header><span class="ownership-kind led">主导迁移</span><span class="ownership-index">01</span></header><h3>Native Tool Call</h3><p>主导把基于约定文本的工具调用迁移到模型原生结构化协议，并作为主力开发覆盖 dual-mode、子 Agent、不同模型 SDK、流式结果回填与运行指标。</p><strong class="ownership-result">可灰度、可回退、跨 Agent 一致</strong></article>
+            <article class="ownership-card featured"><header><span class="ownership-kind led">主导迁移</span><span class="ownership-index">01</span></header><h3>Native Tool Call</h3><p>主导将工具调用从文本 XML 解析迁移至原生 Function Calling，适配 OpenAI/Anthropic SDK 的流式工具调用协议并统一 Tool Call/Result 执行链路；设计 Native/XML 双模式灰度与回退，并扩展至完整 Sub-Agent 链路。</p><strong class="ownership-result">可灰度、可回退、跨 Agent 一致</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">02</span></header><h3>可靠消息传输</h3><p>从问题诊断到设计和实现，重构 Agent 长任务的实时消息链路，使断连后的实时流能够自动恢复，而不是依赖用户手动刷新。</p><strong class="ownership-result">留存、确认、重投、会话保序</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">03</span></header><h3>Agent Proxy</h3><p>从 0 设计并端到端交付 Agent Proxy 至生产，把 Agent 封装成可持久化、可查询、可恢复的异步任务接口；实现 OBO 授权链路以支持代表用户访问下游资源，并完成任务持久化、重启恢复、容器化及 CI/CD。</p><strong class="ownership-result">OBO 授权、任务状态与生产交付</strong></article>
             <article class="ownership-card"><header><span class="ownership-kind designed">架构设计</span><span class="ownership-index">04</span></header><h3>用户级加密</h3><p>负责密钥层级、密文协议、检索方式、轮换和渐进迁移的系统设计；团队按统一协议把各自数据层接入加密体系。</p><strong class="ownership-result">限制泄露范围，支持不停机演进</strong></article>
@@ -155,7 +155,7 @@
           <span class="section-label">08 · 工程判断</span><h2>这些工作形成了四点工程认识。</h2>
           <div class="takeaway-list">
             <article><span>01</span><div><h3>先明确交付语义，再选择基础设施</h3><p>可靠消息的选型依据不是 Redis 与 Service Bus 的简单性能比较，而是长任务是否需要离线留存、顺序保证、消费确认和失败重投。</p></div></article>
-            <article><span>02</span><div><h3>为生产迁移保留观察、灰度和回退机制</h3><p>Native Tool Call 通过双模式兼容新旧协议；消息传输通过统一接口切换不同实现。两项迁移都保留了运行指标、分批启用和配置回退能力。</p></div></article>
+            <article><span>02</span><div><h3>为生产迁移保留观察、灰度和回退机制</h3><p>Native Tool Call 适配 OpenAI/Anthropic SDK 的流式工具调用协议并统一 Tool Call/Result 执行链路，通过双模式兼容新旧协议；消息传输通过统一接口切换不同实现。两项迁移都保留了运行指标、分批启用和配置回退能力。</p></div></article>
             <article><span>03</span><div><h3>分开建模访问者、数据所有者和解密身份</h3><p>在公开分享场景中，访问者通过权限检查，并不意味着可以使用访问者自己的密钥解密所有者的数据。系统需要先验证访问权限，再在受控范围内使用数据所有者的加密上下文完成解密。</p></div></article>
             <article><span>04</span><div><h3>独立交付覆盖开发、部署和运行</h3><p>Agent Proxy 不只包含 API 实现，还包括认证、任务状态持久化、重启恢复、容器化、CI/CD 和可观测信息，使其能够作为独立服务部署和维护。</p></div></article>
           </div>
