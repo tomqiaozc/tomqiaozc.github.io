@@ -31,13 +31,13 @@
         <header class="doc-hero">
           <div class="doc-hero-label"><span class="doc-chip">Hermes Agent</span><span class="doc-chip">Multica</span><span class="doc-chip">公开证据</span></div>
           <h1 class="doc-title">公开贡献，<br><span class="accent">按实际采用状态说明。</span></h1>
-          <p class="doc-lead">这些贡献涉及 Agent 安全、运行可靠性、多租户隔离和 API 边界。每项都说明问题、修改内容和公开状态：原 PR 直接合并、实现被维护者另行采纳、得到认可但未合并，或仍在开放状态。</p>
+          <p class="doc-lead">这些贡献涉及 Agent 安全、工具调用可靠性、运行可靠性和多租户隔离。每项都说明问题、修改内容和公开状态：原 PR 直接合并、实现被维护者通过 cherry-pick / salvage 纳入主线并保留作者信息、得到认可但未合并，或仍在开放状态。</p>
           <div class="fact-ledger"><span>Hermes 5+ 项实现被采用</span><span>Multica 5 个 PR 已合并</span><span>@tomqiaozc</span></div>
         </header>
 
         <section class="doc-section interviewer-brief top-proof" id="top-proof">
           <span class="section-label">60 秒概览</span><h2>三项最有代表性的公开贡献。</h2>
-          <p class="section-intro">每项都可在 GitHub 核验，并明确区分“原 PR 已合并”和“实现被维护者通过其他方式采纳”。</p>
+          <p class="section-intro">每项都可在 GitHub 核验，并明确区分“原 PR 已合并”和“实现被维护者通过 cherry-pick / salvage 纳入主线并保留作者信息”。</p>
           <div class="top-proof-grid">
             <article class="top-proof-card"><span class="proof-status merged">原 PR 已合并</span><h3>Multica · SQL 租户隔离</h3><p>PR #3027 为删除和更新 SQL 增加 workspace / tenant 条件，并用测试防止跨租户操作。</p><a class="proof-link" href="https://github.com/multica-ai/multica/pull/3027" target="_blank" rel="noreferrer">查看 PR #3027 ↗</a></article>
             <article class="top-proof-card"><span class="proof-status adopted">整理后采纳</span><h3>Hermes · 配对码加盐哈希</h3><p>PR #8056 将短期配对码从明文存储改为随机 salt + SHA-256；维护者整理该实现后将其纳入主线。</p><a class="proof-link" href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">查看 PR #8056 ↗</a></article>
@@ -69,9 +69,9 @@
           <span class="section-label">01 · Hermes Agent</span><h2>三项被采用的安全与可靠性修复。</h2>
           <p class="section-intro">每项都说明原问题、修改内容和维护者采用实现的方式。</p>
 
-          <article class="case-study"><header class="case-head"><div><h3>配对码：从明文存储改为加盐哈希</h3><p>本地网关的待确认配对码属于短期凭据；如果明文保存，其他可读取文件的进程或工具可能直接获得它。</p></div><span class="status adopted">整理后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>待确认配对码以明文保存在本地状态中，沙箱或具备文件读取能力的进程可直接获得。</p></div><div class="case-row"><span class="case-label">修改</span><p>改为随机 salt + SHA-256 存储，使用常量时间比较，并兼容迁移已有的明文记录。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">PR #8056 ↗</a> · 维护者整理该实现后纳入主线。</p></div></div></article>
+          <article class="case-study"><header class="case-head"><div><h3>配对码：从明文存储改为加盐哈希</h3><p>本地网关的待确认配对码属于短期凭据；如果明文保存，其他可读取文件的进程或工具可能直接获得它。</p></div><span class="status adopted">整理后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>待确认配对码以明文保存在本地状态中，沙箱或具备文件读取能力的进程可直接获得。</p></div><div class="case-row"><span class="case-label">修改</span><p>改为随机 salt + SHA-256 存储，使用常量时间比较，并兼容迁移已有的明文记录。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8056" target="_blank" rel="noreferrer">PR #8056 ↗</a> · 维护者整理该实现后纳入主线并保留作者信息。</p></div></div></article>
 
-          <article class="case-study"><header class="case-head"><div><h3>检查被截断的工具调用</h3><p>流式输出被截断时，结束原因（finish_reason）不一定能准确说明工具调用结构是否完整。</p></div><span class="status adopted">挑选提交后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>工具调用参数 JSON 被截断时，系统仍可能执行不完整的工具调用。</p></div><div class="case-row"><span class="case-label">修改</span><p>单独检查工具调用结构是否完整，不再只依赖结束原因这一项元数据。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">PR #7693 ↗</a> · 维护者挑选相关提交后纳入主线。</p></div></div></article>
+          <article class="case-study"><header class="case-head"><div><h3>检查被截断的工具调用</h3><p>流式输出被截断时，结束原因（finish_reason）不一定能准确说明工具调用结构是否完整。</p></div><span class="status adopted">挑选提交后采纳</span></header><div class="case-body"><div class="case-row"><span class="case-label">问题</span><p>工具调用参数 JSON 被截断时，系统仍可能执行不完整的工具调用。</p></div><div class="case-row"><span class="case-label">修改</span><p>单独检查工具调用结构是否完整，不再只依赖结束原因这一项元数据。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/7693" target="_blank" rel="noreferrer">PR #7693 ↗</a> · 维护者挑选相关提交后纳入主线并保留作者信息。</p></div></div></article>
 
           <article class="case-study"><header class="case-head"><div><h3>修复 Gateway 启动崩溃</h3><p>日志脱敏格式化器缺少 import，导致网关在启动时直接失败。</p></div><span class="status adopted">已采用</span></header><div class="case-body"><div class="case-row"><span class="case-label">修改</span><p>补齐缺失的依赖，并增加对启动路径的覆盖。</p></div><div class="case-row"><span class="case-label">公开证据</span><p><a href="https://github.com/NousResearch/hermes-agent/pull/8046" target="_blank" rel="noreferrer">PR #8046 ↗</a></p></div></div></article>
 

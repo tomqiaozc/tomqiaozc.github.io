@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07101c">
-  <meta name="description" content="Office Agent · Societas：把长任务 Agent 做成可恢复、可接入、可合规的生产系统。">
-  <title>Office Agent · Societas — Tom Qiao</title>
+  <meta name="description" content="Microsoft Office Agent · 生产级多智能体系统：工具协议迁移、Context/Memory、Agentic RAG、长任务可靠性与服务化安全。">
+  <title>Microsoft Office Agent — Tom Qiao</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/longform.css">
   <script src="assets/site.js" defer></script>
@@ -25,41 +25,41 @@
   <main class="longform-wrap" id="main-content">
     <div class="doc-layout">
       <aside class="doc-toc" data-toc aria-label="本页目录">
-        <div class="doc-toc-title">Societas</div><span class="toc-scroll-hint" aria-hidden="true">横滑查看更多 →</span>
+        <div class="doc-toc-title">Office Agent</div><span class="toc-scroll-hint" aria-hidden="true">横滑查看更多 →</span>
         <a href="#snapshot">00 · 项目摘要</a><a href="#product">01 · 产品与系统</a><a href="#capabilities">02 · 产品演进与核心能力</a><a href="#architecture">03 · 简化系统架构</a><a href="#ownership">04 · 我的工作</a>
         <div class="doc-toc-group">工程案例</div>
-        <a href="#tool-runtime">05 · 工具调用迁移</a><a href="#reliability">06 · 长任务可靠性</a><a href="#platform">07 · 接口与安全</a><a href="#takeaways">08 · 工程判断</a>
+        <a href="#tool-runtime">05 · 工具调用迁移</a><a href="#context-rag">06 · Context / Memory / RAG</a><a href="#reliability">07 · 长任务可靠性</a><a href="#platform">08 · 接口与安全</a><a href="#takeaways">09 · 工程判断</a>
       </aside>
 
       <div class="doc-main">
         <header class="doc-hero societas-hero">
-          <div class="doc-hero-label"><span class="doc-chip">Office Agent</span><span class="doc-chip">Agent Backend</span><span class="doc-chip">Production Engineering</span></div>
-          <p class="hero-eyebrow">Microsoft 365 · 通用知识工作 Agent</p>
-          <h1 class="doc-title">Societas：面向长任务执行的<br><span class="accent"><span class="title-phrase">Office Agent</span></span><span class="title-phrase"> 系统。</span></h1>
-          <p class="doc-lead">Societas 从高质量 Office 成果物生成，演进为能够规划、调用工具、操作文件与浏览器并交付完整任务的 Agent 系统。我参与的后端工作包括：<strong>工具调用、可靠消息、异步接口、用户级加密与服务间 TLS</strong>。</p>
+          <div class="doc-hero-label"><span class="doc-chip">Office Agent</span><span class="doc-chip">Production Multi-Agent</span><span class="doc-chip">Agent Runtime</span></div>
+          <p class="hero-eyebrow">Microsoft 365 · 生产级通用 Agent</p>
+          <h1 class="doc-title">Office Agent：面向长任务执行的<br><span class="accent">生产级多智能体系统</span></h1>
+          <p class="doc-lead">Office Agent 面向 M365 用户，支持复杂任务规划、并发 Sub-Agent、工具与代码执行、本地浏览器操作、长期记忆及 Office 成果物交付，基于 Azure 构建 Agent Runtime、沙箱、数据与消息基础设施，全球发布约两个月达到 27K WAU。作为核心贡献者，我的工作包括：<strong>工具协议、长任务可靠性与 Agent 服务化</strong>，并参与 Context/Memory、沙箱执行与安全合规。</p>
           <div class="hero-actions"><a class="button primary" href="#ownership">查看我的工作</a><a class="button" href="#product">先理解产品</a></div>
           <div class="societas-metrics" aria-label="项目关键数据与个人责任">
             <div class="societas-metric"><strong>27K</strong><span>周活跃用户峰值</span></div>
-            <div class="societas-metric"><strong>~8.5%</strong><span>目标用户渗透率</span></div>
+            <div class="societas-metric"><strong>2 个月</strong><span>全球发布后达到</span></div>
             <div class="societas-metric"><strong>5</strong><span>项后端工程工作</span></div>
-            <div class="societas-metric ownership"><strong>3 / 1 / 1</strong><span>独立交付 / 主导迁移 / 架构设计</span></div>
+            <div class="societas-metric ownership"><strong>核心贡献者</strong><span>主导迁移 · 独立交付 · 架构参与</span></div>
           </div>
         </header>
 
         <section class="doc-section project-snapshot" id="snapshot">
           <span class="section-label">00 · 项目摘要</span><h2>项目结果与个人工作范围。</h2>
           <div class="snapshot-grid">
-            <article class="snapshot-card outcome"><span class="card-kicker">产品结果</span><h3>发布两个月后达到 27K WAU，约覆盖 8.5% 目标用户。</h3><p>产品进入真实用户工作流后，后端需要处理并发执行、断线恢复、数据安全以及外部系统集成。</p></article>
-            <article class="snapshot-card responsibility"><span class="card-kicker">我的职责</span><h3>Agent Runtime 及其配套服务的后端工程。</h3><p>独立交付可靠消息、Agent Proxy 和节点间 TLS；主导 Native Tool Call 迁移；负责用户级加密的架构与协议设计。</p></article>
+            <article class="snapshot-card outcome"><span class="card-kicker">产品结果</span><h3>全球发布约两个月后达到 27K WAU。</h3><p>产品进入真实用户工作流后，后端需要处理并发执行、断线恢复、数据安全、外部系统集成与 Office 成果物交付。</p></article>
+            <article class="snapshot-card responsibility"><span class="card-kicker">我的职责</span><h3>核心贡献者，聚焦工具协议、长任务可靠性与 Agent 服务化。</h3><p>主导主 Agent / Sub-Agent 工具协议从文本 XML 到 Native Function Calling 的迁移；独立交付可靠消息、Agent Proxy、用户级加密协议与服务间 TLS；参与 Context/Memory 与 Agentic RAG、沙箱与浏览器执行、安全合规。</p></article>
           </div>
-          <div class="decision-line"><span>工作范围</span><p>这些工作建立在既有产品与运行时之上，主要涉及<strong>协议迁移、任务恢复、并发处理、身份传递和数据保护</strong>。</p></div>
+          <div class="decision-line"><span>工作范围</span><p>这些工作建立在既有产品与运行时之上，主要涉及<strong>协议迁移、上下文与记忆、任务恢复、并发处理、身份传递与数据保护</strong>。</p></div>
         </section>
 
         <section class="doc-section product-view" id="product">
           <span class="section-label">01 · 产品与系统</span><h2>从一次回答，走向一项工作的完整交付。</h2>
           <p class="section-intro">用户给出一个真实工作目标，系统拆解任务、调用模型与工具，在隔离环境中处理代码和文件，需要时操作浏览器，检查结果并交付可编辑的文档、演示、分析或网页。成功任务还能被沉淀为后续可复用的能力。</p>
           <figure class="product-figure"><img src="assets/societas-building-on-skills.png" width="936" height="523" loading="eager" fetchpriority="high" decoding="async" alt="Office Agent 产品界面：从完成的研究和演示任务中提取可复用工作流，并生成可编辑演示文稿"><figcaption><span class="figure-tag">产品界面</span><strong>从对话到可复用能力。</strong>一次从研究到生成商业计划演示的成功过程，可以被提炼为后续任务可复用的工作流；右侧是最终可编辑成果物。</figcaption></figure>
-          <div class="product-model" aria-label="Societas 工作模型">
+          <div class="product-model" aria-label="Office Agent 工作模型">
             <article><span>01</span><strong>理解目标</strong><p>明确交付物、受众和质量标准。</p></article><article><span>02</span><strong>规划与执行</strong><p>调度模型、工具、子 Agent、沙箱和浏览器。</p></article><article><span>03</span><strong>检查与恢复</strong><p>记录状态，处理失败、重试和断线恢复。</p></article><article><span>04</span><strong>交付与复用</strong><p>输出可编辑成果，并沉淀稳定步骤。</p></article>
           </div>
           <p class="signal-note"><strong>系统设计范围：</strong>除模型推理外，长任务还会跨越工具、沙箱、消息系统和客户端，因此需要相应的状态恢复、可观测性和执行控制机制。</p>
@@ -67,8 +67,8 @@
 
         <section class="doc-section" id="capabilities">
           <span class="section-label">02 · 产品演进与核心能力</span><h2>从“生成一份好内容”，演进到“完成一项真实工作”。</h2>
-          <p class="section-intro">Societas 最初解决的是 Office 成果物质量：如何生成结构完整、视觉专业、可以继续编辑的文档与演示。随着产品演进，系统开始承担更多任务责任——理解目标、组织步骤、调用工具、在真实环境中执行、检查结果并完成交付。</p>
-          <div class="flow-strip" aria-label="Societas 产品演进">
+          <p class="section-intro">Office Agent 最初解决的是 Office 成果物质量：如何生成结构完整、视觉专业、可以继续编辑的文档与演示。随着产品演进，系统开始承担更多任务责任——理解目标、组织步骤、调用工具、在真实环境中执行、检查结果并完成交付。</p>
+          <div class="flow-strip" aria-label="Office Agent 产品演进">
             <div class="flow-node"><strong>1.0</strong><br>高质量成果物<br>Artifact Creation</div>
             <div class="flow-node active"><strong>2.0</strong><br>结果达成<br>Outcome Completion</div>
             <div class="flow-node"><strong>Office Agent</strong><br>完整任务协作<br>Reusable Execution</div>
@@ -90,7 +90,7 @@
 
         <section class="doc-section" id="architecture">
           <span class="section-label">03 · 简化系统架构</span><h2>普通 API 接住请求，Agent Runtime 承担不确定的长任务执行。</h2>
-          <p class="section-intro">公开层面可以把 Societas 理解为两个不同的运行边界：API 层负责身份、任务入口和状态查询；Agent Runtime 负责模型推理、计划推进、工具执行和产物生成。两者拆开后，可以针对短请求和长任务分别扩缩容、发布和恢复。</p>
+          <p class="section-intro">公开层面可以把 Office Agent 理解为两个不同的运行边界：API 层负责身份、任务入口和状态查询；Agent Runtime 负责模型推理、计划推进、工具执行和产物生成。两者拆开后，可以针对短请求和长任务分别扩缩容、发布和恢复。</p>
           <div class="state-loop">
             <div class="state-loop-line">
               <div class="state current">用户提交目标</div><div class="state">API 创建 Run</div><div class="state">Agent 规划 / 调工具</div><div class="state">沙箱或浏览器执行</div><div class="state">消息推送 / 产物交付</div>
@@ -106,14 +106,14 @@
         </section>
 
         <section class="doc-section" id="ownership">
-          <span class="section-label">04 · 我的工作</span><h2>五条工程主线，对应三种明确的责任方式。</h2>
+          <span class="section-label">04 · 我的工作</span><h2>五条工程主线，覆盖主导迁移、独立交付与架构参与。</h2>
           <p class="section-intro">这里不使用笼统的“参与项目”。每项工作都说明我承担的责任、解决的问题和留下的系统能力。</p>
           <div class="ownership-grid">
-            <article class="ownership-card featured"><header><span class="ownership-kind led">主导迁移</span><span class="ownership-index">01</span></header><h3>Native Tool Call</h3><p>主导将工具调用从文本 XML 解析迁移至原生 Function Calling，适配 OpenAI/Anthropic SDK 的流式工具调用协议并统一 Tool Call/Result 执行链路；设计 Native/XML 双模式灰度与回退，并扩展至完整 Sub-Agent 链路。</p><strong class="ownership-result">可灰度、可回退、跨 Agent 一致</strong></article>
-            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">02</span></header><h3>可靠消息传输</h3><p>从问题诊断到设计和实现，重构 Agent 长任务的实时消息链路，使断连后的实时流能够自动恢复，而不是依赖用户手动刷新。</p><strong class="ownership-result">留存、确认、重投、会话保序</strong></article>
-            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">03</span></header><h3>Agent Proxy</h3><p>从 0 设计并端到端交付 Agent Proxy 至生产，把 Agent 封装成可持久化、可查询、可恢复的异步任务接口；实现 OBO 授权链路以支持代表用户访问下游资源，并完成任务持久化、重启恢复、容器化及 CI/CD。</p><strong class="ownership-result">OBO 授权、任务状态与生产交付</strong></article>
-            <article class="ownership-card"><header><span class="ownership-kind designed">架构设计</span><span class="ownership-index">04</span></header><h3>用户级加密</h3><p>负责密钥层级、密文协议、检索方式、轮换和渐进迁移的系统设计；团队按统一协议把各自数据层接入加密体系。</p><strong class="ownership-result">限制泄露范围，支持不停机演进</strong></article>
-            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">05</span></header><h3>服务间 TLS</h3><p>独立完成节点间 HTTP→HTTPS 的工程接入和部署迁移，包括证书运行时注入、服务端加载、客户端验证和多环境切换。</p><strong class="ownership-result">消除内部链路明文传输</strong></article>
+            <article class="ownership-card featured"><header><span class="ownership-kind led">主导迁移</span><span class="ownership-index">01</span></header><h3>Native Function Calling</h3><p>主导将主 Agent / Sub-Agent 工具协议从文本 XML 迁移至原生 Function Calling，适配 OpenAI/Anthropic 流式协议并统一从工具注册、参数聚合与校验、后端执行到 Tool Result 回填的完整链路；设计 Native/XML 双模式灰度与回退，并修复流式参数残缺、消息序列破坏及进程中断造成的 Tool Call/Result 失配。</p><strong class="ownership-result">可灰度、可回退、跨 Agent 一致</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind contributed">核心参与</span><span class="ownership-index">02</span></header><h3>Context / Memory 与 Agentic RAG</h3><p>核心参与 Agent 上下文与长期记忆体系建设：通过调用前 Token 统计、分层 Compact 和动态 Skill 换入换出控制长任务上下文，确定性保留任务计划与工具执行状态；参与知识库 Agentic RAG 的架构设计与核心开发，组合关键词、向量与语义排序，形成“候选召回—证据深读—继续检索—原文引用”的 Agentic Loop。</p><strong class="ownership-result">长任务上下文可控 · 检索带证据与引用</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind contributed">核心参与</span><span class="ownership-index">03</span></header><h3>沙箱与浏览器执行</h3><p>参与构建 Cloud Sandbox + Local Browser 双执行体系：基于隔离沙箱运行模型生成代码，通过预热池、生命周期管理、缓存与分布式锁协调多实例资源；Browser Operator 采用 DOM-first 方式复用用户本地登录态，并在执行后重新观察页面验证结果，支撑 Agent 在真实企业系统中完成任务。</p><strong class="ownership-result">生成代码隔离执行 · 本地会话复用与结果验证</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">04</span></header><h3>长任务可靠消息</h3><p>独立诊断原有实时消息通道离线不留存、无确认与重投的问题，定义 Agent 长任务的消息留存、Ack、重投及会话保序语义；抽象可灰度、可回退的 <code>MessageTransport</code>，引入支持会话保序与确认重投的可靠消息通道，并保留可回放的过程状态，支撑后端闪断续接与浏览器重连恢复。</p><strong class="ownership-result">留存、确认、重投、会话保序</strong></article>
+            <article class="ownership-card"><header><span class="ownership-kind solo">独立交付</span><span class="ownership-index">05</span></header><h3>Agent Proxy 与安全合规</h3><p>独立从 0 交付 Agent Proxy，覆盖代表用户访问下游资源的 OBO 授权链路、异步任务持久化与重启恢复、容器化及 CI/CD，将 Agent Runtime 封装为可供外部系统集成的生产服务；设计用户级加密与渐进轮换机制，并完成证书安全注入、服务间 HTTPS 与下游证书校验，覆盖存储态和传输态保护。</p><strong class="ownership-result">OBO 授权、任务状态与生产交付 · 用户级加密</strong></article>
           </div>
         </section>
 
@@ -129,8 +129,18 @@
           <div class="senior-signal"><span>工程判断</span><p>协议迁移的风险不只在生产者，还在所有消费者和历史数据。真正的完成标准是：主 Agent、子 Agent、执行器、消息历史和可观测性都理解同一版本的协议。</p></div>
         </section>
 
+        <section class="doc-section case-chapter" id="context-rag">
+          <span class="section-label">06 · 工程案例二</span><h2>让长任务上下文可控，让检索带回证据与引用。</h2>
+          <p class="section-intro">长任务会不断产生新的工具结果和中间状态，若不主动管理，上下文会持续膨胀；同时，需要引用知识库信息时，检索结果必须可验证、可追溯，而不是模型凭印象生成。</p>
+          <div class="prose-grid">
+            <article class="decision-card"><span class="card-kicker">上下文控制</span><h3>预统计、分层压缩与动态加载</h3><p>调用前统计 Token 用量并预留工具状态；分层 Compact 在关键节点压缩历史而确定性保留任务计划与工具执行状态；Skill 按需换入换出，避免无关知识占据上下文。</p></article>
+            <article class="decision-card"><span class="card-kicker">Agentic RAG</span><h3>候选召回 → 证据深读 → 继续检索 → 原文引用</h3><p>关键词、向量与语义排序多路召回候选，对候选做证据深读判断相关性，不足时继续检索，最终以原文片段和来源引用交付答案，而不是让模型无来源地总结。</p></article>
+            <article class="decision-card"><span class="card-kicker">工程边界</span><h3>压缩不破坏可执行状态</h3><p>上下文压缩如果吞掉工具调用结果或任务计划，后续循环就会丢失执行上下文。压缩必须保留协议不变式和可恢复的任务状态。</p></article>
+          </div><p class="ownership-note">核心参与 · 上下文统计 / 分层 Compact / 动态 Skill / Agentic RAG 架构与开发</p>
+        </section>
+
         <section class="doc-section case-chapter" id="reliability">
-          <span class="section-label">06 · 工程案例二</span><h2>把“消息存在”升级为“实时链路会自动恢复”。</h2>
+          <span class="section-label">07 · 工程案例三</span><h2>把“消息存在”升级为“实时链路会自动恢复”。</h2>
           <p class="section-intro">Agent 长任务会持续数分钟并生成大量有顺序的消息。旧方案把历史片段保存在 Redis List，但实时推送使用 Redis Pub/Sub：订阅端短暂离线时消息不会等待，用户只能刷新后从历史记录补回。</p>
           <div class="reliability-model"><div class="reliability-layer"><span>持久过程态</span><strong>Redis List</strong><p>保存短期历史，支持刷新和重连后的重放。</p></div><div class="reliability-plus" aria-hidden="true">+</div><div class="reliability-layer active"><span>可靠实时层</span><strong>Service Bus Session</strong><p>留存未确认消息，提供 ack、重投和同会话 FIFO。</p></div></div>
           <div class="prose-grid">
@@ -142,7 +152,7 @@
         </section>
 
         <section class="doc-section case-chapter" id="platform">
-          <span class="section-label">07 · 工程案例三</span><h2>让 Agent 能被其他系统安全接入，也能保护用户数据。</h2>
+          <span class="section-label">08 · 工程案例四</span><h2>让 Agent 能被其他系统安全接入，也能保护用户数据。</h2>
           <p class="section-intro">生产 Agent 既要被外部产品调用，又会处理用户文件和敏感数据。接口、身份、任务状态、存储加密和传输安全必须形成连续边界，不能各自成为孤立功能。</p>
           <div class="platform-grid">
             <article class="platform-card proxy"><span class="platform-no">A / Agent Proxy</span><h3>把长任务封装为可恢复的异步接口</h3><p>Agent Proxy 通过 OBO 授权链路代表用户访问下游资源，并将长任务封装为可查询、可恢复的异步接口；任务状态持久化后，服务重启仍可恢复运行中的任务。</p><ul><li>从 0 独立设计并端到端交付至生产</li><li>OBO 授权、任务持久化与重启恢复</li><li>容器化与 CI/CD，支持独立发布和维护</li></ul></article>
@@ -152,19 +162,19 @@
         </section>
 
         <section class="doc-section" id="takeaways">
-          <span class="section-label">08 · 工程判断</span><h2>这些工作形成了四点工程认识。</h2>
+          <span class="section-label">09 · 工程判断</span><h2>这些工作形成了四点工程认识。</h2>
           <div class="takeaway-list">
             <article><span>01</span><div><h3>先明确交付语义，再选择基础设施</h3><p>可靠消息的选型依据不是 Redis 与 Service Bus 的简单性能比较，而是长任务是否需要离线留存、顺序保证、消费确认和失败重投。</p></div></article>
-            <article><span>02</span><div><h3>为生产迁移保留观察、灰度和回退机制</h3><p>Native Tool Call 适配 OpenAI/Anthropic SDK 的流式工具调用协议并统一 Tool Call/Result 执行链路，通过双模式兼容新旧协议；消息传输通过统一接口切换不同实现。两项迁移都保留了运行指标、分批启用和配置回退能力。</p></div></article>
+            <article><span>02</span><div><h3>为生产迁移保留观察、灰度和回退机制</h3><p>Native Function Calling 通过双模式兼容新旧协议；消息传输通过统一接口切换不同实现。两项迁移都保留了运行指标、分批启用和配置回退能力。</p></div></article>
             <article><span>03</span><div><h3>分开建模访问者、数据所有者和解密身份</h3><p>在公开分享场景中，访问者通过权限检查，并不意味着可以使用访问者自己的密钥解密所有者的数据。系统需要先验证访问权限，再在受控范围内使用数据所有者的加密上下文完成解密。</p></div></article>
             <article><span>04</span><div><h3>独立交付覆盖开发、部署和运行</h3><p>Agent Proxy 不只包含 API 实现，还包括认证、任务状态持久化、重启恢复、容器化、CI/CD 和可观测信息，使其能够作为独立服务部署和维护。</p></div></article>
           </div>
-          <div class="closing-statement"><span>适合继续深入讨论</span><p>Agent Runtime · Tool Calling · Distributed Systems · Async API · Data Security · Production Migration</p></div>
-          <nav class="next-page" aria-label="下一页"><span>下一个项目</span><a href="copilot-epichan.html">Copilot + Epichan →</a></nav>
+          <div class="closing-statement"><span>适合继续深入讨论</span><p>Agent Runtime · Native Function Calling · Context/Memory · Agentic RAG · Tool Calling · Distributed Systems · Async API · Data Security · Production Migration</p></div>
+          <nav class="next-page" aria-label="下一页"><span>下一个项目</span><a href="copilot-epichan.html">Microsoft Copilot →</a></nav>
         </section>
       </div>
     </div>
   </main>
-  <footer class="site-footer"><div class="site-footer-inner"><span>Office Agent · Societas</span><span><a href="projects.html">全部项目</a> · <a href="opensource.html">开源贡献</a></span></div></footer>
+  <footer class="site-footer"><div class="site-footer-inner"><span>Microsoft Office Agent</span><span><a href="projects.html">全部项目</a> · <a href="opensource.html">开源贡献</a></span></div></footer>
 </body>
 </html>

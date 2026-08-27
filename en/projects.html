@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07101c">
-  <meta name="description" content="Tom Qiao's production engineering case studies: Office Agent, Microsoft Copilot Studio / Epichan, and Office Plus.">
+  <meta name="description" content="Tom Qiao's production engineering case studies: Microsoft Office Agent, Microsoft Copilot Agent Harness, and Office Plus.">
   <title>Core Projects — Tom Qiao</title>
   <link rel="stylesheet" href="../assets/styles.css">
   <script src="../assets/site.js" defer></script>
@@ -39,21 +39,21 @@
       <article class="project-matrix-row" role="row">
         <div class="project-id" role="cell">
           <span class="project-period">Jul 2025–Feb 2026</span>
-          <h2>Office Agent<br>Societas</h2>
-          <span class="project-domain">Agent Runtime</span>
+          <h2>Microsoft Office Agent</h2>
+          <span class="project-domain">Production Multi-Agent System</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">System context</span>Societas is a general-purpose Office Agent for M365 Personal and Family subscribers. It plans work, coordinates tools and sub-agents, and completes document, presentation, and analysis tasks in browser and sandbox environments.</p>
-          <p><span class="matrix-label ownership">My role</span>Owned Agent Runtime and platform security work: led the Native Tool Call migration; independently delivered reliable messaging and Agent Proxy; designed the user-level encryption protocol; and completed the service-to-service TLS migration.</p>
+          <p><span class="matrix-label">System context</span>A production general-purpose Agent for M365 users, supporting complex planning, concurrent Sub-Agents, tool and code execution, local-browser operations, long-term memory, and Office deliverables, built on Azure.</p>
+          <p><span class="matrix-label ownership">My role</span>Core contributor: led the migration of main-Agent and Sub-Agent tool protocols from text XML to Native Function Calling; contributed to Context/Memory and Agentic RAG; independently delivered reliable messaging, Agent Proxy, the user-level encryption protocol, and service-to-service TLS.</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">Product adoption</span>
           <strong>~2 months after global launch: 27K WAU</strong>
-          <span>Weekly active users · ≈8.5% of 317K eligible users</span>
+          <span>Weekly active users · on Azure Agent Runtime, sandbox, data, and messaging infrastructure</span>
         </div>
         <div class="project-evidence" role="cell">
           <span class="evidence-badge private">Agent Runtime</span>
-          <p>Tool calling, reliable messaging, asynchronous APIs, user-level encryption, and service-to-service TLS.</p>
+          <p>Native Function Calling, Context/Memory, Agentic RAG, reliable messaging, Agent Proxy, user-level encryption, and service-to-service TLS.</p>
         </div>
         <div class="project-action" role="cell"><a href="societas.html">View details ↗</a></div>
       </article>
@@ -61,22 +61,21 @@
       <article class="project-matrix-row" role="row">
         <div class="project-id" role="cell">
           <span class="project-period">Mar 2026–Aug 2026</span>
-          <h2>Microsoft Copilot<br>Studio / Epichan</h2>
-          <span class="project-domain">Graph-based Harness × Agentic Loop × Production AI</span>
+          <h2>Microsoft Copilot</h2>
+          <span class="project-domain">Agent Harness &amp; Loop Engineering</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">System context</span>Studio and Epichan are two engineering environments within Microsoft Copilot: Studio supports the production AI product and delivery system, while Epichan applies its graph-based Harness and Loop Engineering to real product work.</p>
-          <p><span class="matrix-label ownership">My role</span><strong>Epichan (Contributing to Graph/Loop Engineering in Practice):</strong> built on Epichan's graph-based Harness (Developer / Reviewer / Judge agents scheduled along a DAG), led the design and iteration of the a11y-remediation-workflow Skill, codifying defect-reproduction flows, role-specific evidence requirements, and independent acceptance methods as reusable Skills; validated ARIA semantics, the accessibility tree, keyboard and focus behavior, and cross-scenario regressions by issue type, then fed recurring failures back into the Skill and regression tests to form a continuous execution-evidence, rule-iteration, and regression-validation loop.</p>
-          <p><strong>Studio | AI Coding Engineering Efficiency &amp; Production Delivery:</strong> for high-frequency AI Coding submissions, optimized the delivery pipeline to increase CI/CD throughput while preserving quality gates; designed and shipped automated flaky-test detection, quarantine, and tracking, and drove change classification and test parallelization, reducing build time by approximately 30%; developed a working understanding of Copilot's production inference path—from session ingress and Turn/Orchestrator scheduling through model-tool loops, safety/citation processing, and streaming responses—and supported multi-region progressive rollout and production on-call, using release records, health signals, and regional state for incident localization and tiered mitigation.</p>
+          <p><span class="matrix-label">System context</span>A production multi-Agent Harness for real software delivery: external Issues become persistent Tasks, and a state graph drives Developer, Reviewer, and Judge through implementation, review, and acceptance, with code, tests, PRs, CI, reviews, and screenshots governing state transitions and merge decisions.</p>
+          <p><span class="matrix-label ownership">My role</span>Contributed to building and scaling it; modeled implementation, independent review, evidence adjudication, repair iteration, and merge as a reversible DAG centered on Task State; drove the Loop Engineering flywheel: aggregating execution evidence to identify systemic issues and feeding conclusions back into task templates, Skills, rules, and tests, then validating improvements with later tasks.</p>
         </div>
         <div class="project-outcome" role="cell">
-          <span class="matrix-label">Key outcomes</span>
-          <strong>Studio: 64 Sev2</strong>
-          <span>Closed in two months · across 6 squads</span>
+          <span class="matrix-label">Key outcome</span>
+          <strong>Became the primary execution path for project requirements</strong>
+          <span>Task claiming and timeout takeover, retries, and failure recovery keep long-running work reliable</span>
         </div>
         <div class="project-evidence" role="cell">
-          <span class="evidence-badge private">Graph + Loop Engineering</span>
-          <p>Graph-based Harness, message orchestration, production delivery, CI/CD, task state, and the feedback loop.</p>
+          <span class="evidence-badge private">Graph-based Harness</span>
+          <p>DAG, Task State, Developer / Reviewer / Judge roles, evidence gates, Loop Engineering flywheel.</p>
         </div>
         <div class="project-action" role="cell"><a href="copilot-epichan.html">View details ↗</a></div>
       </article>
@@ -88,17 +87,17 @@
           <span class="project-domain">Commercial Backend &amp; Identity Governance</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">System context</span>Office Plus is a multi-service commercial platform built on .NET/ABP and Azure, covering subscriptions, orders and payments, user entitlements, identity, and third-party capability delivery.</p>
-          <p><span class="matrix-label ownership">My role</span>Led Paper Check commercialization, WeChat recurring subscription, account soft deletion, Token/device sessions, and Partner top-up end to end; later contributed to membership orders and standard payments, then mapped the full flow.</p>
+          <p><span class="matrix-label">System context</span>Office Plus is a multi-service commercial platform built on .NET/ABP and Azure, covering orders and payments, membership and paper entitlements, growth campaigns, and identity.</p>
+          <p><span class="matrix-label ownership">My role</span>As a core backend contributor, led third-party capability productization, recurring subscriptions, Partner fulfillment, and identity governance, while contributing to the broader order and payment platform.</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">Project outcome</span>
-          <strong>After recurring subscription launch: auto-renewal SKUs reached 86% of total orders</strong>
-          <span>Monthly ARPPU +58% · manual renewal rate 13.8% → 24% in the same period · Paper Check processed 6,320 orders in its first 10 days</span>
+          <strong>FY25: 3.4M new paid subscriptions and $6.9M in revenue</strong>
+          <span>Auto-renewal SKUs reached 86% of orders · ARPPU +58% MoM · Paper Check processed 6,320 orders in its first 10 days</span>
         </div>
         <div class="project-evidence" role="cell">
           <span class="evidence-badge private">Commercial Backend</span>
-          <p>Third-party capability productization, recurring contracts, account lifecycle, device-session governance, and secure, compensatable B2B fulfillment.</p>
+          <p>Third-party capability productization, recurring subscriptions, account lifecycle, device-session governance, and secure, compensatable B2B fulfillment.</p>
         </div>
         <div class="project-action" role="cell"><a href="office-plus.html">View details ↗</a></div>
       </article>

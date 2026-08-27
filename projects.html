@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07101c">
-  <meta name="description" content="Tom Qiao 的工程项目案例：Office Agent、Microsoft Copilot Studio / Epichan 与 Office Plus。">
+  <meta name="description" content="Tom Qiao 的工程项目案例：Microsoft Office Agent、Microsoft Copilot Agent Harness 与 Office Plus。">
   <title>Core Projects — Tom Qiao</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script src="assets/site.js" defer></script>
@@ -39,21 +39,21 @@
       <article class="project-matrix-row" role="row">
         <div class="project-id" role="cell">
           <span class="project-period">2025.07–2026.02</span>
-          <h2>Office Agent<br>Societas</h2>
-          <span class="project-domain">Agent Runtime</span>
+          <h2>Microsoft Office Agent</h2>
+          <span class="project-domain">生产级多智能体系统</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">系统背景</span>Societas 是面向 M365 个人与家庭订阅用户的通用 Office Agent，可自主规划并调用工具与子 Agent，在浏览器和沙箱中完成文档、演示文稿与分析任务。</p>
-          <p><span class="matrix-label ownership">我的职责</span>负责 Agent Runtime 与平台安全：主导 Native Tool Call 迁移；独立交付可靠消息与 Agent Proxy；设计用户级加密协议，并完成服务间 TLS 改造。</p>
+          <p><span class="matrix-label">系统背景</span>面向 M365 用户的生产级通用 Agent，支持复杂任务规划、并发 Sub-Agent、工具与代码执行、本地浏览器操作、长期记忆及 Office 成果物交付。</p>
+          <p><span class="matrix-label ownership">我的职责</span>核心贡献者：主导主 Agent / Sub-Agent 工具协议从 XML 到 Native Function Calling 的迁移；参与 Context/Memory 与 Agentic RAG；独立交付可靠消息、Agent Proxy、用户级加密协议与服务间 TLS。</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">产品采用</span>
           <strong>全球上线约 2 个月后：27K WAU</strong>
-          <span>周活跃用户 · 约占 317K 目标用户的 8.5%</span>
+          <span>周活跃用户 · 基于 Azure Agent Runtime、沙箱、数据与消息基础设施</span>
         </div>
         <div class="project-evidence" role="cell">
           <span class="evidence-badge private">Agent Runtime</span>
-          <p>Tool Calling、可靠消息、异步接口、用户级加密与服务间 TLS。</p>
+          <p>Native Function Calling、Context/Memory、Agentic RAG、可靠消息、Agent Proxy、用户级加密与服务间 TLS。</p>
         </div>
         <div class="project-action" role="cell"><a href="societas.html">查看详情 ↗</a></div>
       </article>
@@ -61,22 +61,21 @@
       <article class="project-matrix-row" role="row">
         <div class="project-id" role="cell">
           <span class="project-period">2026.03–2026.08</span>
-          <h2>Microsoft Copilot<br>Studio / Epichan</h2>
-          <span class="project-domain">Graph-based Harness × Agentic Loop × Production AI</span>
+          <h2>Microsoft Copilot</h2>
+          <span class="project-domain">Agent Harness 与 Loop Engineering</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">系统背景</span>Studio 与 Epichan 是 Microsoft Copilot 下的两个工程环境：Studio 承载生产级 AI 产品与交付体系，Epichan 以真实产品任务承载 graph-based Harness 与 Loop Engineering 实践。</p>
-          <p><span class="matrix-label ownership">我的职责</span><strong>Epichan</strong>（参与 <strong>Graph/Loop Engineering</strong> 落地）：基于 Epichan graph-based Harness（Developer / Reviewer / Judge 沿 DAG 调度），主导设计并迭代 a11y-remediation-workflow Skill，将缺陷复现流程、各角色的证据要求和独立验收方法沉淀为可复用 Skill；按问题类型验证 ARIA 语义、Accessibility Tree、键盘与焦点行为及跨场景回归，并将重复失败写回 Skill 与回归测试，形成“执行取证—规则迭代—回归验证”的持续改进闭环。</p>
-          <p><strong>Studio｜AI Coding 研发效能与生产交付：</strong>面向 AI Coding 带来的高频提交，围绕“提升 CI/CD 吞吐并守住质量门禁”优化研发交付链路；设计并交付 flaky 测试自动检测—隔离—追踪机制，推进变更分类、测试并行等构建优化，将构建时长降低约 30%；理解 Copilot 会话接入→Turn/Orchestrator→模型—工具循环→安全与引用处理→流式返回的生产推理链路，参与多区域渐进发布与线上 on-call，基于发布记录、健康信号与区域状态完成异常定位与分级止损。</p>
+          <p><span class="matrix-label">系统背景</span>面向真实软件交付的生产级多 Agent Harness：将外部 Issue 转化为持久化 Task，由状态图驱动 Developer、Reviewer、Judge 分阶段完成开发、评审与验收，并以代码、测试、PR、CI、Review 和截图等证据控制状态流转与合并。</p>
+          <p><span class="matrix-label ownership">我的职责</span>参与建设并规模化落地；负责将实现、评审、证据裁决、修复迭代与合并建模为可回退的 DAG，并推动 Loop Engineering 飞轮：聚合执行证据识别系统性问题，将结论写回任务模板、Skill、规则与测试，再用后续任务验证改进。</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">关键结果</span>
-          <strong>Studio：64 个 Sev2</strong>
-          <span>两个月内关闭 · 跨 6 个 squad</span>
+          <strong>成为项目需求实现的主要执行路径</strong>
+          <span>任务领取与超时接管、重试与失败恢复保障长任务可靠运行</span>
         </div>
         <div class="project-evidence" role="cell">
-          <span class="evidence-badge private">Graph + Loop Engineering</span>
-          <p>Graph-based Harness、消息编排、生产部署、CI/CD、任务状态与反馈闭环。</p>
+          <span class="evidence-badge private">Graph-based Harness</span>
+          <p>DAG、Task State、Developer / Reviewer / Judge 角色、证据门禁、Loop Engineering 飞轮。</p>
         </div>
         <div class="project-action" role="cell"><a href="copilot-epichan.html">查看详情 ↗</a></div>
       </article>
@@ -88,17 +87,17 @@
           <span class="project-domain">商业化后端与身份治理</span>
         </div>
         <div class="project-boundary" role="cell">
-          <p><span class="matrix-label">系统背景</span>Office Plus 是基于 .NET/ABP 与 Azure 构建的多服务商业化平台，覆盖会员订阅、订单支付、用户权益、身份认证及第三方能力交付。</p>
-          <p><span class="matrix-label ownership">我的职责</span>端到端主导论文查重商业化、微信连续包月、账号软删除、新版 Token / 设备会话与渠道直充；后期参与会员订单和普通支付，并完成全流程梳理。</p>
+          <p><span class="matrix-label">系统背景</span>基于 .NET/ABP 与 Azure 构建的多服务商业化平台，覆盖订单支付、会员与论文权益、增长活动及身份认证。</p>
+          <p><span class="matrix-label ownership">我的职责</span>作为核心后端开发者，主导第三方能力产品化、微信连续包月、渠道直充及身份治理，并参与会员订单与普通支付体系建设。</p>
         </div>
         <div class="project-outcome" role="cell">
           <span class="matrix-label">项目结果</span>
-          <strong>连续包月上线后：自动续费 SKU 占总订单 86%</strong>
-          <span>月度 ARPPU 环比 +58% · 同期手动续费率 13.8% → 24% · 论文查重上线 10 天处理 6,320 笔订单</span>
+          <strong>FY25 支撑 340 万新增付费订阅、690 万美元收入</strong>
+          <span>自动续费 SKU 占订单 86% · ARPPU 环比 +58% · 论文查重上线 10 天处理 6,320 笔订单</span>
         </div>
         <div class="project-evidence" role="cell">
           <span class="evidence-badge private">Commercial Backend</span>
-          <p>第三方能力产品化、合同续费、账号生命周期、设备会话治理与 B2B 安全补偿。</p>
+          <p>第三方能力产品化、周期订阅、账号生命周期、设备会话治理与安全补偿。</p>
         </div>
         <div class="project-action" role="cell"><a href="office-plus.html">查看详情 ↗</a></div>
       </article>

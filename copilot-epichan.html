@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07101c">
-  <meta name="description" content="Microsoft Copilot 下的两条工程主线：Studio 的生产级 AI 产品、推理与消息编排及交付保障，以及 Epichan 基于 graph-based Harness 与 Loop Engineering 的研发实践。">
-  <title>Microsoft Copilot：Graph-based Agentic Loop 与生产工程 — Tom Qiao</title>
+  <meta name="description" content="Microsoft Copilot：生产级 Agent Harness 与 Loop Engineering。以 Task State 为执行主线，由 Developer、Reviewer、Judge 沿状态图完成开发、评审与验收。">
+  <title>Microsoft Copilot：Graph-based Agent Harness 与 Loop Engineering — Tom Qiao</title>
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/longform.css">
   <script src="assets/site.js" defer></script>
@@ -24,59 +24,45 @@
     <div class="doc-layout">
       <aside class="doc-toc" data-toc aria-label="本页目录">
         <div class="doc-toc-title">Microsoft Copilot</div><span class="toc-scroll-hint" aria-hidden="true">横滑查看更多 →</span>
-        <a href="#positioning">00 · 项目关系与职责</a>
-        <a href="#frontends">01 · 两个工程环境</a>
-        <div class="doc-toc-group">Epichan · Graph + Loop Engineering</div>
-        <a href="#loop">02 · Graph-based Harness 与 Loop</a><a href="#lifecycle">03 · 任务生命周期</a><a href="#example">04 · 代表性需求示例</a><a href="#a11y-loop">05 · 我的 Epichan 工作流</a>
-        <div class="doc-toc-group">Studio · 生产 AI 与交付</div>
-        <a href="#message-flow">06 · Copilot 消息编排</a><a href="#production">07 · Copilot 生产部署</a><a href="#copilot-work">08 · 我的 Studio 工程工作</a><a href="#takeaways">09 · 工程认识</a>
+        <a href="#positioning">00 · 项目背景与职责</a>
+        <div class="doc-toc-group">Graph-based Harness</div>
+        <a href="#harness">01 · 多 Agent Harness</a><a href="#lifecycle">02 · 任务生命周期</a><a href="#example">03 · 代表性需求示例</a>
+        <div class="doc-toc-group">Loop Engineering</div>
+        <a href="#loop">04 · Loop Engineering 飞轮</a><a href="#takeaways">05 · 工程认识</a>
       </aside>
 
       <div class="doc-main">
         <header class="doc-hero">
-          <div class="doc-hero-label"><span class="doc-chip">Production AI Engineering</span><span class="doc-chip">Graph + Loop Engineering</span><span class="doc-chip">Developer Experience</span></div>
-          <p class="hero-eyebrow">Microsoft Copilot · Studio / Epichan</p>
-          <h1 class="doc-title">Microsoft Copilot<br><span class="accent">Graph-based Agentic Loop</span><br><span class="accent title-tail">与生产工程</span></h1>
-          <p class="doc-lead">本页先说明 Epichan 与 Studio 在 Microsoft Copilot 中的关系，再展开我的两条工作线：在 Epichan 既有 graph-based Harness 之上，将无障碍修复经验沉淀为接入 Agentic Loop 的多角色工作流；在 Studio 理解 Copilot 生产推理链路，设计并交付 flaky 测试治理，推进 CI 构建优化并参与渐进发布与线上保障。</p>
-          <div class="hero-actions"><a class="button primary" href="#positioning">先看项目与职责</a><a class="button" href="#loop">理解 Epichan Graph + Loop</a></div>
-          <div class="fact-ledger" aria-label="项目关键结果与工程主题"><span><strong>64</strong><small>个 Sev2 · 两个月关闭</small></span><span><strong>CI/CD</strong><small>构建时长降低约 30%</small></span><span><strong>PROD</strong><small>多区域发布与线上 on-call</small></span></div>
+          <div class="doc-hero-label"><span class="doc-chip">Agent Harness</span><span class="doc-chip">Graph-based</span><span class="doc-chip">Loop Engineering</span></div>
+          <p class="hero-eyebrow">Microsoft Copilot · 生产级多 Agent Harness</p>
+          <h1 class="doc-title">Microsoft Copilot<br><span class="accent">Graph-based Agent Harness</span><br><span class="accent title-tail">与 Loop Engineering</span></h1>
+          <p class="doc-lead">我参与建设并规模化落地面向真实软件交付的多 Agent Harness：将外部 Issue 转化为持久化 Task，由状态图驱动 Developer、Reviewer、Judge 分阶段完成开发、评审与验收，并以代码、测试、PR、CI、Review 和截图等证据控制状态流转与合并。建成后成为项目需求实现的主要执行路径。</p>
+          <div class="hero-actions"><a class="button primary" href="#harness">理解 Agent Harness</a><a class="button" href="#loop">理解 Loop Engineering</a></div>
+          <div class="fact-ledger" aria-label="项目关键主题"><span><strong>Task State</strong><small>持久化任务状态与跨 run 交接</small></span><span><strong>DAG</strong><small>实现 → 评审 → 裁决 → 合并</small></span><span><strong>Evidence Gate</strong><small>代码 / 测试 / PR / CI / 截图</small></span></div>
         </header>
 
         <section class="doc-section interviewer-brief" id="positioning">
-          <span class="section-label">00 · 项目关系与职责</span><h2>先看 Epichan 与 Studio 的关系，再看我在两条线上的工作。</h2>
+          <span class="section-label">00 · 项目背景与职责</span><h2>先看这项工作的定位，再进入机制。</h2>
           <div class="brief-grid">
-            <article class="brief-card"><span class="brief-label evidence">Epichan / Bebop Lite</span><h3>Agent-first 工程环境</h3><p>Bebop Lite 连接真实 Copilot 服务，为 Agent 编码、评审和验证提供产品环境；Epichan 的重点是围绕它构建的 graph-based Harness 与完整交付闭环。</p></article>
-            <article class="brief-card"><span class="brief-label">Studio</span><h3>生产产品与交付体系</h3><p>Studio 承载 Copilot Web 的多端用户体验。这里关注消息如何进入后端编排，以及代码如何经过 CI、artifacts promote、分区域发布和运行时控制进入生产。</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Epichan 工程工作</span><h3>把无障碍修复方法接入 Graph + Loop</h3><p>基于 graph-based Harness 主导设计并迭代 a11y-remediation-workflow，将复现流程、角色证据要求和独立验收沉淀为可复用 Skill，并将重复失败写回 Skill 与回归测试。</p></article>
-            <article class="brief-card"><span class="brief-label ownership">Studio 工程工作</span><h3>AI Coding 研发效能与生产交付</h3><p>理解 Copilot 会话接入至流式返回的生产推理链路；设计并交付 flaky 测试自动检测—隔离—追踪机制，推进变更分类与测试并行，将构建时长降低约 30%，并参与多区域渐进发布与线上 on-call。</p></article>
+            <article class="brief-card"><span class="brief-label">项目背景</span><h3>面向真实软件交付的 Agent Harness</h3><p>这项工作的目标不是生成代码片段，而是把真实的产品需求（External Issue）转化为可持久化、可认领、可恢复的 Task，让多个 Agent 在受控状态下协作完成开发与交付。</p></article>
+            <article class="brief-card"><span class="brief-label ownership">我的职责</span><h3>参与建设并规模化落地</h3><p>负责将实现、独立评审、证据裁决、修复迭代与合并建模为可回退的 DAG；推动任务领取与超时接管、重试及失败恢复保障长任务可靠运行；并将执行证据聚合后写回任务模板、Skill、规则或 Harness，形成持续改进闭环。</p></article>
+            <article class="brief-card"><span class="brief-label">系统状态</span><h3>成为项目需求实现的主要执行路径</h3><p>建成后，项目需求主要通过该 Harness 执行：开发、评审、验收、合并决策均由证据与状态图驱动，而不是依赖单次模型上下文。</p></article>
           </div>
         </section>
 
-        <section class="doc-section" id="frontends">
-          <span class="section-label">01 · 两个工程环境</span><h2>Epichan 用真实产品任务验证 Agent-first 开发，Studio 服务大规模生产体验。</h2>
-          <p class="section-intro">二者都是 Microsoft Copilot 下的工程环境，但承担不同角色。Studio 服务多个生产 Surface；Epichan 中的 Bebop Lite 连接真实 Copilot API，同时也是 graph-based Harness 和 Loop Engineering 的验证场。</p>
-          <div class="prose-grid">
-            <article class="info-card"><span class="card-kicker">Epichan · Agent-first Monorepo</span><h3>产品代码也是 Loop 的测试场</h3><p>Bebop Lite 提供真实聊天产品环境；共享组件、架构规则、性能检查和 CI 让 Agent 执行面对真实工程约束，而不是只在隔离样例中生成代码。</p></article>
-            <article class="info-card"><span class="card-kicker">Studio · Production Frontend</span><h3>多端共享的 Copilot Web 前端</h3><p>同一套 React 工程支持不同产品 Surface，共享聊天、设计系统和基础能力，同时由配置控制各端差异。它面对持续发布、兼容性、实验和真实用户流量。</p></article>
-          </div>
-          <div class="decision-line"><span>关系</span><p><strong>产品前端</strong>提供真实需求与质量标准，<strong>Graph-based Harness</strong>负责一次任务的可靠执行，<strong>Loop Engineering</strong>连接需求进入、验证交付和经验回流。</p></div>
-        </section>
-
-        <section class="doc-section epichan-entry" id="loop">
-          <span class="section-label">02 · Epichan Graph + Loop Engineering</span><h2>Graph-based Harness 保障一次任务怎样执行，Loop Engineering 管理整条交付链怎样持续改进。</h2>
-          <p class="section-intro">Epichan 不只是另一个 Copilot 前端仓库。Bebop Lite 提供真实产品与验证场；Graph-based Harness 把任务、角色、权限、状态和证据组织为可靠执行内核；Loop 再把需求进入、质量验证、真实交付、反馈写回和后续验证连接起来。</p>
+        <section class="doc-section epichan-entry" id="harness">
+          <span class="section-label">01 · 多 Agent Harness</span><h2>用状态图组织多个 Agent，而不是把整个工作流塞进一次对话。</h2>
+          <p class="section-intro">真实软件交付跨越实现、评审、验收、修复、合并多个阶段，单个 Agent 的一次上下文装不下整条链路。Harness 把工作组织为以 Task State 为执行主线的有向图，每个 Agent 只处理当前状态的职责，通过持久化状态与 artifacts 跨 run 交接。</p>
           <div class="prose-grid three">
-            <article class="info-card"><span class="card-kicker">Product Surface</span><h3>Bebop Lite 提供真实工程环境</h3><p>Agent 修改的是具有共享组件、架构约束、性能要求和真实后端连接的产品代码，因此结果必须满足正常软件交付标准。</p></article>
-            <article class="info-card"><span class="card-kicker">Graph Engineering / Harness</span><h3>让一次执行可调度、可恢复</h3><p>任务拥有持久状态、角色、claim、执行记录和检查条件；Agent 失败或交接时，系统仍知道任务做到哪里以及下一步由谁处理。</p></article>
-            <article class="info-card"><span class="card-kicker">Loop Engineering</span><h3>让证据和失败进入下一轮</h3><p>交付后的 Trace、评测和报告被分类为产品任务、Skill、确定性检查或 Harness 改进，并用后续同类任务验证变化。</p></article>
+            <article class="info-card"><span class="card-kicker">Task State</span><h3>需求变成可持久化、可认领、可恢复的任务</h3><p>外部 Issue 转化为持久化 Task，记录当前状态、执行归属、claim 和证据；Agent 失败或交接时，系统仍知道任务做到哪里、下一步由谁处理。</p></article>
+            <article class="info-card"><span class="card-kicker">角色分工</span><h3>Developer、Reviewer、Judge 各司其职</h3><p>Developer 实现需求并提交证据；Reviewer 独立评审；Judge 根据需求与证据裁决是否满足验收。实现者不能批准自己的实现，模型自述不能替代证据。</p></article>
+            <article class="info-card"><span class="card-kicker">证据门禁</span><h3>代码、测试、PR、CI、截图控制状态流转</h3><p>状态推进由确定性证据驱动：类型检查、测试、架构检查、CI、Review 和桌面/移动端截图共同构成合并决策的依据。</p></article>
           </div>
-          <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整 Loop →</div>
-          <div class="flow-strip" aria-label="Epichan Graph + Loop Engineering 闭环"><div class="flow-node">Intake</div><div class="flow-node">Graph / Harness Execution</div><div class="flow-node active">Verification</div><div class="flow-node">Delivery</div><div class="flow-node">Feedback / Validation</div></div>
-          <p class="signal-note"><strong>完整闭环：</strong>写回一个 Skill、测试或规则只是改进动作；只有后续任务的通过率、返工、证据完整性或失败模式发生可验证变化，才能说明 Loop 得到改善。</p>
+          <div class="decision-line"><span>核心设计</span><p><strong>DAG</strong>把实现、独立评审、证据裁决、修复迭代与合并建模为可回退的有向图；<strong>任务领取与超时接管、重试与失败恢复</strong>让长任务在无人值守下可靠运行。</p></div>
         </section>
 
         <section class="doc-section" id="lifecycle">
-          <span class="section-label">03 · 任务生命周期</span><h2>任务沿显式状态推进，语义判断、系统事实和风险责任由不同角色处理。</h2>
+          <span class="section-label">02 · 任务生命周期</span><h2>任务沿显式状态推进，语义判断、系统事实和风险责任由不同角色处理。</h2>
           <p class="section-intro">人的需求进入任务系统后，不会被简单地“取出并执行”。Task Engine 记录当前状态、执行归属和证据；Developer、Reviewer、Judge 负责不同阶段，CI 与对账程序提供确定性事实，必要时再由人处理例外和风险决策。</p>
           <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整任务状态 →</div>
           <div class="state-loop">
@@ -89,8 +75,8 @@
         </section>
 
         <section class="doc-section" id="example">
-          <span class="section-label">04 · 代表性需求示例</span><h2>为聊天消息增加复制操作，一项普通需求如何走完整个 Loop。</h2>
-          <p class="section-intro">以下使用一个常见前端需求说明 Epichan 的工作机制：在 Assistant 消息下增加复制操作，并适配桌面端与移动端。它是机制示例，用于展示各阶段如何协作。</p>
+          <span class="section-label">03 · 代表性需求示例</span><h2>为聊天消息增加复制操作，一项普通需求如何走完整个 Loop。</h2>
+          <p class="section-intro">以下使用一个常见前端需求说明 Harness 的工作机制：在 Assistant 消息下增加复制操作，并适配桌面端与移动端。它是机制示例，用于展示各阶段如何协作。</p>
           <article class="case-study">
             <header class="case-head"><div><h3>需求不只变成代码，还要形成可核验的交付结果</h3><p>每一阶段都留下下一位角色可以复核的状态和证据。</p></div><span class="status">REPRESENTATIVE FLOW</span></header>
             <div class="case-body">
@@ -104,84 +90,35 @@
           </article>
         </section>
 
-        <section class="doc-section" id="a11y-loop">
-          <span class="section-label">05 · 我的 Epichan 工作流</span><h2>无障碍修复方法从可复用 Skill，演进为 Loop 中的多角色工作流。</h2>
-          <p class="section-intro">在 Studio 中，我先把复现、修复和验证无障碍问题的方法整理为可重复使用的 Agent Skill，并在两个月内关闭 64 个 Sev2 无障碍缺陷，覆盖 6 个 squad。随后，我基于 Epichan graph-based Harness 主导设计并迭代 <code>a11y-remediation-workflow</code>，将复现流程、各角色的证据要求和独立验收沉淀为可复用 Skill；按问题类型验证 ARIA 语义、Accessibility Tree、键盘与焦点行为及跨场景回归，并将重复失败写回 Skill 与回归测试，形成持续改进闭环。</p>
-          <p class="signal-note"><strong>具体的检查规则：</strong>我把目标页面、操作步骤和实际读屏表现等复现信息，以及开发、评审、验收各阶段必须提交的证据，写成可重复执行的规则。DOM / ARIA 看似正确但读屏仍异常、键盘导航与预期交互不一致，或共享事件改动导致其他 Surface 回归时，检查直接失败；证据不全，任务不能进入下一阶段。</p>
-          <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整工作流演进 →</div>
-          <div class="flow-strip" aria-label="无障碍工作流演进"><div class="flow-node">问题复现方法</div><div class="flow-node">个人 Agent Skill</div><div class="flow-node active">Epichan Workflow</div><div class="flow-node">Developer / Reviewer</div><div class="flow-node">Judge 验收</div></div>
-          <div class="pillar-grid">
-            <article class="pillar"><span class="pillar-no">01 / Developer</span><h3>复现并完成最小修复</h3><p>在目标页面和交互条件下确认问题，定位实际责任组件，完成必要修改并运行相关测试。</p><span class="pillar-result">实现与初步证据</span></article>
-            <article class="pillar"><span class="pillar-no">02 / Reviewer</span><h3>独立重放用户行为</h3><p>在目标页面重新执行键盘导航和读屏操作，并检查目标视口下的实际表现，不直接接受实现者“已经修好”的判断。</p><span class="pillar-result">独立验证</span></article>
-            <article class="pillar"><span class="pillar-no">03 / Judge</span><h3>根据需求和证据裁决</h3><p>综合问题描述、代码变化、测试和复验结果决定通过或退回修改。</p><span class="pillar-result">证据驱动验收</span></article>
+        <section class="doc-section" id="loop">
+          <span class="section-label">04 · Loop Engineering 飞轮</span><h2>聚合执行证据，把改进写回系统，再用后续任务验证。</h2>
+          <p class="section-intro">一次任务的完成不是终点。要持续提升 Harness 与 Agent 的交付质量，需要把多次任务的执行证据聚合起来，识别反复出现的系统性问题，把结论写回任务模板、Skill、规则或测试，再用后续同类任务的执行证据验证改进是否生效。</p>
+          <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整 Loop →</div>
+          <div class="flow-strip" aria-label="Loop Engineering 闭环"><div class="flow-node">Intake</div><div class="flow-node">Graph / Harness Execution</div><div class="flow-node active">Verification</div><div class="flow-node">Delivery</div><div class="flow-node">Feedback / Validation</div></div>
+          <div class="prose-grid">
+            <article class="decision-card"><span class="card-kicker">执行</span><h3>先有真实交付证据</h3><p>多次任务的 trace、失败类型、耗时、重试、架构检查与交付证据是 Loop 的输入，而不是模型自述或一次成功案例。</p></article>
+            <article class="decision-card"><span class="card-kicker">聚合</span><h3>识别反复出现的系统性问题</h3><p>把证据按失败类型和根因分类，识别哪些问题反复出现，而不是把每次失败当作孤立事件处理。</p></article>
+            <article class="decision-card"><span class="card-kicker">写回</span><h3>把结论写回系统</h3><p>改进结论写回任务模板、Skill、规则、测试或 Harness，让下一次任务从一开始就遵守新的约束。</p></article>
+            <article class="decision-card"><span class="card-kicker">验证</span><h3>用后续任务验证改进</h3><p>写回只是改进动作；只有后续同类任务的通过率、返工、证据完整性或失败模式发生可验证变化，才能说明 Loop 得到改善。</p></article>
           </div>
-          <div class="decision-line"><span>演进</span><p>变化不只是把同一段提示词放进另一个仓库，而是把个人可重复方法接入任务状态、角色分工和交付对账，让它成为完整 Loop 中的一条领域工作流。</p></div>
-        </section>
-
-        <section class="doc-section" id="message-flow">
-          <span class="section-label">06 · Copilot 消息编排</span><h2>一条用户消息会经过会话、编排、模型与工具循环，再以流式事件返回前端。</h2>
-          <p class="section-intro">前端不直接调用一次模型并等待完整文本。页面先取得用户配置与功能开关，再通过长连接发送消息；后端把本轮请求组织为 Turn，由 Orchestrator 选择执行方式，Responder 在模型推理与工具执行之间循环，最终经过安全、引用和格式处理后持续返回结果。</p>
-          <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整编排链路 →</div>
-          <div class="state-loop">
-            <div class="state-loop-line"><div class="state">用户输入</div><div class="state">流式会话</div><div class="state current">Turn / Orchestrator</div><div class="state">模型 ↔ 工具</div><div class="state">流式响应</div></div>
-            <div class="loop-return">工具结果写回当前 Turn，Responder 根据新上下文继续推理 ↺</div>
-          </div>
-          <div class="prose-grid three">
-            <article class="decision-card"><span class="card-kicker">会话入口</span><h3>配置初始化与双向流</h3><p>初始化请求取得实验和用户配置；长连接承载消息、停止信号和流式响应，使前端可以持续更新当前会话。</p></article>
-            <article class="decision-card"><span class="card-kicker">编排核心</span><h3>每个 Turn 独立组织执行</h3><p>Orchestrator 根据对话模式选择对应插件；Responder 负责推进模型调用、工具调用和结果回填，而不是把全部逻辑写进单一提示词。</p></article>
-            <article class="decision-card"><span class="card-kicker">输出链路</span><h3>结果在返回前继续处理</h3><p>模型与工具产生的事件还会经过安全、引用和协议处理，再按流式事件交给前端渲染和状态管理。</p></article>
-          </div>
-        </section>
-
-        <section class="doc-section" id="production">
-          <span class="section-label">07 · Copilot 生产部署</span><h2>构建、发布和功能启用是三个可以分别控制的阶段。</h2>
-          <p class="section-intro">Copilot 的生产交付不依赖一次全量切换。前端资源使用内容哈希形成不可变 artifacts；同一批已验证 artifacts 从预生产环境 promote 到生产；区域和用户逐步放量，并通过 Feature Flag 或 Kill Switch 将代码部署与功能启用解耦。</p>
-          <div class="mobile-scroll-hint" aria-hidden="true">横向滑动查看完整发布流程 →</div>
-          <div class="flow-strip" aria-label="Copilot 生产发布流程"><div class="flow-node">构建不可变 artifacts</div><div class="flow-node">预生产验证</div><div class="flow-node active">Promote 同一批 artifacts</div><div class="flow-node">分区域放量</div><div class="flow-node">观测 / 回退</div></div>
-          <div class="gate-grid">
-            <article class="gate"><span>ARTIFACT</span><h3>测什么，就发布什么</h3><p>带内容哈希的静态资源不会被原地覆盖；生产提升复用已经通过验证的构建结果，减少重新构建带来的差异。</p></article>
-            <article class="gate"><span>ROLLOUT</span><h3>用时间控制影响范围</h3><p>按阶段和区域放量，结合自动检查与健康信号观察变化；出现异常时可以停止后续阶段。</p></article>
-            <article class="gate"><span>RUNTIME</span><h3>部署不等于立即启用</h3><p>Feature Flag 支持实验和逐步开启；Kill Switch 可以在不重新部署的情况下关闭高风险能力。</p></article>
-            <article class="gate"><span>RECOVERY</span><h3>恢复路径在发布前准备</h3><p>回滚、关闭功能或调整区域流量对应不同故障范围，选择依据是异常发生在哪一层，而不是统一重发版本。</p></article>
-          </div>
-        </section>
-
-        <section class="doc-section" id="copilot-work">
-          <span class="section-label">08 · 我的 Studio 工程工作</span><h2>AI Coding 研发效能、生产推理链路与线上保障。</h2>
-          <p class="section-intro">前文说明我对 Copilot 生产推理链路的理解；以下聚焦我实际交付的 CI/CD 吞吐与质量门禁优化，以及参与的多区域渐进发布和线上 on-call。</p>
-          <article class="case-study">
-            <header class="case-head"><div><h3>提升 CI/CD 吞吐并守住质量门禁</h3><p>面向 AI Coding 带来的高频提交，缩短验证关键路径，同时保留可检查的测试结果与发布门禁。</p></div><span class="status">BUILD TIME ~30% LOWER</span></header>
-            <div class="case-body">
-              <div class="case-row"><span class="case-label">CI</span><p>推进变更分类与测试并行等构建优化；其中 ConsolidateBundleInfo 与 ImageBuild 并行化由我完成，单项节省约 6 分钟。上述优化将构建时长降低约 30%。</p></div>
-              <div class="case-row"><span class="case-label">门禁</span><p>吞吐优化不降低测试要求；并行任务与产物状态保留可检查的测试结果，只有满足既有质量门禁才进入后续发布阶段。</p></div>
-            </div>
-          </article>
-          <article class="case-study">
-            <header class="case-head"><div><h3>参与生产渐进发布与线上保障</h3><p>分阶段观察生产变化，并根据故障所在层次选择停止、关闭或回退方式。</p></div><span class="status">PRODUCTION ROLLOUT</span></header>
-            <div class="case-body">
-              <div class="case-row"><span class="case-label">发布</span><p>参与 Copilot 多区域渐进发布，通过自动化检查和健康信号观察各阶段变化，避免一次性扩大影响范围。</p></div>
-              <div class="case-row"><span class="case-label">控制</span><p>根据异常发生在代码、功能启用还是区域流量层，使用 Feature Flag、Kill Switch、回滚或流量调整控制影响。</p></div>
-              <div class="case-row"><span class="case-label">止损</span><p>结合发布记录、健康信号和区域状态定位异常来源，并按故障层次停止后续放量、关闭功能、回滚或调整流量。</p></div>
-            </div>
-          </article>
-          <article class="decision-card secondary-work case-head"><div><span class="card-kicker">补充工作 · Flaky Test</span><h3>把测试噪声变成有状态的治理对象</h3><p>设计并交付自动检测—隔离—追踪机制：从历史失败和受控复跑识别不稳定测试，确认后隔离并保留记录，修复验证后恢复，使隔离不会退化为永久跳过。</p></div><span class="status">MAIN CI SUCCESS RATE 78.8% → ~88%</span></article>
+          <p class="signal-note"><strong>完整闭环：</strong>执行 → 聚合 → 写回 → 再验证。每个环节都要求证据可核验、改进可测量，避免把“修复当前任务”误认为“系统已经改善”。</p>
         </section>
 
         <section class="doc-section" id="takeaways">
-          <span class="section-label">09 · 工程认识</span><h2>从生产 AI 产品与 Agentic Loop 中形成的四点认识。</h2>
+          <span class="section-label">05 · 工程认识</span><h2>从 Agent Harness 与 Loop Engineering 中形成的四点认识。</h2>
           <div class="takeaway-list">
             <article><span>01</span><div><h3>自主执行从任务对象化开始</h3><p>只有把需求变成可持久化、可查询、可认领和可恢复的任务，系统才能管理无人监督的 Agent 工作，而不是依赖一次聊天会话。</p></div></article>
             <article><span>02</span><div><h3>模型自述不能替代验收证据</h3><p>确定性测试、架构检查、独立 Review 和可复核产物需要进入执行图，Agent 不能仅凭“任务已完成”推进状态。</p></div></article>
             <article><span>03</span><div><h3>内部状态不能替代外部交付事实</h3><p>Task Engine 可以记录执行进度，但 PR、CI 和真实合并状态仍由 GitHub 等外部系统确认，两者需要持续对账。</p></div></article>
             <article><span>04</span><div><h3>写回改进之后还需要验证</h3><p>修复当前任务或增加一条 Skill、规则并不代表系统已经改善；后续同类任务的证据和结果变化才是闭环是否有效的判断依据。</p></div></article>
           </div>
-          <div class="closing-statement"><span>适合继续深入讨论</span><p>Production AI · Message Orchestration · CI/CD · Graph Engineering · Agentic Loop Engineering · Developer Experience</p></div>
+          <div class="closing-statement"><span>适合继续深入讨论</span><p>Agent Harness · Graph Engineering · Task State · Evidence Gates · Loop Engineering · Multi-Agent Systems</p></div>
           <nav class="next-page" aria-label="下一页"><span>下一个项目</span><a href="office-plus.html">Office Plus →</a></nav>
         </section>
       </div>
     </div>
   </main>
 
-  <footer class="site-footer"><div class="site-footer-inner"><span>Microsoft Copilot · Studio / Epichan</span><span><a href="projects.html">全部项目</a> · <a href="societas.html">上一个项目</a></span></div></footer>
+  <footer class="site-footer"><div class="site-footer-inner"><span>Microsoft Copilot · Agent Harness</span><span><a href="projects.html">全部项目</a> · <a href="societas.html">上一个项目</a></span></div></footer>
 </body>
 </html>

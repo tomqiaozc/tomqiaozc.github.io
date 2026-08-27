@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07101c">
-  <meta name="description" content="Tom Qiao used AI to participate in the development of seven changes in working methods; the amount of tool usage only indicates the scale of use, and does not represent productivity or delivery quality.">
+  <meta name="description" content="Tom Qiao's seven changes in how he works with AI; tool usage only indicates the scale of use, not productivity or delivery quality.">
   <title>AI Evolution — Tom Qiao</title>
   <link rel="stylesheet" href="../assets/styles.css">
   <link rel="stylesheet" href="../assets/evolution.css">
@@ -16,185 +16,62 @@
     <nav class="site-nav" aria-label="Primary navigation">
       <a class="brand" href="index.html"><span class="brand-mark">TQ</span><span>Tom Qiao</span></a>
       <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">☰</button>
-      <div class="nav-links" id="site-navigation">
-<a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a>
-</div>
+      <div class="nav-links" id="site-navigation"><a href="index.html">Home</a><a href="projects.html">Core Projects</a><a href="opensource.html">Open Source</a><a href="evolution.html">AI Evolution</a></div>
     </nav>
   </header>
 
   <main class="evolution-shell">
     <header class="evolution-hero">
       <p class="evo-kicker">Personal workflow · seven stages</p>
-      <h1>From code completion to <br><span>multi-Agent workflows</span>
-</h1>
-      <p>This page shows how I moved from writing most code myself to decomposing tasks, coordinating multiple Agents, arranging independent reviews, and defining quality gates. It documents a change in working method, but <strong>does not claim higher productivity or delivery quality</strong>.</p>
+      <h1>From code completion to<br><span>multi-Agent workflows</span></h1>
+      <p>This page shows how I moved from writing most code myself to decomposing tasks, coordinating multiple Agents, arranging independent reviews, and defining evidence gates. It documents a change in working method, but <strong>does not claim higher productivity or delivery quality</strong>.</p>
     </header>
 
     <section class="recession" aria-labelledby="recession-title">
-      <div class="recession-head">
-<h2 id="recession-title">Share of code written directly <small>// qualitative illustration, not a time study</small>
-</h2>
-<span>Focus of work →</span>
-</div>
+      <div class="recession-head"><h2 id="recession-title">Share of code written directly <small>// qualitative illustration, not a time study</small></h2><span>Focus of work →</span></div>
       <div class="recession-chart">
         <span class="axis begin">Primarily hands-on coding</span><span class="axis end">Primarily workflow design and review</span>
-        <svg viewbox="0 0 700 132" preserveaspectratio="none" role="img" aria-label="A schematic curve showing the work focus gradually shifting from coding by hand to workflow design and review.">
-          <defs><lineargradient id="evoStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f08f95"></stop><stop offset=".34" stop-color="#efb861"></stop><stop offset=".68" stop-color="#6aa9ff"></stop><stop offset="1" stop-color="#66d6ad"></stop></lineargradient><lineargradient id="evoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa9ff" stop-opacity=".18"></stop><stop offset="1" stop-color="#6aa9ff" stop-opacity="0"></stop></lineargradient></defs>
-          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126V132H0Z" fill="url(#evoFill)"></path>
-          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126" fill="none" stroke="url(#evoStroke)" stroke-width="3" stroke-linecap="round"></path>
-          <g fill="#07101c" stroke-width="2.5"><circle cx="0" cy="10" r="4.5" stroke="#f08f95"></circle><circle cx="100" cy="19" r="4.5" stroke="#efb861"></circle><circle cx="200" cy="52" r="4.5" stroke="#efb861"></circle><circle cx="315" cy="80" r="4.5" stroke="#6aa9ff"></circle><circle cx="430" cy="95" r="4.5" stroke="#6aa9ff"></circle><circle cx="560" cy="116" r="4.5" stroke="#66d6ad"></circle><circle cx="700" cy="126" r="4.5" stroke="#66d6ad"></circle></g>
+        <svg viewBox="0 0 700 132" preserveAspectRatio="none" role="img" aria-label="A schematic curve showing the work focus gradually shifting from coding by hand to workflow design and review.">
+          <defs><linearGradient id="evoStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f08f95"/><stop offset=".34" stop-color="#efb861"/><stop offset=".68" stop-color="#6aa9ff"/><stop offset="1" stop-color="#66d6ad"/></linearGradient><linearGradient id="evoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa9ff" stop-opacity=".18"/><stop offset="1" stop-color="#6aa9ff" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126V132H0Z" fill="url(#evoFill)"/>
+          <path d="M0 10C90 14 120 30 175 44C240 60 250 74 350 86C450 98 470 108 560 116C620 121 660 124 700 126" fill="none" stroke="url(#evoStroke)" stroke-width="3" stroke-linecap="round"/>
+          <g fill="#07101c" stroke-width="2.5"><circle cx="0" cy="10" r="4.5" stroke="#f08f95"/><circle cx="100" cy="19" r="4.5" stroke="#efb861"/><circle cx="200" cy="52" r="4.5" stroke="#efb861"/><circle cx="315" cy="80" r="4.5" stroke="#6aa9ff"/><circle cx="430" cy="95" r="4.5" stroke="#6aa9ff"/><circle cx="560" cy="116" r="4.5" stroke="#66d6ad"/><circle cx="700" cy="126" r="4.5" stroke="#66d6ad"/></g>
         </svg>
       </div>
-      <div class="role-bands">
-<div>
-<b>Direct implementation</b><span>Implement and verify directly</span>
-</div>
-<div>
-<b>Orchestrate execution</b><span>Decompose tasks and coordinate Agents</span>
-</div>
-<div>
-<b>Design workflows</b><span>Define execution rules, reviews, and quality gates</span>
-</div>
-</div>
+      <div class="role-bands"><div><b>Direct implementation</b><span>Implement and verify directly</span></div><div><b>Orchestrate execution</b><span>Decompose tasks and coordinate Agents</span></div><div><b>Design workflows</b><span>Define execution rules, reviews, and evidence gates</span></div></div>
     </section>
 
     <section class="footprint" aria-labelledby="footprint-title">
-      <div class="footprint-head">
-<div>
-<p>2026 tool usage</p>
-<h2 id="footprint-title">Usage shows AI is part of my daily development workflow</h2>
-</div>
-<span>Usage does not measure productivity or delivery quality</span>
-</div>
+      <div class="footprint-head"><div><p>2026 tool usage</p><h2 id="footprint-title">Usage shows AI has entered daily development</h2></div><span>Usage is not productivity or delivery quality</span></div>
       <div class="footprint-main">
-        <div class="token-total">
-<strong>34.2B</strong><span>tokens</span><small>2026-01-01—07-21 · 67% active days</small>
-</div>
-        <div class="heat-area">
-<div class="heat-months" id="heatMonths" aria-hidden="true"></div>
-<div class="heat-grid" id="tokenHeatmap" aria-label="2026 Daily Token Usage Heat Map"></div>
-<div class="tool-trace">
-<span>OpenCode</span><i>→</i><span>Claude Code</span><i>→</i><span>Parallel execution</span><i>→</i><span>Multi-Agent collaboration</span>
-</div>
-</div>
+        <div class="token-total"><strong>34.2B</strong><span>tokens</span><small>2026-01-01—07-21 · 67% active days</small></div>
+        <div class="heat-area"><div class="heat-months" id="heatMonths" aria-hidden="true"></div><div class="heat-grid" id="tokenHeatmap" aria-label="Daily token usage heatmap for 2026"></div><div class="tool-trace"><span>OpenCode</span><i>→</i><span>Claude Code</span><i>→</i><span>Parallel execution</span><i>→</i><span>Multi-Agent collaboration</span></div></div>
       </div>
-      <div class="activity-stats">
-<div>
-<b>136 days</b><span>active days</span>
-</div>
-<div>
-<b>25 days</b><span>longest continuous use</span>
-</div>
-<div>
-<b>≈251.4M</b><span>Average tokens per active day</span>
-</div>
-</div>
-      <p class="methodology-note"><strong>Method and limitations</strong>The measurement window is 2026-01-01 through 2026-07-21. Token counts are aggregated from each tool's reports or exports. Because tools define cached, input, and output tokens differently, these figures describe usage volume only; they do not compare productivity or delivery quality.</p>
-      <div class="agent-mix">
-<div>
-<b>Token usage across four Coding Agent categories</b><span>Usage shifted as my workflow evolved</span>
-</div>
-<div class="mix-detail">
-<div class="mix-bar">
-<i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i>
-</div>
-<p><span>Claude Code 32.1B</span><span>Codex 1.3B</span><span>OpenCode 735.2M</span><span>Others 81.0M</span></p>
-</div>
-</div>
+      <div class="activity-stats"><div><b>136 days</b><span>Active days</span></div><div><b>25 days</b><span>Longest continuous streak</span></div><div><b>≈251.4M</b><span>Average daily tokens on active days</span></div></div>
+      <p class="methodology-note"><strong>Method and limits</strong>The window is 2026-01-01 to 2026-07-21; token counts are aggregates of what each tool reported or exported. Different tools may define cache, input, and output tokens differently, so these numbers only describe scale of use and cannot compare productivity or judge delivery quality.</p>
+      <div class="agent-mix"><div><b>Token usage across 4 coding Agent types</b><span>Usage emphasis shifts with how I work</span></div><div class="mix-detail"><div class="mix-bar"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i></div><p><span>Claude Code 32.1B</span><span>Codex 1.3B</span><span>OpenCode 735.2M</span><span>Others 81.0M</span></p></div></div>
     </section>
 
-    <section class="evolution-timeline" aria-label="Seven rounds of AI Coding iterations">
-      <article class="evo-stage pink"><span class="stage-dot">01</span><div class="stage-card">
-<div class="stage-head">
-<h2>Mostly handwritten code</h2>
-<span>Direct implementation</span>
-</div>
-<div class="stage-tools">
-<code>VS Code</code><code>Manual coding + autocomplete</code>
-</div>
-<p>Before AI coding tools became common, I implemented and verified code directly in the IDE.</p>
-</div></article>
-      <article class="evo-stage amber"><span class="stage-dot">02</span><div class="stage-card">
-<div class="stage-head">
-<h2>Use AI to generate code snippets</h2>
-<span>Direct implementation</span>
-</div>
-<div class="stage-tools">
-<code>ChatGPT</code><code>Copilot completion</code><code>VS Code</code>
-</div>
-<p>I first generated function snippets in chat and copied them into the project, then used editor completion for simple tasks. AI supplied fragments; I integrated, revised, and verified them.</p>
-<p class="leap">Limitation: repeatedly copying between chat, the editor, and the repository added friction.</p>
-</div></article>
-      <article class="evo-stage amber"><span class="stage-dot">03</span><div class="stage-card">
-<div class="stage-head">
-<h2>Use a Coding Agent CLI</h2>
-<span>Orchestrate execution · Serial</span>
-</div>
-<div class="stage-tools">
-<code>OpenCode</code><code>Coding CLI</code>
-</div>
-<p>The terminal became the main interface. A Coding Agent could read the repository, edit files, and run checks, so I focused more on specifying tasks and validating results.</p>
-</div></article>
-      <article class="evo-stage blue"><span class="stage-dot">04</span><div class="stage-card">
-<div class="stage-head">
-<h2>Let a single Agent own an end-to-end task</h2>
-<span>Orchestrate execution · Serial</span>
-</div>
-<div class="stage-tools"><code>Claude Code</code></div>
-<p>A single Agent could complete more implementation and verification steps, but the workflow remained serial: assign a task, wait, then review it manually.</p>
-<p class="leap">Next: separate independent tasks and run them in parallel.</p>
-</div></article>
-      <article class="evo-stage blue"><span class="stage-dot">05</span><div class="stage-card">
-<div class="stage-head">
-<h2>Run multiple tasks in parallel</h2>
-<span>Orchestrate execution · Parallel</span>
-</div>
-<div class="stage-tools">
-<code>Isolated workspaces</code><code>Parallel Agents</code>
-</div>
-<p>I split work into independently verifiable tasks and ran them in isolated workspaces. My focus shifted to dependency management, conflict control, and final integration.</p>
-</div></article>
-      <article class="evo-stage blue"><span class="stage-dot">06</span><div class="stage-card">
-<div class="stage-head">
-<h2>Add memory, independent review, and quality gates</h2>
-<span>Orchestrate execution → Design workflows</span>
-</div>
-<div class="stage-tools">
-<code>Retrievable memory</code><code>Independent Agent review</code><code>Quality gates</code>
-</div>
-<p>Parallel execution exposed two problems: new Agents lacked prior context and repeated mistakes, while an Agent reviewing its own work could miss issues. I therefore stored retrievable lessons and assigned reviews to an independent Agent.</p>
-<p class="leap">Next: encode these rules in one execution workflow.</p>
-</div></article>
-      <article class="evo-stage mint"><span class="stage-dot">07</span><div class="stage-card">
-<div class="stage-head">
-<h2>Coordinate multiple Agents through one workflow</h2>
-<span>Design workflows</span>
-</div>
-<div class="stage-tools">
-<code>Agent Team</code><code>Harness execution loop</code><code>Execution records</code>
-</div>
-<p>This workflow, also called a Harness, constrains how multiple Agents execute development tasks. Implementation, testing, and independent review move through explicit states with recorded evidence. A failed check returns the task to the relevant step; only accepted work proceeds to delivery.</p>
-</div></article>
+    <section class="evolution-timeline" aria-label="Seven rounds of AI coding">
+      <article class="evo-stage pink"><span class="stage-dot">01</span><div class="stage-card"><div class="stage-head"><h2>Mostly writing code by hand</h2><span>Direct implementation</span></div><div class="stage-tools"><code>VS Code</code><code>Manual + autocomplete</code></div><p>Before AI coding tools became common, I wrote and verified code directly in the IDE, and development work was mostly done by a human.</p></div></article>
+      <article class="evo-stage amber"><span class="stage-dot">02</span><div class="stage-card"><div class="stage-head"><h2>Generating code snippets with AI</h2><span>Direct implementation</span></div><div class="stage-tools"><code>ChatGPT</code><code>Copilot completion</code><code>VS Code</code></div><p>I first generated function snippets in chat and copied them back into the project, then used editor completion for simpler needs. AI provided snippets; I integrated, modified, and verified them.</p><p class="leap">Problem: repeatedly copying between chat, editor, and project was costly</p></div></article>
+      <article class="evo-stage amber"><span class="stage-dot">03</span><div class="stage-card"><div class="stage-head"><h2>Using a coding Agent CLI</h2><span>Orchestrate execution · serial</span></div><div class="stage-tools"><code>OpenCode</code><code>Coding CLI</code></div><p>The work entry point moved to the terminal. A coding Agent could read the repo, modify files, and run checks, and I began focusing on describing tasks and accepting results.</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">04</span><div class="stage-card"><div class="stage-head"><h2>Letting one Agent take a whole task</h2><span>Orchestrate execution · serial</span></div><div class="stage-tools"><code>Claude Code</code></div><p>The Agent could complete more implementation and verification steps, but the flow was still “assign task → wait → human checks,” and usually only one task advanced at a time.</p><p class="leap">Next: split independent tasks and run them in parallel</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">05</span><div class="stage-card"><div class="stage-head"><h2>Running multiple tasks in parallel</h2><span>Orchestrate execution · parallel</span></div><div class="stage-tools"><code>Isolated workspaces</code><code>Parallel Agents</code></div><p>I split work into independently acceptable tasks and ran them in parallel in isolated workspaces. My focus shifted to dependency management, conflict control, and unified acceptance.</p></div></article>
+      <article class="evo-stage blue"><span class="stage-dot">06</span><div class="stage-card"><div class="stage-head"><h2>Adding memory, independent review, and quality checks</h2><span>Orchestrate execution → design workflows</span></div><div class="stage-tools"><code>Searchable memory</code><code>Independent Agent review</code><code>Quality checks</code></div><p>Parallel execution surfaced two problems: new Agents did not know past experience and repeated mistakes, and the same Agent implementing and reviewing missed issues. I started saving searchable experience and arranging review by an Agent not involved in the implementation.</p><p class="leap">Next: put these rules into a unified execution flow</p></div></article>
+      <article class="evo-stage mint"><span class="stage-dot">07</span><div class="stage-card"><div class="stage-head"><h2>Organizing multiple Agents with a unified workflow</h2><span>Design workflows · Agent Harness</span></div><div class="stage-tools"><code>Agent Harness</code><code>Task State / state graph</code><code>Evidence gates</code></div><p>This workflow is also called a Harness: persistent Task State is the execution spine, and a state graph drives Developer, Reviewer, and Judge through implementation, review, and acceptance, with code, tests, PRs, CI, and screenshots governing state transitions. Implementation, tests, and independent review advance along explicit states with a record; on check failure the work can roll back or re-run, and only after acceptance does it move to delivery.</p></div></article>
     </section>
 
-    <aside class="evo-terminal">I no longer implement every change myself, but I still need to understand the code, review critical changes, and perform final acceptance. My main responsibilities are now to <strong>decompose tasks, define execution rules, arrange independent Agent reviews, and remain accountable for the final result.</strong><code>$ Work focus: direct implementation → orchestrate execution → design workflows and reviews</code></aside>
+    <aside class="evo-terminal">Today I no longer do all the implementation myself, but I still need to understand the code, re-check key changes, and own the final acceptance. My main work has become <strong>splitting tasks, defining execution rules, arranging independent Agent reviews, and taking responsibility for the final result</strong>.<code>$ Focus: direct implementation → orchestrate execution → design workflows and reviews</code></aside>
 
     <section class="evidence-bridge" aria-labelledby="evidence-bridge-title">
-      <div>
-<p>Results and evidence</p>
-<h2 id="evidence-bridge-title">This page is not used to demonstrate productivity</h2>
-<span>This page documents workflow evolution only. Use the two links below to verify production outcomes, personal responsibilities, and public adoption evidence.</span>
-</div>
-      <div class="evidence-links">
-<a href="projects.html"><b>Core Projects</b><small>Project outcomes · trade-offs · my responsibility</small></a><a href="opensource.html"><b>Open Source</b><small>Public PRs · changes · adoption status</small></a>
-</div>
+      <div><p>Results and evidence</p><h2 id="evidence-bridge-title">This page does not prove productivity</h2><span>This page only records a change in working method. Verify production project results, personal responsibilities, and public adoption evidence from the two entries below.</span></div>
+      <div class="evidence-links"><a href="projects.html"><b>Core Projects</b><small>Project results · technical trade-offs · my role</small></a><a href="opensource.html"><b>Open Source</b><small>Public PRs · changes · adoption status</small></a></div>
     </section>
 
-    <nav class="next-route" aria-label="Next page"><span>View project evidence</span><a href="projects.html">Core projects →</a></nav>
+    <nav class="next-route" aria-label="Next page"><span>View project evidence</span><a href="projects.html">Core Projects →</a></nav>
   </main>
 
-  <footer class="site-footer"><div class="site-footer-inner">
-<span>AI Evolution · Tom Qiao</span><span><a href="index.html">Back to Home</a> · <a href="projects.html">Core Projects</a></span>
-</div></footer>
+  <footer class="site-footer"><div class="site-footer-inner"><span>AI Evolution · Tom Qiao</span><span><a href="index.html">Back to home</a> · <a href="projects.html">Core Projects</a></span></div></footer>
 </body>
 </html>
